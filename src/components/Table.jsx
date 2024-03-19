@@ -121,7 +121,7 @@ export function TableDemo() {
               اضافة صنف <CirclePlus className="w-4 h-4 " />
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[500px] h-3/4 sm:h-[70%] overflow-y-auto scroll">
+          <DialogContent className="sm:max-w-[500px] h-5/6 sm:h-[70%] overflow-y-auto scroll">
             <DialogHeader>
               <DialogTitle>اضافة صنف</DialogTitle>
               <DialogDescription>هنا يمكنك اضافة صنف جديد.</DialogDescription>
@@ -205,15 +205,10 @@ export function TableDemo() {
             </DialogFooter>
           </DialogContent>
         </Dialog>
-
-        {/* <Button className="mr-auto max-w-[45%] sm:w-auto">
-          اضافة صنف <CirclePlus className="w-4 h-4 mr-2" />
-        </Button> */}
       </div>
 
       <div className="rounded-md overflow-hidden border">
         <Table>
-          {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
           <TableHeader className="bg-muted dark:bg-muted/80">
             <TableRow>
               <TableHead className="border-l">الكود</TableHead>
