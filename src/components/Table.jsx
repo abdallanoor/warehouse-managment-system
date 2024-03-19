@@ -11,19 +11,29 @@ import {
 import { ChevronDown, Search, CirclePlus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
 
 import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 import { Input } from "@/components/ui/input";
+import { useState } from "react";
 
 const invoices = [
   {
@@ -88,22 +98,107 @@ export function TableDemo() {
       <h1 className="text-4xl font-medium text-center mb-10">ارصدة الصنف</h1>
 
       <div className="flex items-center max-sm:flex-wrap gap-5 sm:gap-10  py-4">
-        <Input placeholder="ابحث عن..." className="w-full sm:max-w-sm" />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="w-auto max-w-[45%]">
-              البحث بالاسم <ChevronDown className="mr-2 h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem>البحث بالاسم</DropdownMenuItem>
+        <Input
+          placeholder="يمكنك البحث بالاسم و الكود..."
+          className="w-full sm:max-w-sm"
+        />
+        <Select dir="rtl">
+          <SelectTrigger className="w-[150px]">
+            <SelectValue placeholder="خيارات البحث" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>خيارات البحث</SelectLabel>
+              <SelectItem value="byName">البحث بالاسم</SelectItem>
+              <SelectItem value="byId">البحث بالكود</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
 
-            <DropdownMenuItem>البحث بالكود</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-        <Button className="mr-auto max-w-[45%] sm:w-auto">
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button className="mr-auto flex items-center justify-between gap-2 max-w-[45%] sm:w-auto">
+              اضافة صنف <CirclePlus className="w-4 h-4 " />
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>اضافة صنف</DialogTitle>
+              <DialogDescription>هنا يمكنك اضافة صنف جديد.</DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="namee" className="text-right">
+                  اسم الصنف
+                </Label>
+                <Input
+                  id="namee"
+                  // defaultValue="بستم دبابة ايطالي STD"
+                  className="col-span-3"
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="PN" className="text-right">
+                  PN
+                </Label>
+                <Input id="PN" defaultValue="INV001" className="col-span-3" />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="brand" className="text-right">
+                  الماركة
+                </Label>
+                <Input
+                  id="brand"
+                  defaultValue="الماني"
+                  className="col-span-3"
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="contry" className="text-right">
+                  بلد المنشـأ
+                </Label>
+                <Input
+                  id="contry"
+                  defaultValue="ايطالي"
+                  className="col-span-3"
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="place" className="text-right">
+                  المكان
+                </Label>
+                <Input
+                  id="place"
+                  defaultValue="اوضه السبايك"
+                  className="col-span-3"
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="num" className="text-right">
+                  العدد
+                </Label>
+                <Input id="num" defaultValue="20" className="col-span-3" />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="price" className="text-right">
+                  سعر الوحده
+                </Label>
+                <Input
+                  id="price"
+                  defaultValue="300.00"
+                  className="col-span-3"
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button type="submit">اضافة</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* <Button className="mr-auto max-w-[45%] sm:w-auto">
           اضافة صنف <CirclePlus className="w-4 h-4 mr-2" />
-        </Button>
+        </Button> */}
       </div>
 
       <div className="rounded-md overflow-hidden border">
