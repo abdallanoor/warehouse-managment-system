@@ -103,7 +103,7 @@ export function TableDemo() {
           className="w-full sm:max-w-sm"
         />
         <Select dir="rtl">
-          <SelectTrigger className="w-[150px]">
+          <SelectTrigger className="w-full sm:w-[200px]">
             <SelectValue placeholder="خيارات البحث" />
           </SelectTrigger>
           <SelectContent>
@@ -117,7 +117,7 @@ export function TableDemo() {
 
         <Dialog>
           <DialogTrigger asChild>
-            <Button className="mr-auto flex items-center justify-between gap-2 max-w-[45%] sm:w-auto">
+            <Button className="mr-auto flex items-center justify-between gap-2 w-full sm:w-auto">
               اضافة صنف <CirclePlus className="w-4 h-4 " />
             </Button>
           </DialogTrigger>
