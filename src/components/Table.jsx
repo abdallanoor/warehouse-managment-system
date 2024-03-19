@@ -85,26 +85,24 @@ const invoices = [
 export function TableDemo() {
   return (
     <div className="w-full">
-      <h1 className="text-4xl font-medium mb-10">ارصدة الصنف</h1>
+      <h1 className="text-4xl font-medium text-center mb-10">ارصدة الصنف</h1>
 
-      <div className="flex justify-between items-center">
-        <div className="flex items-center gap-10 py-4">
-          <Input placeholder="ابحث عن..." className="min-w-full" />
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="">
-                البحث بالاسم <ChevronDown className="mr-2 h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem>البحث بالاسم</DropdownMenuItem>
+      <div className="flex items-center max-sm:flex-wrap gap-5 sm:gap-10  py-4">
+        <Input placeholder="ابحث عن..." className="w-full sm:max-w-sm" />
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" className="w-auto max-w-[45%]">
+              البحث بالاسم <ChevronDown className="mr-2 h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem>البحث بالاسم</DropdownMenuItem>
 
-              <DropdownMenuItem>البحث بالكود</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-        <Button>
-          اضافة صنف <CirclePlus className="w-5 mr-2" />
+            <DropdownMenuItem>البحث بالكود</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <Button className="mr-auto max-w-[45%] sm:w-auto">
+          اضافة صنف <CirclePlus className="w-4 h-4 mr-2" />
         </Button>
       </div>
 
