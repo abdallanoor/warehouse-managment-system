@@ -16,7 +16,30 @@ body{
   /* font-weight: 500; */
   
 }
- 
+body::-webkit-scrollbar-track {
+  @apply bg-[#1c1c1c]  ;
+}
+
+body::-webkit-scrollbar {
+  @apply bg-[#1c1c1c] w-[8px]  ;
+}
+
+body::-webkit-scrollbar-thumb {
+  @apply bg-[#b4b4b4] hover:bg-[#808080] ;
+}
+
+.scroll::-webkit-scrollbar-track {
+  @apply bg-background m-3 ;
+}
+
+.scroll::-webkit-scrollbar {
+  @apply bg-background w-[6px] rounded-lg ;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  @apply bg-muted-foreground hover:bg-muted-foreground/80 rounded-lg ;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

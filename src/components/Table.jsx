@@ -121,7 +121,7 @@ export function TableDemo() {
               اضافة صنف <CirclePlus className="w-4 h-4 " />
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
+          <DialogContent className="sm:max-w-[500px] h-3/4 sm:h-[70%] overflow-y-auto scroll">
             <DialogHeader>
               <DialogTitle>اضافة صنف</DialogTitle>
               <DialogDescription>هنا يمكنك اضافة صنف جديد.</DialogDescription>
@@ -186,6 +186,16 @@ export function TableDemo() {
                 <Input
                   id="price"
                   defaultValue="300.00"
+                  className="col-span-3"
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="namee" className="text-right">
+                  اسم الصنف
+                </Label>
+                <Input
+                  id="namee"
+                  // defaultValue="بستم دبابة ايطالي STD"
                   className="col-span-3"
                 />
               </div>
