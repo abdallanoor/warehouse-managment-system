@@ -1,9 +1,7 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -34,6 +32,7 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import { ComboboxDemo } from "./Combobox";
 
 const invoices = [
   {
@@ -121,12 +120,20 @@ export function TableDemo() {
               اضافة صنف <CirclePlus className="w-4 h-4 " />
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[500px] h-5/6 sm:h-[70%] overflow-y-auto scroll">
+          <DialogContent className="sm:max-w-[500px] h-3/4 sm:h-[70%] overflow-y-auto scroll">
             <DialogHeader>
               <DialogTitle>اضافة صنف</DialogTitle>
               <DialogDescription>هنا يمكنك اضافة صنف جديد.</DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="namee" className="text-right">
+                  اسم العميل
+                </Label>
+                <div className="col-span-3">
+                  <ComboboxDemo />
+                </div>
+              </div>
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="namee" className="text-right">
                   اسم الصنف
@@ -189,16 +196,6 @@ export function TableDemo() {
                   className="col-span-3"
                 />
               </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="namee" className="text-right">
-                  اسم الصنف
-                </Label>
-                <Input
-                  id="namee"
-                  // defaultValue="بستم دبابة ايطالي STD"
-                  className="col-span-3"
-                />
-              </div>
             </div>
             <DialogFooter>
               <Button type="submit">اضافة</Button>
@@ -222,7 +219,35 @@ export function TableDemo() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {invoices.map((invoice, index) => (
+            {invoices && invoices.length !== 0 ? (
+              invoices?.map((invoice, index) => (
+                <TableRow
+                  key={index}
+                  className={` ${index % 2 ? "bg-muted/50" : ""}`}
+                >
+                  <TableCell className="font-medium border-l">
+                    {index}
+                  </TableCell>
+                  <TableCell className="border-l">
+                    {invoice.paymentStatus}
+                  </TableCell>
+                  <TableCell className="border-l">{invoice.invoice}</TableCell>
+                  <TableCell className="border-l">
+                    {invoice.paymentMethod}
+                  </TableCell>
+                  <TableCell className="border-l">{invoice.contry}</TableCell>
+                  <TableCell className="border-l">{invoice.location}</TableCell>
+                  <TableCell className="border-l">{invoice.num}</TableCell>
+                  <TableCell>{invoice.totalAmount}</TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={100}>لا يوجد بيانات</TableCell>
+              </TableRow>
+            )}
+
+            {/* {invoices?.map((invoice, index) => (
               <TableRow
                 key={index}
                 className={` ${index % 2 ? "bg-muted/50" : ""}`}
@@ -241,13 +266,13 @@ export function TableDemo() {
                 <TableCell>{invoice.totalAmount}</TableCell>
               </TableRow>
             ))}
+            {!invoices ||
+              (invoices.length === 0 && (
+                <TableRow>
+                  <TableCell colSpan={10}>لا يوجد بيانات</TableCell>
+                </TableRow>
+              ))} */}
           </TableBody>
-          {/* <TableFooter>
-            <TableRow>
-              <TableCell colSpan={3}>Total</TableCell>
-              <TableCell className="text-right">$2,500.00</TableCell>
-            </TableRow>
-          </TableFooter> */}
         </Table>
       </div>
     </div>
