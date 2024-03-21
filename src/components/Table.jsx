@@ -94,7 +94,7 @@ const invoices = [
 export function TableDemo() {
   return (
     <div className="w-full">
-      <h1 className="text-4xl font-medium text-center mb-10">ارصدة الصنف</h1>
+      <h1 className="text-4xl font-medium mb-10">ارصدة الصنف</h1>
 
       <div className="flex items-center max-sm:flex-wrap gap-5 sm:gap-10  py-4">
         <Input
