@@ -42,14 +42,15 @@ const MobileNav = () => {
                 <ul className="flex flex-col gap-3">
                   {navLinks.map((link, index) => (
                     <li key={index}>
-                      <Link
-                        className={`flex items-center p-2 hover:bg-secondary transition-colors rounded gap-2 ${
-                          pathname === link.route && "bg-secondary"
-                        }`}
-                        to={link.route}
-                      >
-                        {<link.icon className="w-5 h-5" />}
-                        {link.label}
+                      <Link to={link.route}>
+                        <SheetClose
+                          className={`flex items-center p-2 w-full hover:bg-secondary transition-colors rounded gap-2 ${
+                            pathname === link.route && "bg-secondary"
+                          }`}
+                        >
+                          {<link.icon className="w-5 h-5" />}
+                          {link.label}
+                        </SheetClose>
                       </Link>
                     </li>
                   ))}
