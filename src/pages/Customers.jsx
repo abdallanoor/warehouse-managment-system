@@ -1,5 +1,11 @@
+import Heading from "@/components/shared/Heading";
+
 const Customers = () => {
-  return <h1 className="text-4xl font-medium  ">العملاء</h1>;
+  return (
+    <>
+      <Heading>العملاء</Heading>
+    </>
+  );
 };
 
 export default Customers;

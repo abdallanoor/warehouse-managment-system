@@ -1,4 +1,4 @@
-import { Heading } from "lucide-react";
+import Heading from "@/components/shared/Heading";
 
 const AddPermission = () => {
   return (

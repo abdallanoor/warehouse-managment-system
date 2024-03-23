@@ -1,5 +1,11 @@
+import Heading from "@/components/shared/Heading";
+
 const SoldPermission = () => {
-  return <h1 className="text-4xl font-medium  ">إذن صرف</h1>;
+  return (
+    <>
+      <Heading>إذن صرف</Heading>
+    </>
+  );
 };
 
 export default SoldPermission;
