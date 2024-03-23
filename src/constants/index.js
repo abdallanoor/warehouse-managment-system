@@ -15,7 +15,7 @@ export const navLinks = [
     icon: Home,
   },
   {
-    label: "ارصدة الصنف",
+    label: " ارصدة المخزن",
     route: "/all-products",
     icon: Package2,
   },

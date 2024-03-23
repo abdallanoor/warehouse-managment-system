@@ -33,6 +33,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { ComboboxDemo } from "./Combobox";
+import Heading from "./shared/Heading";
 
 const invoices = [
   {
@@ -94,9 +95,9 @@ const invoices = [
 export function TableDemo() {
   return (
     <div className="w-full">
-      <h1 className="text-4xl font-medium mb-10">ارصدة الصنف</h1>
+      <Heading>ارصدة المخزن</Heading>
 
-      <div className="flex items-center max-sm:flex-wrap gap-5 sm:gap-10  py-4">
+      <div className="flex items-center max-sm:flex-wrap gap-5 sm:gap-10 mt-10 py-4">
         <Input
           placeholder="يمكنك البحث بالاسم و الكود..."
           className="w-full sm:max-w-sm"

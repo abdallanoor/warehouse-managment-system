@@ -1,17 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { ThemeProvider } from "./components/theme-provider.jsx";
-import Layout from "./components/Layout/Layout.jsx";
+import { ThemeProvider } from "./context/theme-provider.jsx";
+import Layout from "./components/layout/Layout.jsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./components/Home";
-import AllProducts from "./components/AllProducts";
-import Movements from "./components/Movements";
-import Customers from "./components/Customers";
-import SoldPermission from "./components/SoldPermission";
-import AddPermission from "./components/AddPermission";
-import Bills from "./components/Bills";
+import Home from "./pages/Home";
+import AllProducts from "./pages/AllProducts";
+import Movements from "./pages/Movements";
+import Customers from "./pages/Customers";
+import SoldPermission from "./pages/SoldPermission";
+import AddPermission from "./pages/AddPermission";
+import Bills from "./pages/Bills";
+
+import Login from "./pages/Login";
 
 const router = createBrowserRouter([
   {
@@ -47,11 +49,16 @@ const router = createBrowserRouter([
       },
     ],
   },
+
+  {
+    element: <Login />,
+    path: "/login",
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+    <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
       <RouterProvider router={router} />
     </ThemeProvider>
   </React.StrictMode>

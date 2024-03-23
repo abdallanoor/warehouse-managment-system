@@ -8,15 +8,15 @@
 @tailwind utilities;
 
 body{
+  font-family: "Alexandria", sans-serif;
+  font-family: "Tajawal", sans-serif;
   font-family: "Changa", sans-serif;
   font-family: "Cairo", sans-serif;
   font-family: "Noto Kufi Arabic", sans-serif;
-  font-family: "Tajawal", sans-serif;
-  font-family: "Alexandria", sans-serif;
-  /* font-weight: 500; */
+  font-weight: 500;
   
 }
-body::-webkit-scrollbar-track {
+/* body::-webkit-scrollbar-track {
   @apply bg-[#1c1c1c]  ;
 }
 
@@ -26,18 +26,21 @@ body::-webkit-scrollbar {
 
 body::-webkit-scrollbar-thumb {
   @apply bg-[#b4b4b4] hover:bg-[#808080] ;
-}
+} */
 
 .scroll::-webkit-scrollbar-track {
-  @apply bg-background m-3 ;
+  @apply bg-transparent m-1 ;
 }
 
 .scroll::-webkit-scrollbar {
-  @apply bg-background w-[6px] rounded-lg ;
+  @apply bg-transparent w-[6px] rounded-lg ;
 }
 
 .scroll::-webkit-scrollbar-thumb {
-  @apply bg-muted-foreground hover:bg-muted-foreground/80 rounded-lg ;
+  @apply bg-muted-foreground hover:bg-muted-foreground/80 ;
+}
+body::-webkit-scrollbar{
+  display: none;
 }
 
 @layer base {
