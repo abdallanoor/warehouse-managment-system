@@ -12,14 +12,14 @@ import SoldPermission from "./pages/SoldPermission";
 import AddPermission from "./pages/AddPermission";
 import Bills from "./pages/Bills";
 
-import Layout from "./components/layout/Layout";
+import App from "./components/App/App";
 
 import Login from "./pages/Login";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <App />,
     children: [
       {
         index: true,

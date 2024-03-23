@@ -2,7 +2,7 @@ import MobileNav from "../navigation/MobileNav";
 import Sidebar from "../navigation/Sidebar";
 import { Outlet } from "react-router-dom";
 
-const Layout = () => {
+const App = () => {
   return (
     <>
       <div className="flex min-h-screen">
@@ -18,4 +18,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default App;
