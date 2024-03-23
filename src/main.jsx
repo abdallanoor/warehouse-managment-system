@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { ThemeProvider } from "./context/theme-provider.jsx";
+import { ThemeProvider } from "./context/theme-provider";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
@@ -12,7 +12,7 @@ import SoldPermission from "./pages/SoldPermission";
 import AddPermission from "./pages/AddPermission";
 import Bills from "./pages/Bills";
 
-import Layout from "./components/layout/Layout.jsx";
+import Layout from "./components/layout/Layout";
 
 import Login from "./pages/Login";
 
