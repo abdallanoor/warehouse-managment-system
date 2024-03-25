@@ -29,7 +29,7 @@ body::-webkit-scrollbar-thumb {
 } */
 
 .scroll::-webkit-scrollbar-track {
-  @apply bg-transparent m-1 ;
+  @apply bg-transparent  ;
 }
 
 .scroll::-webkit-scrollbar {
@@ -37,7 +37,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .scroll::-webkit-scrollbar-thumb {
-  @apply bg-muted-foreground hover:bg-muted-foreground/80 ;
+  @apply bg-muted-foreground hover:bg-muted-foreground/80 rounded;
 }
 body::-webkit-scrollbar{
   display: none;

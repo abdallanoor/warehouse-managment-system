@@ -15,6 +15,7 @@ import Bills from "./pages/Bills";
 import App from "./components/App/App";
 
 import Login from "./pages/Login";
+import { DialogStateProvider } from "./context/DialogStateContext";
 
 const router = createBrowserRouter([
   {
@@ -58,7 +59,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
-      <RouterProvider router={router} />
+      <DialogStateProvider>
+        <RouterProvider router={router} />
+      </DialogStateProvider>
     </ThemeProvider>
   </React.StrictMode>
 );

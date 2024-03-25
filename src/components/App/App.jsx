@@ -1,8 +1,20 @@
+import { useContext, useEffect } from "react";
 import MobileNav from "../navigation/MobileNav";
 import Sidebar from "../navigation/Sidebar";
 import { Outlet } from "react-router-dom";
+import DialogStateContext from "@/context/DialogStateContext";
+import { Toaster } from "../ui/toaster";
 
 const App = () => {
+  const { setUserToken, userToken } = useContext(DialogStateContext);
+
+  useEffect(() => {
+    if (localStorage.getItem("token") !== null) {
+      setUserToken(localStorage.getItem("token"));
+    }
+    console.log(userToken);
+  }, [userToken]);
+
   return (
     <>
       <div className="flex min-h-screen">
@@ -13,6 +25,7 @@ const App = () => {
             <Outlet />
           </div>
         </div>
+        <Toaster />
       </div>
     </>
   );

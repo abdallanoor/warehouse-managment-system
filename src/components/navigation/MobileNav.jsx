@@ -7,17 +7,17 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Link, useLocation } from "react-router-dom";
 import { navLinks } from "@/constants";
-import Alert from "../shared/Alert";
+import Auth from "../auth/index";
+import { useContext } from "react";
+import DialogStateContext from "@/context/DialogStateContext";
 
 const MobileNav = () => {
   const { pathname } = useLocation();
+  const { userToken } = useContext(DialogStateContext);
 
   return (
     <div className="flex items-center justify-between fixed z-10 h-16 w-full border-b p-5 bg-background/80 backdrop-blur lg:hidden">
@@ -26,7 +26,7 @@ const MobileNav = () => {
           <Menu className="w-7 h-7" />
         </SheetTrigger>
         <SheetContent className="sm:w-80 overflow-auto">
-          <div className="flex size-full justify-center flex-col gap-6">
+          <div className="flex size-full flex-col gap-6">
             <div className="flex items-center justify-between">
               <Link className="" to="/">
                 <SheetClose>إدارة المخزن</SheetClose>
@@ -36,27 +36,32 @@ const MobileNav = () => {
                 <span className="sr-only">Close</span>
               </SheetClose>
             </div>
+            {userToken && (
+              <nav className="mb-auto">
+                <ul className="flex flex-col gap-3">
+                  {navLinks.map((link, index) => (
+                    <li key={index}>
+                      <Link to={link.route}>
+                        <SheetClose
+                          className={`flex items-center p-2 w-full sm:hover:bg-secondary transition-colors rounded gap-2 ${
+                            pathname === link.route && "bg-secondary"
+                          }`}
+                        >
+                          {<link.icon className="w-5 h-5" />}
+                          {link.label}
+                        </SheetClose>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            )}
 
-            <nav className="mb-auto">
-              <ul className="flex flex-col gap-3">
-                {navLinks.map((link, index) => (
-                  <li key={index}>
-                    <Link to={link.route}>
-                      <SheetClose
-                        className={`flex items-center p-2 w-full sm:hover:bg-secondary transition-colors rounded gap-2 ${
-                          pathname === link.route && "bg-secondary"
-                        }`}
-                      >
-                        {<link.icon className="w-5 h-5" />}
-                        {link.label}
-                      </SheetClose>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-
-            <Alert />
+            <SheetClose className="w-full" asChild>
+              <div>
+                <Auth />
+              </div>
+            </SheetClose>
           </div>
         </SheetContent>
       </Sheet>
