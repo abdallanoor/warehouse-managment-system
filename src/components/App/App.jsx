@@ -9,8 +9,8 @@ const App = () => {
   const { setUserToken, userToken } = useContext(DialogStateContext);
 
   useEffect(() => {
-    if (localStorage.getItem("token") !== null) {
-      setUserToken(localStorage.getItem("token"));
+    if (localStorage.getItem("userToken") !== null) {
+      setUserToken(localStorage.getItem("userToken"));
     }
     console.log(userToken);
   }, [userToken]);

@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/alert-dialog";
 
 import { Button } from "../ui/button";
-import { LogOut } from "lucide-react";
+import { LogOut, X } from "lucide-react";
 import { useContext } from "react";
 import DialogStateContext from "@/context/DialogStateContext";
 
@@ -45,6 +45,13 @@ const Dialog = ({
         )}
 
         <AlertDialogContent>
+          <button
+            onClick={() => setIsOpen(false)}
+            className="absolute left-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
+          >
+            <X className="h-4 w-4" />
+            <span className="sr-only">Close</span>
+          </button>
           <AlertDialogHeader>
             {dialogTitle && <AlertDialogTitle>{dialogTitle}</AlertDialogTitle>}
             {dialogDescription && (
@@ -55,7 +62,9 @@ const Dialog = ({
           </AlertDialogHeader>
           {children && (
             <div
-              className={`${scrollStyle ? "overflow-y-auto h-96 scroll" : ""}`}
+              className={`${
+                scrollStyle ? "overflow-y-scroll h-96 scroll" : ""
+              }`}
             >
               <div
                 className={`flex flex-col gap-4 ${

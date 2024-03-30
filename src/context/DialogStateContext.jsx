@@ -4,7 +4,6 @@ const DialogStateContext = createContext();
 
 export const DialogStateProvider = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [navOpen, setNavOpen] = useState(false);
 
   const [userToken, setUserToken] = useState(null);
 
@@ -15,8 +14,6 @@ export const DialogStateProvider = ({ children }) => {
         setIsOpen,
         userToken,
         setUserToken,
-        navOpen,
-        setNavOpen,
       }}
     >
       {children}

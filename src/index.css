@@ -28,12 +28,12 @@ body::-webkit-scrollbar-thumb {
   @apply bg-[#b4b4b4] hover:bg-[#808080] ;
 } */
 
-.scroll::-webkit-scrollbar-track {
-  @apply bg-transparent  ;
-}
-
 .scroll::-webkit-scrollbar {
   @apply bg-transparent w-[6px] rounded-lg ;
+}
+
+.scroll::-webkit-scrollbar-track {
+  @apply bg-transparent ;
 }
 
 .scroll::-webkit-scrollbar-thumb {
@@ -42,6 +42,12 @@ body::-webkit-scrollbar-thumb {
 body::-webkit-scrollbar{
   display: none;
 }
+
+/* Hide x button from search input */
+input[type="search"]::-webkit-search-cancel-button {
+  @apply hidden
+}
+
 
 @layer base {
   :root {

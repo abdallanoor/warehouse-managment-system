@@ -4,15 +4,14 @@ import { useContext } from "react";
 import DialogStateContext from "@/context/DialogStateContext";
 import { toast } from "../ui/use-toast";
 const Login = () => {
-  const { setIsOpen, setUserToken, setNavOpen } =
-    useContext(DialogStateContext);
+  const { setIsOpen, setUserToken } = useContext(DialogStateContext);
 
   const handleLogin = () => {
-    localStorage.setItem("token", "111");
+    localStorage.setItem("userToken", "111");
     setUserToken("111");
 
     setIsOpen(false);
-    setNavOpen(false);
+
     toast({
       title: "مرحباً بعودتك! تم تسجيل الدخول بنجاح.",
       description: "يمكنك الآن استخدام البرنامج.",

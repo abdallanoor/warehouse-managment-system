@@ -57,7 +57,7 @@ const MobileNav = () => {
               </nav>
             )}
 
-            <SheetClose className="w-full" asChild>
+            <SheetClose asChild>
               <div>
                 <Auth />
               </div>

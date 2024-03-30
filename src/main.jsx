@@ -16,6 +16,7 @@ import App from "./components/App/App";
 
 import Login from "./pages/Login";
 import { DialogStateProvider } from "./context/DialogStateContext";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -28,27 +29,52 @@ const router = createBrowserRouter([
       },
       {
         path: "/all-products",
-        element: <AllProducts />,
+
+        element: (
+          <ProtectedRoute>
+            <AllProducts />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/movements",
-        element: <Movements />,
+        element: (
+          <ProtectedRoute>
+            <Movements />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/customers",
-        element: <Customers />,
+        element: (
+          <ProtectedRoute>
+            <Customers />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/sold-permission",
-        element: <SoldPermission />,
+        element: (
+          <ProtectedRoute>
+            <SoldPermission />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/add-permission",
-        element: <AddPermission />,
+        element: (
+          <ProtectedRoute>
+            <AddPermission />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/bills",
-        element: <Bills />,
+        element: (
+          <ProtectedRoute>
+            <Bills />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
@@ -57,11 +83,9 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
-      <DialogStateProvider>
-        <RouterProvider router={router} />
-      </DialogStateProvider>
-    </ThemeProvider>
-  </React.StrictMode>
+  <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
+    <DialogStateProvider>
+      <RouterProvider router={router} />
+    </DialogStateProvider>
+  </ThemeProvider>
 );

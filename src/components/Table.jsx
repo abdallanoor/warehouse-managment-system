@@ -6,7 +6,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ChevronDown, Search, CirclePlus } from "lucide-react";
+import {
+  ChevronDown,
+  Search,
+  CirclePlus,
+  Edit,
+  MoreHorizontal,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -34,6 +40,13 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { ComboboxDemo } from "./Combobox";
 import Heading from "./shared/Heading";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 const invoices = [
   {
@@ -94,14 +107,23 @@ const invoices = [
 
 export function TableDemo() {
   return (
-    <div className="w-full">
+    <div className="w-full ">
       <Heading>ارصدة المخزن</Heading>
 
       <div className="flex items-center max-sm:flex-wrap gap-5 sm:gap-10 mt-10 py-4">
-        <Input
+        <div className="relative w-full sm:max-w-sm">
+          <Search className="absolute right-2.5 top-2/4 translate-y-[-50%] h-4 w-4 text-muted-foreground" />
+          <Input
+            type="search"
+            placeholder="يمكنك البحث بالاسم و الكود..."
+            className="w-full rounded-lg pr-8 "
+          />
+        </div>
+
+        {/* <Input
           placeholder="يمكنك البحث بالاسم و الكود..."
           className="w-full sm:max-w-sm"
-        />
+        /> */}
         <Select dir="rtl">
           <SelectTrigger className="w-full sm:w-[200px]">
             <SelectValue placeholder="خيارات البحث" />
@@ -121,81 +143,83 @@ export function TableDemo() {
               اضافة صنف <CirclePlus className="w-4 h-4 " />
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[500px] h-3/4 sm:h-[70%] overflow-y-auto scroll">
+          <DialogContent className="sm:max-w-[500px]">
             <DialogHeader>
               <DialogTitle>اضافة صنف</DialogTitle>
               <DialogDescription>هنا يمكنك اضافة صنف جديد.</DialogDescription>
             </DialogHeader>
-            <div className="grid gap-4 py-4">
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="namee" className="text-right">
-                  اسم العميل
-                </Label>
-                <div className="col-span-3">
-                  <ComboboxDemo />
+            <div className="max-h-96 overflow-y-scroll scroll">
+              <div className="grid gap-4 py-4 w-[99%]">
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="namee" className="text-right">
+                    اسم العميل
+                  </Label>
+                  <div className="col-span-3">
+                    <ComboboxDemo />
+                  </div>
                 </div>
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="namee" className="text-right">
-                  اسم الصنف
-                </Label>
-                <Input
-                  id="namee"
-                  // defaultValue="بستم دبابة ايطالي STD"
-                  className="col-span-3"
-                />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="PN" className="text-right">
-                  PN
-                </Label>
-                <Input id="PN" defaultValue="INV001" className="col-span-3" />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="brand" className="text-right">
-                  الماركة
-                </Label>
-                <Input
-                  id="brand"
-                  defaultValue="الماني"
-                  className="col-span-3"
-                />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="contry" className="text-right">
-                  بلد المنشـأ
-                </Label>
-                <Input
-                  id="contry"
-                  defaultValue="ايطالي"
-                  className="col-span-3"
-                />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="place" className="text-right">
-                  المكان
-                </Label>
-                <Input
-                  id="place"
-                  defaultValue="اوضه السبايك"
-                  className="col-span-3"
-                />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="num" className="text-right">
-                  العدد
-                </Label>
-                <Input id="num" defaultValue="20" className="col-span-3" />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="price" className="text-right">
-                  سعر الوحده
-                </Label>
-                <Input
-                  id="price"
-                  defaultValue="300.00"
-                  className="col-span-3"
-                />
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="namee" className="text-right">
+                    اسم الصنف
+                  </Label>
+                  <Input
+                    id="namee"
+                    defaultValue="بستم دبابة ايطالي STD"
+                    className="col-span-3"
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="PN" className="text-right">
+                    PN
+                  </Label>
+                  <Input id="PN" defaultValue="INV001" className="col-span-3" />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="brand" className="text-right">
+                    الماركة
+                  </Label>
+                  <Input
+                    id="brand"
+                    defaultValue="الماني"
+                    className="col-span-3"
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="contry" className="text-right">
+                    بلد المنشـأ
+                  </Label>
+                  <Input
+                    id="contry"
+                    defaultValue="ايطالي"
+                    className="col-span-3"
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="place" className="text-right">
+                    المكان
+                  </Label>
+                  <Input
+                    id="place"
+                    defaultValue="اوضه السبايك"
+                    className="col-span-3"
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="num" className="text-right">
+                    العدد
+                  </Label>
+                  <Input id="num" defaultValue="20" className="col-span-3" />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="price" className="text-right">
+                    سعر الوحده
+                  </Label>
+                  <Input
+                    id="price"
+                    defaultValue="300.00"
+                    className="col-span-3"
+                  />
+                </div>
               </div>
             </div>
             <DialogFooter>
@@ -205,9 +229,9 @@ export function TableDemo() {
         </Dialog>
       </div>
 
-      <div className="rounded-md overflow-hidden border">
+      <div className="rounded-md border">
         <Table>
-          <TableHeader className="bg-muted dark:bg-muted/80">
+          <TableHeader className="bg-muted dark:bg-muted/50">
             <TableRow>
               <TableHead className="border-l">الكود</TableHead>
               <TableHead className="border-l">اسم الصنف</TableHead>
@@ -216,7 +240,8 @@ export function TableDemo() {
               <TableHead className="border-l">بلد المنشـأ</TableHead>
               <TableHead className="border-l">المكان</TableHead>
               <TableHead className="border-l">العدد</TableHead>
-              <TableHead>سعـر الوحده</TableHead>
+              <TableHead className="border-l">سعـر الوحده</TableHead>
+              <TableHead className="">إجراءات</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -239,7 +264,28 @@ export function TableDemo() {
                   <TableCell className="border-l">{invoice.contry}</TableCell>
                   <TableCell className="border-l">{invoice.location}</TableCell>
                   <TableCell className="border-l">{invoice.num}</TableCell>
-                  <TableCell>{invoice.totalAmount}</TableCell>
+                  <TableCell className="border-l">
+                    {invoice.totalAmount}
+                  </TableCell>
+                  <TableCell>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          aria-haspopup="true"
+                          size="icon"
+                          variant="ghost"
+                        >
+                          <MoreHorizontal className="h-4 w-4" />
+                          <span className="sr-only">Toggle menu</span>
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        <DropdownMenuLabel>إجراءات</DropdownMenuLabel>
+                        <DropdownMenuItem>تعديل</DropdownMenuItem>
+                        <DropdownMenuItem>حذف</DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </TableCell>
                 </TableRow>
               ))
             ) : (
