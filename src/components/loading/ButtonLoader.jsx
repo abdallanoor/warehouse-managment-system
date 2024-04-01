@@ -1,9 +1,7 @@
-import React from "react";
-
 const ButtonLoader = () => {
   return (
     <svg
-      className="fill-background"
+      className="fill-background mr-2 h-4 w-4"
       width="16"
       height="16"
       viewBox="0 0 24 24"

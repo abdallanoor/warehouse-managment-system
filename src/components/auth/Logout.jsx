@@ -24,6 +24,7 @@ const Logout = () => {
     <>
       <Dialog
         logout
+        alert
         dialogTitle="تسجيل الخروج"
         dialogDescription="سيتم تسجيل خروجك من البرنامج."
         actionTitle="تسجيل الخروج"

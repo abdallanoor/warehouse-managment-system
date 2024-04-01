@@ -70,8 +70,8 @@ const MobileNav = () => {
         <img
           src={Logo}
           width={80}
-          height={160}
-          className="invert dark:invert-0"
+          height={20}
+          className="invert dark:invert-0 w-20 h-5"
           alt="logo"
         />
       </Link>
