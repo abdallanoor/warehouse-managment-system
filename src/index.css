@@ -1,17 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Changa:wght@200..800&family=El+Messiri:wght@400..700&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@100..900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body{
-  font-family: "Alexandria", sans-serif;
-  font-family: "Tajawal", sans-serif;
-  font-family: "Changa", sans-serif;
-  font-family: "Cairo", sans-serif;
   font-family: "Noto Kufi Arabic", sans-serif;
   font-weight: 500; 
 }

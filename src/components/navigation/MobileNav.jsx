@@ -1,18 +1,16 @@
+import { useContext } from "react";
 import { Menu, X } from "lucide-react";
-
 import Logo from "../../assets/logo.svg";
-import { ModeToggle } from "../theme/mode-toggle";
-
+import { Link, useLocation } from "react-router-dom";
+import { navLinks } from "@/constants";
+import Auth from "../auth/index";
 import {
   Sheet,
   SheetClose,
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Link, useLocation } from "react-router-dom";
-import { navLinks } from "@/constants";
-import Auth from "../auth/index";
-import { useContext } from "react";
+import { ModeToggle } from "../theme/mode-toggle";
 import DialogStateContext from "@/context/DialogStateContext";
 
 const MobileNav = () => {
@@ -23,12 +21,12 @@ const MobileNav = () => {
     <div className="flex items-center justify-between fixed z-10 h-16 w-full border-b p-5 bg-background/80 backdrop-blur lg:hidden">
       <Sheet>
         <SheetTrigger>
-          <Menu className="w-7 h-7" />
+          <Menu className="w-7 h-7 transition-colors active:text-muted-foreground" />
         </SheetTrigger>
         <SheetContent className="sm:w-80 overflow-auto">
           <div className="flex size-full flex-col gap-6">
             <div className="flex items-center justify-between">
-              <Link className="" to="/">
+              <Link to="/">
                 <SheetClose>إدارة المخزن</SheetClose>
               </Link>
               <SheetClose className="flex h-8 w-8 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors dark:border-neutral-700 dark:text-white focus-visible:outline-none">

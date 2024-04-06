@@ -6,7 +6,7 @@ import DialogStateContext from "@/context/DialogStateContext";
 const Auth = () => {
   const { userToken } = useContext(DialogStateContext);
 
-  return <>{userToken ? <Logout /> : <Login />}</>;
+  return userToken ? <Logout /> : <Login />;
 };
 
 export default Auth;

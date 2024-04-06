@@ -1,101 +1,107 @@
-import { Input } from "../ui/input";
-import Dialog from "../shared/Dialog";
-
-import { useContext, useState } from "react";
-import DialogStateContext from "@/context/DialogStateContext";
-import { toast } from "../ui/use-toast";
-
+import { useState, useContext } from "react";
 import { useFormik } from "formik";
 import axios from "axios";
-
 import { object, string } from "yup";
 import { CircleAlert, CircleUserRound, LockKeyhole } from "lucide-react";
 
+import { Input } from "../ui/input";
+import Dialog from "../shared/Dialog";
+import { toast } from "../ui/use-toast";
+import DialogStateContext from "@/context/DialogStateContext";
+
 const Login = () => {
-  const { setIsOpen, setUserToken } = useContext(DialogStateContext);
-  const [Loading, setLoading] = useState(false);
+  const { setDialogOpen, setUserToken, dialogOpen } =
+    useContext(DialogStateContext);
+  const [isLoading, setIsLoading] = useState(false);
 
   const validationSchema = object({
     userName: string().required("يجب إدخال اسم المستخدم"),
     password: string().required("يجب إدخال كلمة المرور"),
   });
 
-  async function onSubmit(values) {
-    setLoading(true);
-    let { data } = await axios
+  const handleFormSubmit = async (values) => {
+    setIsLoading(true);
+    axios
       .post(`${import.meta.env.VITE_API_URL}/api/auth/login`, values)
+      .then(({ data }) => {
+        if (data.message === "Done") {
+          localStorage.setItem("userToken", data.token);
+          setUserToken(data.token);
+          setDialogOpen(false);
+          toast({
+            title: "مرحباً بعودتك! تم تسجيل الدخول بنجاح.",
+            description: "يمكنك الآن استخدام البرنامج.",
+          });
+        } else {
+          toast({
+            variant: "destructive",
+            title: "هناك خطأ! تأكد من صحة اسم المستخدم او كلمة المرور",
+          });
+        }
+      })
       .catch((error) => {
         toast({
           title: `${error.response.data.message}`,
         });
-      });
-    setLoading(false);
-
-    if (data.message === "Done") {
-      localStorage.setItem("userToken", data.token);
-      setUserToken(data.token);
-      setIsOpen(false);
-      toast({
-        title: "مرحباً بعودتك! تم تسجيل الدخول بنجاح.",
-        description: "يمكنك الآن استخدام البرنامج.",
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "هناك خطأ! تأكد من صحة اسم المستحدم او كلمة المرور",
-      });
-    }
-  }
+      })
+      .finally(() => setIsLoading(false));
+  };
 
   const formik = useFormik({
     initialValues: {
       userName: "",
       password: "",
     },
-    onSubmit,
+    onSubmit: handleFormSubmit,
     validationSchema,
   });
 
-  return (
-    <>
-      <Dialog
-        dialogTrigger="تسجيل الدخول"
-        dialogTitle="تسجيل الدخول"
-        dialogDescription="الرجاء إدخال اسم المستخدم و كلمة المرور لتسجيل الدخول"
-        actionTitle="تسجيل الدخول"
-        handleAction={formik.handleSubmit}
-        loadingButton={Loading}
-        bottomDisabled={!(formik.isValid && formik.dirty) || Loading}
-      >
-        <div>
-          {formik.errors.userName && formik.touched.userName ? (
-            <div className="flex items-center gap-2 text-red-600 mb-2">
-              <CircleAlert className="w-4 h-4" />
-              <p className="text-xs ">{formik.errors.userName}</p>
-            </div>
-          ) : null}
+  const renderErrorMessage = (value) => (
+    <div className="flex items-center gap-2 text-red-600 animate-fadeIn mb-2">
+      <CircleAlert className="w-4 h-4" />
+      <p className="text-xs">{value}</p>
+    </div>
+  );
 
+  const iconsClasses =
+    "w-4 h-4 absolute left-3 top-1/2 translate-y-[-50%] text-muted-foreground";
+
+  return (
+    <Dialog
+      dialogOpen={dialogOpen}
+      setDialogOpen={setDialogOpen}
+      dialogTrigger="تسجيل الدخول"
+      dialogTitle="تسجيل الدخول"
+      dialogDescription="الرجاء إدخال اسم المستخدم و كلمة المرور"
+      actionTitle="تسجيل الدخول"
+      handleAction={formik.handleSubmit}
+      loadingButton={isLoading}
+      bottomDisabled={!(formik.isValid && formik.dirty) || isLoading}
+    >
+      <div className="flex flex-col gap-4 ">
+        <div>
+          {formik.errors.userName &&
+            formik.touched.userName &&
+            renderErrorMessage(formik.errors.userName)}
           <div className="relative">
             <Input
               name="userName"
               type="text"
               placeholder="اسم المستخدم"
+              // defaultValue="admin"
               className="h-12"
               onChange={formik.handleChange}
               value={formik.values.userName}
               onBlur={formik.handleBlur}
             />
-            <CircleUserRound className="w-4 h-4 absolute left-3 top-1/2 translate-y-[-50%] text-muted-foreground" />
+            <CircleUserRound className={iconsClasses} />
           </div>
         </div>
 
         <div>
-          {formik.errors.password && formik.touched.password ? (
-            <div className="flex items-center gap-2 text-red-600 mb-2">
-              <CircleAlert className="w-4 h-4" />
-              <p className="text-xs ">{formik.errors.password}</p>
-            </div>
-          ) : null}
+          {formik.errors.password &&
+            formik.touched.password &&
+            renderErrorMessage(formik.errors.password)}
           <div className="relative">
             <Input
               className="h-12"
@@ -106,11 +112,11 @@ const Login = () => {
               value={formik.values.password}
               onBlur={formik.handleBlur}
             />
-            <LockKeyhole className="w-4 h-4 absolute left-3 top-1/2 translate-y-[-50%] text-muted-foreground" />
+            <LockKeyhole className={iconsClasses} />
           </div>
         </div>
-      </Dialog>
-    </>
+      </div>
+    </Dialog>
   );
 };
 

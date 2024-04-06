@@ -1,9 +1,9 @@
-import { ModeToggle } from "../theme/mode-toggle";
+import { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { navLinks } from "@/constants";
 import Logo from "../../assets/logo.svg";
 import Auth from "../auth/index";
-import { useContext } from "react";
+import { ModeToggle } from "../theme/mode-toggle";
 import DialogStateContext from "@/context/DialogStateContext";
 
 const Sidebar = () => {
@@ -31,7 +31,7 @@ const Sidebar = () => {
           <ModeToggle />
         </div>
 
-        {userToken ? (
+        {userToken && (
           <nav className="mb-auto font-semibold">
             <ul className="flex flex-col gap-3">
               {navLinks.map((link, index) => (
@@ -49,7 +49,7 @@ const Sidebar = () => {
               ))}
             </ul>
           </nav>
-        ) : null}
+        )}
 
         <Auth />
       </div>

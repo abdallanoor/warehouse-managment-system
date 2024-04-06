@@ -13,7 +13,7 @@ export function ModeToggle() {
   const { setTheme } = useTheme();
 
   return (
-    <DropdownMenu>
+    <DropdownMenu dir="rtl">
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon">
           <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
@@ -26,13 +26,14 @@ export function ModeToggle() {
           // className="flex items-center gap-2"
           onClick={() => setTheme("light")}
         >
-          فاتح <Sun className="ml-2 w-4 h-4" />
+          <Sun className="ml-2 w-4 h-4" />
+          فاتح
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("dark")}>
-          داكن <Moon className="ml-2 w-4 h-4" />
+          <Moon className="ml-2 w-4 h-4" /> داكن
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("system")}>
-          الجهاز <Settings className="ml-2 w-4 h-4" />
+          <Settings className="ml-2 w-4 h-4" /> الجهاز
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
