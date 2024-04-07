@@ -5,7 +5,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "./context/theme-provider";
 import { DialogStateProvider } from "./context/DialogStateContext";
 import ProductsContextProvider from "./context/ProductsContext";
-import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 import "./index.css";
 

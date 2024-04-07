@@ -63,9 +63,7 @@ const Dialog = ({
 
           {children && (
             <form className="flex flex-col gap-5" onSubmit={handleAction}>
-              <div className="max-h-96 overflow-y-scroll scroll">
-                {children}
-              </div>
+              {children}
               <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
                 <Button
                   type="submit"

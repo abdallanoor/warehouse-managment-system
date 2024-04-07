@@ -19,7 +19,7 @@ const ProductsContextProvider = ({ children }) => {
     data: allproducts,
     isLoading,
     isError,
-    refetch,
+    refetch: refetchProducts,
   } = useQuery({
     queryKey: ["allProducts"],
     queryFn: getAllProducts,
@@ -27,7 +27,7 @@ const ProductsContextProvider = ({ children }) => {
 
   return (
     <productsContext.Provider
-      value={{ allproducts, isLoading, isError, refetch }}
+      value={{ allproducts, isLoading, isError, refetchProducts }}
     >
       {children}
     </productsContext.Provider>

@@ -19,7 +19,7 @@ const Login = () => {
     password: string().required("يجب إدخال كلمة المرور"),
   });
 
-  const handleFormSubmit = async (values) => {
+  const onSubmit = async (values) => {
     setIsLoading(true);
     axios
       .post(`${import.meta.env.VITE_API_URL}/api/auth/login`, values)
@@ -52,7 +52,7 @@ const Login = () => {
       userName: "",
       password: "",
     },
-    onSubmit: handleFormSubmit,
+    onSubmit,
     validationSchema,
   });
 
