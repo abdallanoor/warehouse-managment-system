@@ -9,7 +9,7 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 import "./index.css";
 
-import App from "./components/app/App";
+import Layout from "./components/Layout/Layout";
 import Home from "./pages/Home";
 import AllProducts from "./pages/AllProducts";
 import Movements from "./pages/Movements";
@@ -24,7 +24,7 @@ import MovementsContextProvider from "./context/MovmentsContext";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Layout />,
     children: [
       {
         index: true,

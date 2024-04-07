@@ -5,7 +5,7 @@ import Sidebar from "../navigation/Sidebar";
 import MobileNav from "../navigation/MobileNav";
 import { Toaster } from "../ui/toaster";
 
-const App = () => {
+const Layout = () => {
   const { setUserToken } = useContext(DialogStateContext);
 
   useEffect(() => {
@@ -29,4 +29,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Layout;
