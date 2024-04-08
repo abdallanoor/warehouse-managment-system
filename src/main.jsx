@@ -17,7 +17,6 @@ import Customers from "./pages/Customers";
 import SoldPermission from "./pages/SoldPermission";
 import AddPermission from "./pages/AddPermission";
 import Bills from "./pages/Bills";
-import Login from "./pages/Login";
 import CustomersContextProvider from "./context/CustomersContext";
 import MovementsContextProvider from "./context/MovmentsContext";
 
@@ -80,8 +79,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-
-  { path: "login", element: <Login /> },
 ]);
 
 // React Query Client

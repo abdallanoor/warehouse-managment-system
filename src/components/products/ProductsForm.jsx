@@ -76,7 +76,7 @@ const ProductsForm = () => {
   const renderDialogButton = () => {
     return (
       <>
-        <span>اضافه صنف</span>
+        <span>إضافة صنف</span>
         <PackagePlus className="mr-1 w-4 h-4" />
       </>
     );

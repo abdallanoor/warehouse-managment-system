@@ -19,7 +19,7 @@ const CustomersContextProvider = ({ children }) => {
     data: customers,
     isLoading,
     isError,
-    refetch,
+    refetch: refetchCustomers,
   } = useQuery({
     queryKey: ["customers"],
     queryFn: getCustomers,
@@ -27,7 +27,7 @@ const CustomersContextProvider = ({ children }) => {
 
   return (
     <customersContext.Provider
-      value={{ customers, isLoading, isError, refetch }}
+      value={{ customers, isLoading, isError, refetchCustomers }}
     >
       {children}
     </customersContext.Provider>
