@@ -11,7 +11,7 @@ import "./index.css";
 
 import Layout from "./components/Layout/Layout";
 import Home from "./pages/Home";
-import AllProducts from "./pages/AllProducts";
+import Products from "./pages/Products";
 import Movements from "./pages/Movements";
 import Customers from "./pages/Customers";
 import SoldPermission from "./pages/SoldPermission";
@@ -30,10 +30,10 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/all-products",
+        path: "/products",
         element: (
           <ProtectedRoute>
-            <AllProducts />
+            <Products />
           </ProtectedRoute>
         ),
       },

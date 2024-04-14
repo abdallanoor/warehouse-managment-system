@@ -9,7 +9,7 @@ const ProductsContextProvider = ({ children }) => {
   const { userToken } = useContext(DialogStateContext);
 
   // fetch all products
-  function getAllProducts() {
+  function getProducts() {
     return axios.get(`${import.meta.env.VITE_API_URL}/api/storageProducts`, {
       headers: {
         authorization: `Warhouse ${userToken}`,
@@ -19,19 +19,19 @@ const ProductsContextProvider = ({ children }) => {
 
   // Fetching products using useQuery hook
   const {
-    data: allproducts,
+    data: products,
     isLoading,
     isError,
     refetch: refetchProducts,
   } = useQuery({
-    queryKey: ["allProducts"],
-    queryFn: getAllProducts,
+    queryKey: ["products"],
+    queryFn: getProducts,
     enabled: !!userToken,
   });
 
   return (
     <productsContext.Provider
-      value={{ allproducts, isLoading, isError, refetchProducts }}
+      value={{ products, isLoading, isError, refetchProducts }}
     >
       {children}
     </productsContext.Provider>

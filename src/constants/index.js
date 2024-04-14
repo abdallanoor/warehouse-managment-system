@@ -16,7 +16,7 @@ export const navLinks = [
   },
   {
     label: " ارصدة المخزن",
-    route: "/all-products",
+    route: "/products",
     icon: Package2,
   },
   {
@@ -59,7 +59,7 @@ export const productsHeader = [
 
 export const customersHeader = [
   { label: "اسم العميل", key: "customerName" },
-  { label: "كود العميل", key: "customerCode" },
+  // { label: "كود العميل", key: "customerCode" },
   { label: "رقم الهاتف", key: "customerNumber" },
   { label: "عنوان العميل", key: "customerAddress" },
 ];

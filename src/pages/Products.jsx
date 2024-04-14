@@ -6,8 +6,8 @@ import { productsContext } from "@/context/ProductsContext";
 import Search from "@/components/shared/Search";
 import ProductsForm from "@/components/products/ProductsForm";
 
-const AllProducts = () => {
-  const { allproducts, isError, isLoading } = useContext(productsContext);
+const Products = () => {
+  const { products, isError, isLoading } = useContext(productsContext);
 
   return (
     <>
@@ -24,10 +24,10 @@ const AllProducts = () => {
         headers={productsHeader}
         error={isError}
         loading={isLoading}
-        data={allproducts?.data?.products.reverse()}
+        data={products?.data?.products.reverse()}
       />
     </>
   );
 };
 
-export default AllProducts;
+export default Products;

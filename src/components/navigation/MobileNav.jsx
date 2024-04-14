@@ -3,7 +3,7 @@ import { Menu, X } from "lucide-react";
 import Logo from "../../assets/logo.svg";
 import { Link, useLocation } from "react-router-dom";
 import { navLinks } from "@/constants";
-import Auth from "../auth/index";
+import Auth from "../authentication/index";
 import {
   Sheet,
   SheetClose,

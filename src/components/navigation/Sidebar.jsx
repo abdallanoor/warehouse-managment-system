@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { navLinks } from "@/constants";
 import Logo from "../../assets/logo.svg";
-import Auth from "../auth/index";
+import Auth from "../authentication/index";
 import { ModeToggle } from "../theme/mode-toggle";
 import DialogStateContext from "@/context/DialogStateContext";
 
