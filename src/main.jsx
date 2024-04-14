@@ -11,7 +11,7 @@ import "./index.css";
 
 import Layout from "./components/Layout/Layout";
 import Home from "./pages/Home";
-import Products from "./pages/Products";
+import Products from "./pages/Products.1";
 import Movements from "./pages/Movements";
 import Customers from "./pages/Customers";
 import SoldPermission from "./pages/SoldPermission";
