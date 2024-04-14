@@ -32,7 +32,7 @@ const DynamicTable = ({ headers, data, error, loading }) => {
   );
 
   const renderTableRows = () =>
-    data.map((item, index) => (
+    data?.map((item, index) => (
       <TableRow key={index} className={`${index % 2 ? "bg-muted/50" : ""}`}>
         {headers.map((header, idx) => (
           <TableCell
@@ -58,7 +58,7 @@ const DynamicTable = ({ headers, data, error, loading }) => {
       <Table>
         {headers && renderTableHeader()}
         <TableBody>
-          {loading || error || !data.length
+          {loading || error || data?.length === 0 || !data
             ? renderLoadingOrEmptyState()
             : renderTableRows()}
         </TableBody>

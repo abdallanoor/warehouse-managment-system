@@ -37,7 +37,10 @@ const Dialog = ({
         )}
 
         {dialogTrigger && (
-          <Button className="w-full" onClick={() => setDialogOpen(true)}>
+          <Button
+            className="w-full active:scale-95 transition-transform"
+            onClick={() => setDialogOpen(true)}
+          >
             {dialogTrigger}
           </Button>
         )}

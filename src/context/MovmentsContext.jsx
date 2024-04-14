@@ -1,15 +1,18 @@
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import DialogStateContext from "./DialogStateContext";
 
 export const movementsContext = createContext();
 
 const MovementsContextProvider = ({ children }) => {
+  const { userToken } = useContext(DialogStateContext);
+
   // fetch Movements
   function getMovements() {
     return axios.get(`${import.meta.env.VITE_API_URL}/api/movementProduct`, {
       headers: {
-        authorization: `Warhouse ${localStorage.getItem("userToken")}`,
+        authorization: `Warhouse ${userToken}`,
       },
     });
   }
@@ -22,6 +25,7 @@ const MovementsContextProvider = ({ children }) => {
   } = useQuery({
     queryKey: ["movements"],
     queryFn: getMovements,
+    enabled: !!userToken,
   });
 
   return (

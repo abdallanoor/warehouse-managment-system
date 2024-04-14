@@ -19,13 +19,13 @@ const Sidebar = () => {
               src={Logo}
               width={80}
               height={20}
-              className="invert dark:invert-0 w-20 h-5"
+              className="invert dark:invert-0 w-20 h-5 active:scale-95 transition-transform"
               alt="logo"
             />
           </Link>
         </div>
         <div className="flex items-center justify-between">
-          <Link className="" to="/">
+          <Link className="outline-0" to="/">
             إدارة المخزن
           </Link>
           <ModeToggle />

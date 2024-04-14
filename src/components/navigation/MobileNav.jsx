@@ -26,7 +26,7 @@ const MobileNav = () => {
         <SheetContent className="sm:w-80 overflow-auto">
           <div className="flex size-full flex-col gap-6">
             <div className="flex items-center justify-between">
-              <Link to="/">
+              <Link className="outline-0" to="/">
                 <SheetClose>إدارة المخزن</SheetClose>
               </Link>
               <SheetClose className="flex h-8 w-8 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors dark:border-neutral-700 dark:text-white focus-visible:outline-none">

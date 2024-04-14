@@ -1,15 +1,18 @@
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import DialogStateContext from "./DialogStateContext";
 
 export const productsContext = createContext();
 
 const ProductsContextProvider = ({ children }) => {
+  const { userToken } = useContext(DialogStateContext);
+
   // fetch all products
   function getAllProducts() {
     return axios.get(`${import.meta.env.VITE_API_URL}/api/storageProducts`, {
       headers: {
-        authorization: `Warhouse ${localStorage.getItem("userToken")}`,
+        authorization: `Warhouse ${userToken}`,
       },
     });
   }
@@ -23,6 +26,7 @@ const ProductsContextProvider = ({ children }) => {
   } = useQuery({
     queryKey: ["allProducts"],
     queryFn: getAllProducts,
+    enabled: !!userToken,
   });
 
   return (

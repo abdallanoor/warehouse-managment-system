@@ -8,6 +8,13 @@ export const DialogStateProvider = ({ children }) => {
 
   const [userToken, setUserToken] = useState(null);
 
+  useEffect(() => {
+    const token = localStorage.getItem("userToken");
+    if (token !== null) {
+      setUserToken(token);
+    }
+  }, []);
+
   // const assignHeader = () => {
   //   setHeader({
   //     authorization: `Warhouse ${localStorage.getItem("userToken")}`,

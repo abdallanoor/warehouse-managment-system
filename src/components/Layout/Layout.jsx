@@ -1,20 +1,9 @@
-import { useContext, useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import DialogStateContext from "@/context/DialogStateContext";
 import Sidebar from "../navigation/Sidebar";
 import MobileNav from "../navigation/MobileNav";
 import { Toaster } from "../ui/toaster";
 
 const Layout = () => {
-  const { setUserToken } = useContext(DialogStateContext);
-
-  useEffect(() => {
-    const userToken = localStorage.getItem("userToken");
-    if (userToken !== null) {
-      setUserToken(userToken);
-    }
-  }, []);
-
   return (
     <div className="flex min-h-screen">
       <Sidebar />
