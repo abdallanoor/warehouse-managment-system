@@ -6,19 +6,29 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
+import { Trash2 } from "lucide-react";
+import ShareDropdown from "./ShareDropdown";
 
-const DynamicTable = ({ headers, data, error, loading }) => {
+const DynamicTable = ({ headers, data, error, loading, tableAction }) => {
   const renderTableHeader = () => (
     <TableHeader className="bg-muted dark:bg-muted/50">
       <TableRow>
         {headers.map((header, index) => (
           <TableCell
-            className={`${index === headers.length - 1 ? "" : "border-l"}`}
+            className={`${
+              tableAction
+                ? "border-l"
+                : index === headers.length - 1
+                ? ""
+                : "border-l"
+            }`}
             key={index}
           >
             {header.label}
           </TableCell>
         ))}
+        {tableAction && <TableCell>إجراءات</TableCell>}
       </TableRow>
     </TableHeader>
   );
@@ -33,11 +43,17 @@ const DynamicTable = ({ headers, data, error, loading }) => {
 
   const renderTableRows = () =>
     data?.map((item, index) => (
-      <TableRow key={index} className={`${index % 2 ? "bg-muted/50" : ""}`}>
+      <TableRow key={index} className={`${index % 2 ? "bg-muted/30" : ""}`}>
         {headers.map((header, idx) => (
           <TableCell
             key={idx}
-            className={`${idx === headers.length - 1 ? "" : "border-l"}`}
+            className={`${
+              tableAction
+                ? "border-l"
+                : idx === headers.length - 1
+                ? ""
+                : "border-l"
+            }`}
           >
             {header.key === "typeMovement" ? (
               <Badge variant={item.typeMovement === "شراء" ? "secondary" : ""}>
@@ -50,6 +66,11 @@ const DynamicTable = ({ headers, data, error, loading }) => {
             )}
           </TableCell>
         ))}
+        {tableAction && (
+          <TableCell className="p-2">
+            <ShareDropdown rowEditData={item} />
+          </TableCell>
+        )}
       </TableRow>
     ));
 

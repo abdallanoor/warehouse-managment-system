@@ -22,10 +22,11 @@ const Dialog = ({
   alert,
   dialogOpen,
   setDialogOpen,
+  actionTrigger,
 }) => {
   return (
     <>
-      <AlertDialog open={dialogOpen}>
+      <AlertDialog asChiled open={dialogOpen}>
         {logout && (
           <AlertDialogTrigger
             onClick={() => setDialogOpen(true)}
@@ -36,14 +37,16 @@ const Dialog = ({
           </AlertDialogTrigger>
         )}
 
-        {dialogTrigger && (
+        {/* {dialogTrigger && (
           <Button
             className="w-full active:scale-95 transition-transform"
             onClick={() => setDialogOpen(true)}
           >
             {dialogTrigger}
           </Button>
-        )}
+        )} */}
+
+        {dialogTrigger && dialogTrigger}
 
         <AlertDialogContent>
           <button
@@ -84,8 +87,13 @@ const Dialog = ({
               <Button variant={"outline"} onClick={() => setDialogOpen(false)}>
                 الغي
               </Button>
-              <Button onClick={handleAction}>
+              <Button
+                variant="destructive"
+                disabled={bottomDisabled}
+                onClick={handleAction}
+              >
                 {actionTitle && actionTitle}
+                {loadingButton ? <ButtonLoader /> : null}
               </Button>
             </AlertDialogFooter>
           )}

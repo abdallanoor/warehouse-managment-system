@@ -7,7 +7,9 @@ import {
   Package2,
   User,
 } from "lucide-react";
+import { object, string, number } from "yup";
 
+// NavLink Data
 export const navLinks = [
   {
     label: "الصفحة الرئيسية",
@@ -46,6 +48,7 @@ export const navLinks = [
   },
 ];
 
+// Table Data
 export const productsHeader = [
   { label: "اسم الصنف", key: "productName" },
   { label: "كود الصنف", key: "productCode" },
@@ -75,3 +78,58 @@ export const movementsHeader = [
   { label: "العميل", key: "productSeller" },
   { label: "التاريخ", key: "date" },
 ];
+
+// Form Fields Data
+export const productsFormField = [
+  { label: "اسم الصنف", id: "productName" },
+  { label: "السيريال", id: "productPartNumber" },
+  { label: "الماركة", id: "productType" },
+  { label: "بلد المنشـأ", id: "productCountry" },
+  { label: "المكان", id: "productLocation" },
+  { label: "العدد", id: "productCount" },
+  { label: "سعر الوحده", id: "productPriceSell" },
+];
+
+export const customersFormField = [
+  { label: "اسم العميل", id: "customerName" },
+  { label: "رقم الهاتف", id: "customerNumber" },
+  { label: "عنوان العميل", id: "customerAddress" },
+  { label: "كود العميل", id: "customerCode" },
+];
+
+// Formik Validation Schema
+export const productsSchema = object({
+  productName: string().required("يجب إدخال اسم الصنف"),
+  productPartNumber: string().required("يجب إدخال السيريال"),
+  productType: string().required("يجب إدخال الماركة"),
+  productCount: number().required("يجب إدخال العدد"),
+  productLocation: string().required("يجب إدخال مكان الصنف"),
+  productPriceSell: number().required("يجب إدخال السعر"),
+  productCountry: string().required("يجب إدخال بلد المنشـأ"),
+});
+
+export const customersSchema = object({
+  customerCode: number().required("يجب إدخال كود العميل"),
+  customerName: string().required("يجب إدخال اسم العميل"),
+  customerNumber: number().required("يجب إدخال رقم الهاتف"),
+  customerAddress: string().required("يجب إدخال عنوان العميل"),
+});
+
+// Formik Initial Values
+export const productsInitialValues = {
+  productName: "",
+  productPartNumber: "",
+  productType: "",
+  productCount: "",
+  productLocation: "",
+  productPriceSell: "",
+  productCountry: "",
+  date: new Date().toLocaleDateString("en-GB"),
+};
+
+export const customersInitialValues = {
+  customerCode: "",
+  customerName: "",
+  customerNumber: "",
+  customerAddress: "",
+};

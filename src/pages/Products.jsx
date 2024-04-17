@@ -32,6 +32,7 @@ const Products = () => {
         headers={productsHeader}
         data={filteredProducts?.reverse()}
         error={isError}
+        tableAction
         loading={isLoading}
       />
     </>

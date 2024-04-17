@@ -8,25 +8,17 @@ import FormField from "../shared/FormField";
 import FormScroll from "../shared/FormScroll";
 import { UserPlus } from "lucide-react";
 import { customersContext } from "@/context/CustomersContext";
+import { Button } from "../ui/button";
+import {
+  customersFormField,
+  customersInitialValues,
+  customersSchema,
+} from "@/constants";
 
 const CustomersForm = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { refetchCustomers } = useContext(customersContext);
-
-  const validationSchema = object({
-    customerCode: number().required("يجب إدخال كود العميل"),
-    customerName: string().required("يجب إدخال اسم العميل"),
-    customerNumber: number().required("يجب إدخال رقم الهاتف"),
-    customerAddress: string().required("يجب إدخال عنوان العميل"),
-  });
-
-  const initialValues = {
-    customerCode: "",
-    customerName: "",
-    customerNumber: "",
-    customerAddress: "",
-  };
 
   const onSubmit = async (values) => {
     setIsLoading(true);
@@ -37,7 +29,6 @@ const CustomersForm = () => {
         },
       })
       .then(({ data }) => {
-        console.log(data);
         if (data.message === "Done") {
           setDialogOpen(false);
           refetchCustomers();
@@ -68,26 +59,27 @@ const CustomersForm = () => {
   };
 
   const formik = useFormik({
-    initialValues,
+    initialValues: customersInitialValues,
     onSubmit,
-    validationSchema,
+    validationSchema: customersSchema,
   });
 
-  const renderDialogButton = () => {
-    return (
-      <>
-        <span>إضافة عميل</span>
-        <UserPlus className="mr-1 w-4 h-4" />
-      </>
-    );
-  };
+  const renderDialogTrigger = () => (
+    <Button
+      className="w-full active:scale-95 transition-transform"
+      onClick={() => setDialogOpen(true)}
+    >
+      <span>إضافة عميل</span>
+      <UserPlus className="mr-1 w-4 h-4" />
+    </Button>
+  );
 
   return (
     <>
       <Dialog
         dialogOpen={dialogOpen}
         setDialogOpen={setDialogOpen}
-        dialogTrigger={renderDialogButton()}
+        dialogTrigger={renderDialogTrigger()}
         dialogTitle="أضافة عميل"
         dialogDescription="يجب عليك ملء جميع الخانات لأضافة عميل جديد"
         actionTitle="أضافة"
@@ -96,34 +88,16 @@ const CustomersForm = () => {
         bottomDisabled={!(formik.isValid && formik.dirty) || isLoading}
       >
         <FormScroll>
-          <FormField
-            labelTitle="اسم العميل"
-            id="customerName"
-            onChange={formik.handleChange}
-            value={formik.values.customerName}
-            onBlur={formik.handleBlur}
-          />
-          <FormField
-            labelTitle="رقم الهاتف"
-            id="customerNumber"
-            onChange={formik.handleChange}
-            value={formik.values.customerNumber}
-            onBlur={formik.handleBlur}
-          />
-          <FormField
-            labelTitle="عنوان العميل"
-            id="customerAddress"
-            onChange={formik.handleChange}
-            value={formik.values.customerAddress}
-            onBlur={formik.handleBlur}
-          />
-          <FormField
-            labelTitle="كود العميل"
-            id="customerCode"
-            onChange={formik.handleChange}
-            value={formik.values.customerCode}
-            onBlur={formik.handleBlur}
-          />
+          {customersFormField.map(({ label, id }) => (
+            <FormField
+              key={id}
+              labelTitle={label}
+              id={id}
+              onChange={formik.handleChange}
+              value={formik.values[id]}
+              onBlur={formik.handleBlur}
+            />
+          ))}
         </FormScroll>
       </Dialog>
     </>

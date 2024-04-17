@@ -8,6 +8,7 @@ const ProtectedRoute = ({ children }) => {
   } else {
     //as component
     toast({
+      variant: "destructive",
       title: "يجب تسجيل الدخول اولاً.",
     });
     return <Navigate to={"/"} />;
