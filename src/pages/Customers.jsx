@@ -32,6 +32,7 @@ const Customers = () => {
       <DynamicTable
         headers={customersHeader}
         error={isError}
+        tableAction
         loading={isLoading}
         data={filteredCustomers?.reverse()}
       />

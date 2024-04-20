@@ -6,13 +6,19 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
-import { MoreHorizontal, SquarePen, Trash2 } from "lucide-react";
+import {
+  MoreHorizontal,
+  SquareArrowOutUpRight,
+  SquarePen,
+  Trash2,
+} from "lucide-react";
 import Dialog from "./Dialog";
 import { useContext, useState } from "react";
 import ProductsForm from "../products/ProductsForm";
 import axios from "axios";
 import { toast } from "../ui/use-toast";
 import { productsContext } from "@/context/ProductsContext";
+import { Link, useLocation } from "react-router-dom";
 
 const ShareDropdown = ({ rowEditData }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -20,11 +26,13 @@ const ShareDropdown = ({ rowEditData }) => {
   const [isLoading, setIsLoading] = useState(false);
   const { refetchProducts } = useContext(productsContext);
 
+  const { pathname } = useLocation();
+
   const renderDeleteDialogTrigger = () => {
     return (
       <div
         onClick={() => setDialogOpen(true)}
-        className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+        className="relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm transition-colors hover:bg-accent focus:text-accent-foreground"
       >
         <Trash2 className="ml-2 w-4 h-4" />
         <span>حذف</span>
@@ -54,10 +62,28 @@ const ShareDropdown = ({ rowEditData }) => {
       });
     }
   };
+
+  const renderProductDetails = () => {
+    return (
+      <Link
+        to={rowEditData._id}
+        className="relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm transition-colors hover:bg-accent focus:text-accent-foreground"
+      >
+        <SquareArrowOutUpRight className="ml-2 w-4 h-4" />
+        <span>حركة الصنف</span>
+      </Link>
+    );
+  };
+
   return (
     <DropdownMenu modal={false} open={dropdownOpen} dir="rtl">
       <DropdownMenuTrigger onClick={() => setDropdownOpen(true)} asChild>
-        <Button aria-haspopup="true" size="icon" variant="ghost">
+        <Button
+          aria-haspopup="true"
+          disabled={dropdownOpen}
+          size="icon"
+          variant="ghost"
+        >
           <MoreHorizontal className="h-4 w-4" />
           <span className="sr-only">Toggle menu</span>
         </Button>
@@ -66,20 +92,28 @@ const ShareDropdown = ({ rowEditData }) => {
         <DropdownMenuLabel>إجراءات</DropdownMenuLabel>
         <DropdownMenuSeparator />
 
-        <Dialog
-          dialogOpen={dialogOpen}
-          setDialogOpen={setDialogOpen}
-          dialogTrigger={renderDeleteDialogTrigger()}
-          alert
-          dialogTitle="حذف الصنف"
-          dialogDescription="هل انت متاكد؟ سيتم حذف الصنف نهائياً"
-          actionTitle="حذف الصنف"
-          handleAction={renderDeleteAction}
-          loadingButton={isLoading}
-          bottomDisabled={isLoading}
-        />
+        {pathname === "/products" ? (
+          <>
+            <Dialog
+              dialogOpen={dialogOpen}
+              setDialogOpen={setDialogOpen}
+              dialogTrigger={renderDeleteDialogTrigger()}
+              alert
+              dialogTitle="حذف الصنف"
+              dialogDescription="هل انت متاكد؟ سيتم حذف الصنف نهائياً"
+              actionTitle="حذف الصنف"
+              handleAction={renderDeleteAction}
+              loadingButton={isLoading}
+              bottomDisabled={isLoading}
+            />
 
-        <ProductsForm rowEditData={rowEditData} />
+            <ProductsForm
+              rowEditData={rowEditData}
+              setDropdownOpen={setDropdownOpen}
+            />
+            {renderProductDetails()}
+          </>
+        ) : null}
       </DropdownMenuContent>
     </DropdownMenu>
   );

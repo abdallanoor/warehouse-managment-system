@@ -14,7 +14,7 @@ import {
   productsInitialValues,
 } from "@/constants";
 
-const ProductsForm = ({ rowEditData }) => {
+const ProductsForm = ({ rowEditData, setDropdownOpen }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -33,6 +33,9 @@ const ProductsForm = ({ rowEditData }) => {
       .then(({ data }) => {
         if (data.message === messageKey) {
           setDialogOpen(false);
+          if (isEditing) {
+            setDropdownOpen(false);
+          }
           refetchProducts();
           const actionMessage = isEditing ? "تم تعديل" : "تم إضافة";
           toast({
@@ -79,7 +82,7 @@ const ProductsForm = ({ rowEditData }) => {
   const renderUpdateDialogTrigger = () => (
     <div
       onClick={() => handleUpdate()}
-      className="flex items-center cursor-default gap-2 rounded-sm px-2 py-1.5 text-sm transition-colors hover:bg-accent"
+      className="flex items-center cursor-pointer gap-2 rounded-sm px-2 py-1.5 text-sm transition-colors hover:bg-accent"
     >
       <SquarePen className="w-4 h-4" />
       <span>تعديل</span>

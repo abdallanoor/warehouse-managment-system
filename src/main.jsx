@@ -17,6 +17,7 @@ import Customers from "./pages/Customers";
 import SoldPermission from "./pages/SoldPermission";
 import AddPermission from "./pages/AddPermission";
 import Bills from "./pages/Bills";
+import ProductDetails from "./components/products/ProductDetails";
 import CustomersContextProvider from "./context/CustomersContext";
 import MovementsContextProvider from "./context/MovmentsContext";
 
@@ -34,6 +35,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Products />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/products/:id",
+        element: (
+          <ProtectedRoute>
+            <ProductDetails />
           </ProtectedRoute>
         ),
       },

@@ -6,6 +6,7 @@
 body{
   font-family: "Noto Kufi Arabic", sans-serif;
   font-weight: 500; 
+  direction: rtl;
 }
 
 .scroll::-webkit-scrollbar {

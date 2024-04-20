@@ -6,13 +6,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "../ui/badge";
-import { Button } from "../ui/button";
-import { Trash2 } from "lucide-react";
 import ShareDropdown from "./ShareDropdown";
+import { useNavigate } from "react-router-dom";
 
 const DynamicTable = ({ headers, data, error, loading, tableAction }) => {
   const renderTableHeader = () => (
-    <TableHeader className="bg-muted dark:bg-muted/50">
+    <TableHeader className="bg-muted dark:bg-muted/50 ">
       <TableRow>
         {headers.map((header, index) => (
           <TableCell
@@ -41,9 +40,15 @@ const DynamicTable = ({ headers, data, error, loading, tableAction }) => {
     </TableRow>
   );
 
+  const navigate = useNavigate();
+
+  const handleNavigate = (tableRowData) => {
+    navigate(`/blogs/${tableRowData._id}`);
+  };
+
   const renderTableRows = () =>
     data?.map((item, index) => (
-      <TableRow key={index} className={`${index % 2 ? "bg-muted/30" : ""}`}>
+      <TableRow key={index} className={` ${index % 2 ? "bg-muted/30" : ""}`}>
         {headers.map((header, idx) => (
           <TableCell
             key={idx}
