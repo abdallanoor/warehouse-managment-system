@@ -8,10 +8,11 @@ import { Input } from "../ui/input";
 import Dialog from "../shared/Dialog";
 import { toast } from "../ui/use-toast";
 import DialogStateContext from "@/context/DialogStateContext";
+import { Button } from "../ui/button";
 
 const Login = () => {
-  const { setDialogOpen, setUserToken, dialogOpen } =
-    useContext(DialogStateContext);
+  const { setUserToken } = useContext(DialogStateContext);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const validationSchema = object({
@@ -63,6 +64,10 @@ const Login = () => {
     </div>
   );
 
+  const renderDialogTrigger = () => (
+    <Button onClick={() => setDialogOpen(true)}>تسجيل الدخول</Button>
+  );
+
   const iconsClasses =
     "w-4 h-4 absolute left-3 top-1/2 translate-y-[-50%] text-muted-foreground";
 
@@ -70,7 +75,7 @@ const Login = () => {
     <Dialog
       dialogOpen={dialogOpen}
       setDialogOpen={setDialogOpen}
-      dialogTrigger="تسجيل الدخول"
+      dialogTrigger={renderDialogTrigger()}
       dialogTitle="تسجيل الدخول"
       dialogDescription="الرجاء إدخال اسم المستخدم و كلمة المرور"
       actionTitle="تسجيل الدخول"
