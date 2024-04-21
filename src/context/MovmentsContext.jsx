@@ -22,6 +22,7 @@ const MovementsContextProvider = ({ children }) => {
     data: movements,
     isLoading,
     isError,
+    refetch: refetchMovements,
   } = useQuery({
     queryKey: ["movements"],
     queryFn: getMovements,
@@ -29,7 +30,9 @@ const MovementsContextProvider = ({ children }) => {
   });
 
   return (
-    <movementsContext.Provider value={{ movements, isLoading, isError }}>
+    <movementsContext.Provider
+      value={{ movements, isLoading, isError, refetchMovements }}
+    >
       {children}
     </movementsContext.Provider>
   );

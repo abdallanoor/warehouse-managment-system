@@ -20,6 +20,7 @@ import Bills from "./pages/Bills";
 import ProductDetails from "./components/products/ProductDetails";
 import CustomersContextProvider from "./context/CustomersContext";
 import MovementsContextProvider from "./context/MovmentsContext";
+import SoldPermissionContextProvider from "./context/SoldPremissionContext";
 
 const router = createBrowserRouter([
   {
@@ -100,8 +101,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <ProductsContextProvider>
           <CustomersContextProvider>
             <MovementsContextProvider>
-              <RouterProvider router={router} />
-              <ReactQueryDevtools initialIsOpen={false} />
+              <SoldPermissionContextProvider>
+                <RouterProvider router={router} />
+                <ReactQueryDevtools initialIsOpen={false} />
+              </SoldPermissionContextProvider>
             </MovementsContextProvider>
           </CustomersContextProvider>
         </ProductsContextProvider>

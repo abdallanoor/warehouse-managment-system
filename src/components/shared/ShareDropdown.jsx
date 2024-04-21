@@ -19,12 +19,14 @@ import axios from "axios";
 import { toast } from "../ui/use-toast";
 import { productsContext } from "@/context/ProductsContext";
 import { Link, useLocation } from "react-router-dom";
+import { soldPermissionContext } from "@/context/SoldPremissionContext";
 
 const ShareDropdown = ({ rowEditData }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { refetchProducts } = useContext(productsContext);
+  const { refetchSoldPermission } = useContext(soldPermissionContext);
 
   const { pathname } = useLocation();
 
@@ -46,7 +48,6 @@ const ShareDropdown = ({ rowEditData }) => {
     const { data } = await axios.delete(
       `${import.meta.env.VITE_API_URL}/api/storageProducts/${productId}`
     );
-    console.log(data);
     if (data?.message === "Delete Successfully") {
       setIsLoading(false);
       setDialogOpen(false);
@@ -54,6 +55,28 @@ const ShareDropdown = ({ rowEditData }) => {
       refetchProducts();
       toast({
         title: `تم حذف ${data.product.productName} بنجاح`,
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "هناك خطأ!",
+      });
+    }
+  };
+
+  const renderDeleteSoldPermissionAction = async () => {
+    setIsLoading(true);
+    const productId = rowEditData._id;
+    const { data } = await axios.delete(
+      `${import.meta.env.VITE_API_URL}/api/soldpermission/${productId}`
+    );
+    if (data?.message === "Done") {
+      refetchSoldPermission();
+      setIsLoading(false);
+      setDialogOpen(false);
+      setDropdownOpen(false);
+      toast({
+        title: `تم حذف الصنف بنجاح`,
       });
     } else {
       toast({
@@ -113,6 +136,19 @@ const ShareDropdown = ({ rowEditData }) => {
             />
             {renderProductDetails()}
           </>
+        ) : pathname === "/sold-permission" ? (
+          <Dialog
+            dialogOpen={dialogOpen}
+            setDialogOpen={setDialogOpen}
+            dialogTrigger={renderDeleteDialogTrigger()}
+            alert
+            dialogTitle="حذف الصنف"
+            dialogDescription="هل انت متاكد؟ سيتم حذف الصنف من إذن الصرف"
+            actionTitle="حذف الصنف"
+            handleAction={renderDeleteSoldPermissionAction}
+            loadingButton={isLoading}
+            bottomDisabled={isLoading}
+          />
         ) : null}
       </DropdownMenuContent>
     </DropdownMenu>

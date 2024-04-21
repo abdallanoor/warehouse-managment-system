@@ -22,7 +22,7 @@ const Dialog = ({
   alert,
   dialogOpen,
   setDialogOpen,
-  actionTrigger,
+  destructive,
 }) => {
   return (
     <>
@@ -88,7 +88,7 @@ const Dialog = ({
                 الغي
               </Button>
               <Button
-                variant="destructive"
+                variant={destructive ? "destructive" : "default"}
                 disabled={bottomDisabled}
                 onClick={handleAction}
               >

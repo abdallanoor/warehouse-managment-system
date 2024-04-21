@@ -7,11 +7,10 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "../ui/badge";
 import ShareDropdown from "./ShareDropdown";
-import { useNavigate } from "react-router-dom";
 
 const DynamicTable = ({ headers, data, error, loading, tableAction }) => {
   const renderTableHeader = () => (
-    <TableHeader className="bg-muted dark:bg-muted/50 ">
+    <TableHeader className="bg-muted dark:bg-muted/50">
       <TableRow>
         {headers.map((header, index) => (
           <TableCell
@@ -27,7 +26,7 @@ const DynamicTable = ({ headers, data, error, loading, tableAction }) => {
             {header.label}
           </TableCell>
         ))}
-        {tableAction && <TableCell>إجراءات</TableCell>}
+        {tableAction && <TableCell className="print:hidden">إجراءات</TableCell>}
       </TableRow>
     </TableHeader>
   );
@@ -35,16 +34,10 @@ const DynamicTable = ({ headers, data, error, loading, tableAction }) => {
   const renderLoadingOrEmptyState = () => (
     <TableRow>
       <TableCell className="p-8" colSpan={100}>
-        {loading ? "جاري التحميل..." : "لا يوجد بيانات"}
+        {loading ? "جاري التحميل..." : "لا تتوفر بيانات"}
       </TableCell>
     </TableRow>
   );
-
-  const navigate = useNavigate();
-
-  const handleNavigate = (tableRowData) => {
-    navigate(`/blogs/${tableRowData._id}`);
-  };
 
   const renderTableRows = () =>
     data?.map((item, index) => (
@@ -72,7 +65,7 @@ const DynamicTable = ({ headers, data, error, loading, tableAction }) => {
           </TableCell>
         ))}
         {tableAction && (
-          <TableCell className="p-2">
+          <TableCell className="p-2 print:hidden">
             <ShareDropdown rowEditData={item} />
           </TableCell>
         )}
@@ -82,7 +75,7 @@ const DynamicTable = ({ headers, data, error, loading, tableAction }) => {
   return (
     <div className="rounded-md border overflow-hidden">
       <Table>
-        {headers && renderTableHeader()}
+        {headers && data?.length !== 0 && renderTableHeader()}
         <TableBody>
           {loading || error || data?.length === 0 || !data
             ? renderLoadingOrEmptyState()

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,30 +14,35 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { customersContext } from "@/context/CustomersContext";
-import axios from "axios";
 
-export function ComboboxDemo({ setCustomerValues }) {
-  const { customers, isLoading } = useContext(customersContext);
+export function Combobox({
+  data,
+  setValues,
+  lable,
+  additionalInfo,
+  isLoading,
+  buttonTitle,
+  placeholder,
+  bodyInfo,
+}) {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
+  const [value, internalSetValue] = useState("");
 
-  const invoiceNumber = 5;
-
-  const selectCustomer = (customer) => {
-    const isSelected = value === customer.customerName;
-    setValue(isSelected ? "" : customer.customerName);
-    setCustomerValues(
+  const selectItem = (item) => {
+    const isSelected = value === item[lable];
+    internalSetValue(isSelected ? "" : item[lable]);
+    setValues(
       isSelected
         ? {}
         : {
-            ...customer,
-            datePermission: new Date().toLocaleDateString("en-GB"),
-            invoiceNumber: invoiceNumber,
+            ...item,
+            ...bodyInfo,
           }
     );
     setOpen(false);
   };
+
+  //   console.log(value);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -48,32 +53,34 @@ export function ComboboxDemo({ setCustomerValues }) {
           aria-expanded={open}
           className="w-full justify-between"
         >
-          {value ? value : "اختر العميل"}
+          {value ? value : buttonTitle}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-full p-0">
         <Command className="rounded-lg border shadow-md">
-          <CommandInput placeholder="ابحث عن العميل بالاسم" />
+          <CommandInput placeholder={`ابحث عن ${placeholder}`} />
           <CommandList className="scroll">
             <CommandEmpty>
               {isLoading ? "جاري التحميل..." : "لا توجد بيانات"}
             </CommandEmpty>
             <CommandGroup>
-              {customers?.data?.customers?.map((customer) => (
+              {data?.map((item, index) => (
                 <CommandItem
-                  key={customer._id}
-                  value={customer.customerName}
-                  onSelect={() => selectCustomer(customer)}
+                  key={index}
+                  value={item[lable]}
+                  onSelect={() => selectItem(item)}
                 >
                   <Check
                     className={`ml-2 h-4 w-4 ${
-                      value === customer.customerName
-                        ? "opacity-100"
-                        : "opacity-0"
+                      value === item[lable] ? "opacity-100" : "opacity-0"
                     }`}
                   />
-                  {customer.customerName} - {customer.customerAddress}
+                  <div className="flex items-center gap-2">
+                    {item[lable]}
+                    {additionalInfo && " - "}
+                    {item[additionalInfo]}
+                  </div>
                 </CommandItem>
               ))}
             </CommandGroup>

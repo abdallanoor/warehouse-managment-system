@@ -79,6 +79,16 @@ export const movementsHeader = [
   { label: "التاريخ", key: "date" },
 ];
 
+export const soldPermissionHeader = [
+  { label: "اسم الصنف", key: "productName" },
+  { label: "كود الصنف", key: "productCode" },
+  { label: "السيريال", key: "productPartNumber" },
+  { label: "الماركة", key: "productType" },
+  { label: "بلد المنشـأ	", key: "productCountry" },
+  { label: "العدد", key: "productCount" },
+  { label: "سعـر الوحده", key: "productPriceSell" },
+];
+
 // Form Fields Data
 export const productsFormField = [
   { label: "اسم الصنف", id: "productName" },
