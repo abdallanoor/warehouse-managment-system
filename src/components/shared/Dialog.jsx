@@ -2,11 +2,10 @@ import {
   AlertDialog,
   AlertDialogContent,
   AlertDialogFooter,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
 import { Button } from "../ui/button";
-import { LogOut, X } from "lucide-react";
+import { X } from "lucide-react";
 import ButtonLoader from "../loading/ButtonLoader";
 
 const Dialog = ({
@@ -15,7 +14,6 @@ const Dialog = ({
   dialogTitle,
   dialogDescription,
   actionTitle,
-  logout,
   handleAction,
   loadingButton,
   bottomDisabled,
@@ -26,26 +24,7 @@ const Dialog = ({
 }) => {
   return (
     <>
-      <AlertDialog asChiled open={dialogOpen}>
-        {logout && (
-          <AlertDialogTrigger
-            onClick={() => setDialogOpen(true)}
-            className="flex items-center w-full p-2 hover:bg-secondary transition-colors rounded gap-2"
-          >
-            <LogOut className="w-5 h-5" />
-            تسجيل الخروج
-          </AlertDialogTrigger>
-        )}
-
-        {/* {dialogTrigger && (
-          <Button
-            className="w-full active:scale-95 transition-transform"
-            onClick={() => setDialogOpen(true)}
-          >
-            {dialogTrigger}
-          </Button>
-        )} */}
-
+      <AlertDialog asChiled open={dialogOpen} onOpenChange={setDialogOpen}>
         {dialogTrigger && dialogTrigger}
 
         <AlertDialogContent>

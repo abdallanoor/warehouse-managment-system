@@ -2,9 +2,10 @@ import { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { navLinks } from "@/constants";
 import Logo from "../../assets/logo.svg";
-import Auth from "../authentication/index";
 import { ModeToggle } from "../theme/mode-toggle";
 import DialogStateContext from "@/context/DialogStateContext";
+import Logout from "../authentication/Logout";
+import Login from "../authentication/Login";
 
 const Sidebar = () => {
   const { pathname } = useLocation();
@@ -51,7 +52,7 @@ const Sidebar = () => {
           </nav>
         )}
 
-        <Auth />
+        {userToken ? <Logout /> : <Login />}
       </div>
     </div>
   );

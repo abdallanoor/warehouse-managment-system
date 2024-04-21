@@ -100,8 +100,8 @@ const SoldPermission = () => {
               <p className="hidden print:block font-semibold">{`التوقيع : `}</p>
               <p className="text-sm text-muted-foreground animate-fadeIn max-w-screen-md print:hidden">
                 يرجى ملاحظة أنه يمكن حذف البيانات الحالية والعميل، وإضافة بيانات
-                جديدة لعميل جديد عبر النقر على زر إذن صرف جديد. لحفظ التغييرات
-                بعد إضافة الأصناف، يُرجى الضغط على زر الحفظ.
+                جديدة لعميل جديد عبر النقر على زر إذن صرف جديد.&nbsp;لحفظ
+                التغييرات بعد إضافة الأصناف، يُرجى الضغط على زر الحفظ.
               </p>
             </>
           )}

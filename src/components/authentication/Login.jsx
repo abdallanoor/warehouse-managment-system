@@ -10,7 +10,7 @@ import { toast } from "../ui/use-toast";
 import DialogStateContext from "@/context/DialogStateContext";
 import { Button } from "../ui/button";
 
-const Login = () => {
+const Login = ({ setNavOpen }) => {
   const { setUserToken } = useContext(DialogStateContext);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -29,6 +29,7 @@ const Login = () => {
           localStorage.setItem("userToken", data.token);
           setUserToken(data.token);
           setDialogOpen(false);
+          setNavOpen(false);
           toast({
             title: "مرحباً بعودتك! تم تسجيل الدخول بنجاح.",
             description: "يمكنك الآن استخدام البرنامج.",
@@ -65,7 +66,9 @@ const Login = () => {
   );
 
   const renderDialogTrigger = () => (
-    <Button onClick={() => setDialogOpen(true)}>تسجيل الدخول</Button>
+    <Button className="w-full" onClick={() => setDialogOpen(true)}>
+      تسجيل الدخول
+    </Button>
   );
 
   const iconsClasses =

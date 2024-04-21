@@ -1,9 +1,8 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Menu, X } from "lucide-react";
 import Logo from "../../assets/logo.svg";
 import { Link, useLocation } from "react-router-dom";
 import { navLinks } from "@/constants";
-import Auth from "../authentication/index";
 import {
   Sheet,
   SheetClose,
@@ -12,14 +11,17 @@ import {
 } from "@/components/ui/sheet";
 import { ModeToggle } from "../theme/mode-toggle";
 import DialogStateContext from "@/context/DialogStateContext";
+import Logout from "../authentication/Logout";
+import Login from "../authentication/Login";
 
 const MobileNav = () => {
   const { pathname } = useLocation();
   const { userToken } = useContext(DialogStateContext);
+  const [navOpen, setNavOpen] = useState(false);
 
   return (
     <div className="flex items-center justify-between fixed z-10 h-16 w-full border-b p-5 bg-background/80 backdrop-blur lg:hidden">
-      <Sheet>
+      <Sheet open={navOpen} onOpenChange={setNavOpen}>
         <SheetTrigger>
           <Menu className="w-7 h-7 transition-colors active:text-muted-foreground" />
         </SheetTrigger>
@@ -46,7 +48,7 @@ const MobileNav = () => {
                           }`}
                         >
                           {<link.icon className="w-5 h-5" />}
-                          {link.label}
+                          <span>{link.label}</span>
                         </SheetClose>
                       </Link>
                     </li>
@@ -55,11 +57,11 @@ const MobileNav = () => {
               </nav>
             )}
 
-            <SheetClose asChild>
-              <div>
-                <Auth />
-              </div>
-            </SheetClose>
+            {userToken ? (
+              <Logout setNavOpen={setNavOpen} />
+            ) : (
+              <Login setNavOpen={setNavOpen} />
+            )}
           </div>
         </SheetContent>
       </Sheet>

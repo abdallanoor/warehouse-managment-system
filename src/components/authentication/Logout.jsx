@@ -1,12 +1,14 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Dialog from "../shared/Dialog";
 import DialogStateContext from "@/context/DialogStateContext";
 import { toast } from "../ui/use-toast";
+import { Button } from "../ui/button";
+import { LogOut } from "lucide-react";
 
-const Logout = () => {
-  const { setDialogOpen, dialogOpen, setUserToken } =
-    useContext(DialogStateContext);
+const Logout = ({ setNavOpen }) => {
+  const { setUserToken } = useContext(DialogStateContext);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -14,6 +16,7 @@ const Logout = () => {
     localStorage.removeItem("userToken");
     setUserToken(null);
     setDialogOpen(false);
+    setNavOpen(false);
     navigate("/");
     toast({
       title: "تم تسجيل الخروج بنجاح.",
@@ -21,11 +24,22 @@ const Logout = () => {
     });
   };
 
+  const renderDialogTrigger = () => (
+    <Button
+      variant="ghost"
+      onClick={() => setDialogOpen(true)}
+      className="justify-start"
+    >
+      <LogOut className="ml-2 w-5 h-5" />
+      تسجيل الخروج
+    </Button>
+  );
+
   return (
     <Dialog
       dialogOpen={dialogOpen}
       setDialogOpen={setDialogOpen}
-      logout
+      dialogTrigger={renderDialogTrigger()}
       alert
       dialogTitle="تسجيل الخروج"
       dialogDescription="سيتم تسجيل خروجك من البرنامج."
