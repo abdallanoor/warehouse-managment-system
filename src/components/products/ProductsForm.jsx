@@ -14,7 +14,7 @@ import {
   productsInitialValues,
 } from "@/constants";
 
-const ProductsForm = ({ rowEditData, setDropdownOpen }) => {
+const ProductsForm = ({ rowData, setDropdownOpen, triggerClassName }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -22,7 +22,6 @@ const ProductsForm = ({ rowEditData, setDropdownOpen }) => {
 
   const onSubmit = async (values) => {
     const method = isEditing ? axios.put : axios.post;
-    const messageKey = isEditing ? "Update Successfully" : "Save Successfully";
 
     setIsLoading(true);
     method(`${import.meta.env.VITE_API_URL}/api/storageProducts/`, values, {
@@ -31,7 +30,7 @@ const ProductsForm = ({ rowEditData, setDropdownOpen }) => {
       },
     })
       .then(({ data }) => {
-        if (data.message === messageKey) {
+        if (data.message === "Done") {
           setDialogOpen(false);
           if (isEditing) {
             setDropdownOpen(false);
@@ -51,7 +50,7 @@ const ProductsForm = ({ rowEditData, setDropdownOpen }) => {
       })
       .catch((error) => {
         toast({
-          title: `${error.response.data.message}`,
+          title: `${error}`,
         });
       })
       .finally(() => setIsLoading(false));
@@ -63,27 +62,23 @@ const ProductsForm = ({ rowEditData, setDropdownOpen }) => {
     validationSchema: productsSchema,
   });
 
+  //adding
   const renderAddDialogTrigger = () => (
-    <Button
-      className="w-full active:scale-95 transition-transform"
-      onClick={() => setDialogOpen(true)}
-    >
+    <Button className="w-full" onClick={() => setDialogOpen(true)}>
       <span>إضافة صنف</span>
       <PackagePlus className="mr-1 w-4 h-4" />
     </Button>
   );
 
+  //editing
   const handleUpdate = () => {
     setIsEditing(true);
     setDialogOpen(true);
-    formik.setValues(rowEditData);
+    formik.setValues(rowData);
   };
 
   const renderUpdateDialogTrigger = () => (
-    <div
-      onClick={() => handleUpdate()}
-      className="flex items-center cursor-pointer gap-2 rounded-sm px-2 py-1.5 text-sm transition-colors hover:bg-accent"
-    >
+    <div onClick={() => handleUpdate()} className={triggerClassName}>
       <SquarePen className="w-4 h-4" />
       <span>تعديل</span>
     </div>
@@ -94,27 +89,31 @@ const ProductsForm = ({ rowEditData, setDropdownOpen }) => {
       dialogOpen={dialogOpen}
       setDialogOpen={setDialogOpen}
       dialogTrigger={
-        rowEditData ? renderUpdateDialogTrigger() : renderAddDialogTrigger()
+        rowData ? renderUpdateDialogTrigger() : renderAddDialogTrigger()
       }
       dialogTitle={`${
-        rowEditData ? `تعديل الصنف | ${rowEditData.productName}` : "أضافة صنف"
+        rowData ? `تعديل الصنف | ${rowData.productName}` : "إضافة صنف"
       }`}
-      dialogDescription={`يجب عليك ملء جميع الخانات ${
-        rowEditData ? "لتعديل الصنف" : "لأضافة صنف جديد"
+      dialogDescription={`يجب عليك ملء ${
+        rowData
+          ? "الخانات المراد تعديلها"
+          : "اسم الصنف و الكود اولاً لأضافة صنف جديد"
       }`}
-      actionTitle={rowEditData ? "تعديل" : "أضافة"}
+      actionTitle={rowData ? "تعديل" : "إضافة"}
       handleAction={formik.handleSubmit}
       loadingButton={isLoading}
-      bottomDisabled={!(formik.isValid && formik.dirty) || isLoading}
+      bottomDisabled={isLoading}
     >
       <FormScroll>
-        {productsFormField.map(({ label, id }) => (
+        {productsFormField.map(({ label, key }) => (
           <FormField
-            key={id}
+            key={key}
             labelTitle={label}
-            id={id}
+            messageErrorCondition={formik.errors[key] && formik.touched[key]}
+            messageError={formik.errors[key]}
+            id={key}
             onChange={formik.handleChange}
-            value={formik.values[id]}
+            value={formik.values[key]}
             onBlur={formik.handleBlur}
           />
         ))}

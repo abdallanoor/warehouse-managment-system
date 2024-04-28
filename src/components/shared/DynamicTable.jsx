@@ -6,16 +6,15 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "../ui/badge";
-import ShareDropdown from "./ShareDropdown";
 
-const DynamicTable = ({ headers, data, error, loading, tableAction }) => {
+const DynamicTable = ({ headers, data, error, loading, ActionsComponent }) => {
   const renderTableHeader = () => (
     <TableHeader className="bg-muted dark:bg-muted/50">
       <TableRow>
         {headers.map((header, index) => (
           <TableCell
             className={`${
-              tableAction
+              ActionsComponent
                 ? "border-l"
                 : index === headers.length - 1
                 ? ""
@@ -26,7 +25,9 @@ const DynamicTable = ({ headers, data, error, loading, tableAction }) => {
             {header.label}
           </TableCell>
         ))}
-        {tableAction && <TableCell className="print:hidden">إجراءات</TableCell>}
+        {ActionsComponent && (
+          <TableCell className="print:hidden">إجراءات</TableCell>
+        )}
       </TableRow>
     </TableHeader>
   );
@@ -34,7 +35,7 @@ const DynamicTable = ({ headers, data, error, loading, tableAction }) => {
   const renderLoadingOrEmptyState = () => (
     <TableRow>
       <TableCell className="p-8" colSpan={100}>
-        {loading ? "جاري التحميل..." : "لا تتوفر بيانات"}
+        {loading ? "جاري التحميل..." : "لا يوجد بيانات"}
       </TableCell>
     </TableRow>
   );
@@ -46,7 +47,7 @@ const DynamicTable = ({ headers, data, error, loading, tableAction }) => {
           <TableCell
             key={idx}
             className={`${
-              tableAction
+              ActionsComponent
                 ? "border-l"
                 : idx === headers.length - 1
                 ? ""
@@ -57,16 +58,18 @@ const DynamicTable = ({ headers, data, error, loading, tableAction }) => {
               <Badge variant={item.typeMovement === "شراء" ? "secondary" : ""}>
                 {item[header.key]}
               </Badge>
-            ) : item[header.key] === undefined ? (
+            ) : item[header.key] === null ||
+              item[header.key] === "" ||
+              item[header.key] === undefined ? (
               <span>-</span>
             ) : (
               item[header.key]
             )}
           </TableCell>
         ))}
-        {tableAction && (
+        {ActionsComponent && (
           <TableCell className="p-2 print:hidden">
-            <ShareDropdown rowEditData={item} />
+            <ActionsComponent rowData={item} />
           </TableCell>
         )}
       </TableRow>

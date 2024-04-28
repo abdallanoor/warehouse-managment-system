@@ -11,12 +11,14 @@ import FormField from "../shared/FormField";
 import { useFormik } from "formik";
 import { number, object } from "yup";
 
-export function SelectSoldProduct({ invoiceNumber }) {
+export function SelectSoldProduct() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [productValues, setProductValues] = useState({});
   const { products, refetchProducts, isLoading } = useContext(productsContext);
-  const { refetchSoldPermission } = useContext(soldPermissionContext);
+  const { refetchSoldPermission, invoiceNumber } = useContext(
+    soldPermissionContext
+  );
 
   const handleProductData = async (values) => {
     setLoading(true);
@@ -38,7 +40,7 @@ export function SelectSoldProduct({ invoiceNumber }) {
         if (data.message === "Done") {
           refetchSoldPermission();
           refetchProducts();
-          setDialogOpen(false);
+          // setDialogOpen(false);
           formik.resetForm();
           setProductValues({});
           toast({

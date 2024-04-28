@@ -8,12 +8,14 @@ import Dialog from "../shared/Dialog";
 import { toast } from "../ui/use-toast";
 import { soldPermissionContext } from "@/context/SoldPremissionContext";
 
-const SelectSoldCustomer = ({ invoiceNumber }) => {
+const SelectSoldCustomer = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [customerValues, setCustomerValues] = useState({});
   const [loading, setLoading] = useState(false);
   const { customers, isLoading } = useContext(customersContext);
-  const { refetchsoldPermissionInfo } = useContext(soldPermissionContext);
+  const { refetchsoldPermissionInfo, invoiceNumber } = useContext(
+    soldPermissionContext
+  );
 
   const handleCustomerData = async () => {
     setLoading(true);
@@ -57,7 +59,7 @@ const SelectSoldCustomer = ({ invoiceNumber }) => {
   const renderCustomerTrigger = () => (
     <>
       <Button
-        className="gap-1 max-sm:w-full animate-fadeIn"
+        className="gap-1 max-sm:w-full"
         onClick={() => setDialogOpen(true)}
       >
         <span>اختر العميل</span>

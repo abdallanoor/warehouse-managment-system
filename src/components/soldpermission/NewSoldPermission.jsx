@@ -12,6 +12,9 @@ const NewSoldPermission = () => {
   const { refetchSoldPermission, refetchsoldPermissionInfo } = useContext(
     soldPermissionContext
   );
+  // const { refetchSoldPermission, refetchsoldPermissionInfo } = useContext(
+
+  // );
 
   const handleNewPermission = async () => {
     setLoading(true);

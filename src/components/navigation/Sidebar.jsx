@@ -3,13 +3,13 @@ import { Link, useLocation } from "react-router-dom";
 import { navLinks } from "@/constants";
 import Logo from "../../assets/logo.svg";
 import { ModeToggle } from "../theme/mode-toggle";
-import DialogStateContext from "@/context/DialogStateContext";
+import { userContext } from "@/context/UserContext";
 import Logout from "../authentication/Logout";
 import Login from "../authentication/Login";
 
 const Sidebar = () => {
   const { pathname } = useLocation();
-  const { userToken } = useContext(DialogStateContext);
+  const { userToken } = useContext(userContext);
 
   return (
     <div className="hidden h-screen w-72 p-5 border-l overflow-auto scroll lg:flex">
@@ -34,7 +34,7 @@ const Sidebar = () => {
 
         {userToken && (
           <nav className="mb-auto font-semibold">
-            <ul className="flex flex-col gap-3">
+            <ul className="flex flex-col gap-2">
               {navLinks.map((link, index) => (
                 <li key={index}>
                   <Link

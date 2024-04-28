@@ -7,11 +7,11 @@ import { CircleAlert, CircleUserRound, LockKeyhole } from "lucide-react";
 import { Input } from "../ui/input";
 import Dialog from "../shared/Dialog";
 import { toast } from "../ui/use-toast";
-import DialogStateContext from "@/context/DialogStateContext";
+import { userContext } from "@/context/UserContext";
 import { Button } from "../ui/button";
 
 const Login = ({ setNavOpen }) => {
-  const { setUserToken } = useContext(DialogStateContext);
+  const { setUserToken } = useContext(userContext);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -29,7 +29,6 @@ const Login = ({ setNavOpen }) => {
           localStorage.setItem("userToken", data.token);
           setUserToken(data.token);
           setDialogOpen(false);
-          setNavOpen(false);
           toast({
             title: "مرحباً بعودتك! تم تسجيل الدخول بنجاح.",
             description: "يمكنك الآن استخدام البرنامج.",
@@ -40,10 +39,13 @@ const Login = ({ setNavOpen }) => {
             title: "هناك خطأ! تأكد من صحة اسم المستخدم او كلمة المرور",
           });
         }
+        if (setNavOpen) {
+          setNavOpen(false);
+        }
       })
       .catch((error) => {
         toast({
-          title: `${error.response.data.message}`,
+          title: `${error}`,
         });
       })
       .finally(() => setIsLoading(false));

@@ -10,13 +10,13 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { ModeToggle } from "../theme/mode-toggle";
-import DialogStateContext from "@/context/DialogStateContext";
+import { userContext } from "@/context/UserContext";
 import Logout from "../authentication/Logout";
 import Login from "../authentication/Login";
 
 const MobileNav = () => {
   const { pathname } = useLocation();
-  const { userToken } = useContext(DialogStateContext);
+  const { userToken } = useContext(userContext);
   const [navOpen, setNavOpen] = useState(false);
 
   return (

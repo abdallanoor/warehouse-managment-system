@@ -6,6 +6,7 @@ import {
   Home,
   Package2,
   User,
+  Users,
 } from "lucide-react";
 import { object, string, number } from "yup";
 
@@ -22,14 +23,19 @@ export const navLinks = [
     icon: Package2,
   },
   {
+    label: "العملاء",
+    route: "/customers",
+    icon: Users,
+  },
+  {
+    label: "الموردين",
+    route: "/vendors",
+    icon: User,
+  },
+  {
     label: "حركة الاصناف",
     route: "/movements",
     icon: ArrowRightLeft,
-  },
-  {
-    label: "العملاء",
-    route: "/customers",
-    icon: User,
   },
   {
     label: "إذن صرف",
@@ -51,13 +57,14 @@ export const navLinks = [
 // Table Data
 export const productsHeader = [
   { label: "اسم الصنف", key: "productName" },
-  { label: "كود الصنف", key: "productCode" },
-  { label: "السيريال", key: "productPartNumber" },
-  { label: "الماركة", key: "productType" },
+  { label: "الكود", key: "productBarCode" },
+  { label: "الماركة", key: "productModel" },
   { label: "بلد المنشـأ	", key: "productCountry" },
+  { label: "الحجم", key: "productSize" },
   { label: "الموقع", key: "productLocation" },
   { label: "العدد", key: "productCount" },
-  { label: "سعـر الوحده", key: "productPriceSell" },
+  { label: "اللون", key: "productColor" },
+  { label: "السعر", key: "productPrice" },
 ];
 
 export const customersHeader = [
@@ -69,12 +76,11 @@ export const customersHeader = [
 
 export const movementsHeader = [
   { label: "اسم الصنف", key: "productName" },
-  { label: "كود الصنف", key: "productCode" },
   { label: "حركـة الصـنف", key: "typeMovement" },
-  { label: "السيريال", key: "productPartNumber" },
+  { label: "الكود", key: "productPartNumber" },
   { label: "الماركة", key: "productType" },
   { label: "العدد", key: "productCount" },
-  { label: "سعـر الوحده", key: "productPriceSell" },
+  { label: "السعر", key: "productPriceSell" },
   { label: "العميل", key: "productSeller" },
   { label: "التاريخ", key: "date" },
 ];
@@ -82,7 +88,7 @@ export const movementsHeader = [
 export const soldPermissionHeader = [
   { label: "اسم الصنف", key: "productName" },
   { label: "كود الصنف", key: "productCode" },
-  { label: "السيريال", key: "productPartNumber" },
+  { label: "الكود", key: "productPartNumber" },
   { label: "الماركة", key: "productType" },
   { label: "بلد المنشـأ	", key: "productCountry" },
   { label: "العدد", key: "productCount" },
@@ -91,54 +97,65 @@ export const soldPermissionHeader = [
 
 // Form Fields Data
 export const productsFormField = [
-  { label: "اسم الصنف", id: "productName" },
-  { label: "السيريال", id: "productPartNumber" },
-  { label: "الماركة", id: "productType" },
-  { label: "بلد المنشـأ", id: "productCountry" },
-  { label: "المكان", id: "productLocation" },
-  { label: "العدد", id: "productCount" },
-  { label: "سعر الوحده", id: "productPriceSell" },
+  { label: "اسم الصنف", key: "productName" },
+  { label: "الكود", key: "productBarCode" },
+  { label: "الماركة", key: "productModel" },
+  { label: "بلد المنشـأ", key: "productCountry" },
+  { label: "المكان", key: "productLocation" },
+  { label: "العدد", key: "productCount" },
+  { label: "اللون", key: "productColor" },
+  { label: "الحجم", key: "productSize" },
+  { label: "السعر", key: "productPrice" },
+  { label: "حد الطلب", key: "requestLimit" },
+  { label: "حد المخاطر", key: "riskLimit" },
+  { label: "ملاحظات", key: "notes" },
 ];
 
 export const customersFormField = [
-  { label: "اسم العميل", id: "customerName" },
-  { label: "رقم الهاتف", id: "customerNumber" },
-  { label: "عنوان العميل", id: "customerAddress" },
-  { label: "كود العميل", id: "customerCode" },
+  { label: "اسم العميل", key: "customerName" },
+  { label: "رقم الهاتف", key: "customerNumber" },
+  { label: "عنوان العميل", key: "customerAddress" },
 ];
 
 // Formik Validation Schema
 export const productsSchema = object({
   productName: string().required("يجب إدخال اسم الصنف"),
-  productPartNumber: string().required("يجب إدخال السيريال"),
-  productType: string().required("يجب إدخال الماركة"),
-  productCount: number().required("يجب إدخال العدد"),
-  productLocation: string().required("يجب إدخال مكان الصنف"),
-  productPriceSell: number().required("يجب إدخال السعر"),
-  productCountry: string().required("يجب إدخال بلد المنشـأ"),
+  productBarCode: string().required("يجب إدخال الكود"),
+  productModel: string(),
+  productCount: number().typeError("يجب إدخال ارقام فقط").nullable(),
+  productLocation: string(),
+  productPrice: number().typeError("يجب إدخال ارقام فقط").nullable(),
+  productCountry: string(),
+  productColor: string(),
+  productSize: number().typeError("يجب إدخال ارقام فقط").nullable(),
+  requestLimit: number().typeError("يجب إدخال ارقام فقط").nullable(),
+  riskLimit: number().typeError("يجب إدخال ارقام فقط").nullable(),
+  notes: string(),
 });
 
 export const customersSchema = object({
-  customerCode: number().required("يجب إدخال كود العميل"),
   customerName: string().required("يجب إدخال اسم العميل"),
-  customerNumber: number().required("يجب إدخال رقم الهاتف"),
-  customerAddress: string().required("يجب إدخال عنوان العميل"),
+  customerNumber: number().typeError("يجب إدخال ارقام فقط").nullable(),
+  customerAddress: string(),
 });
 
 // Formik Initial Values
 export const productsInitialValues = {
   productName: "",
-  productPartNumber: "",
-  productType: "",
+  productBarCode: "",
+  productModel: "",
   productCount: "",
   productLocation: "",
-  productPriceSell: "",
+  productPrice: "",
   productCountry: "",
-  date: new Date().toLocaleDateString("en-GB"),
+  productColor: "",
+  productSize: "",
+  requestLimit: "",
+  riskLimit: "",
+  notes: "",
 };
 
 export const customersInitialValues = {
-  customerCode: "",
   customerName: "",
   customerNumber: "",
   customerAddress: "",

@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "./context/theme-provider";
-import { DialogStateProvider } from "./context/DialogStateContext";
+import UserContextProvider from "./context/UserContext";
 import ProductsContextProvider from "./context/ProductsContext";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
@@ -21,6 +21,8 @@ import ProductDetails from "./components/products/ProductDetails";
 import CustomersContextProvider from "./context/CustomersContext";
 import MovementsContextProvider from "./context/MovmentsContext";
 import SoldPermissionContextProvider from "./context/SoldPremissionContext";
+import Vendors from "./pages/Vendors";
+import CustomerDetails from "./components/customers/CustomerDetails";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +66,22 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/customers/:id",
+        element: (
+          <ProtectedRoute>
+            <CustomerDetails />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/vendors",
+        element: (
+          <ProtectedRoute>
+            <Vendors />
+          </ProtectedRoute>
+        ),
+      },
+      {
         path: "/sold-permission",
         element: (
           <ProtectedRoute>
@@ -97,7 +115,7 @@ const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")).render(
   <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
     <QueryClientProvider client={queryClient}>
-      <DialogStateProvider>
+      <UserContextProvider>
         <ProductsContextProvider>
           <CustomersContextProvider>
             <MovementsContextProvider>
@@ -108,7 +126,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             </MovementsContextProvider>
           </CustomersContextProvider>
         </ProductsContextProvider>
-      </DialogStateProvider>
+      </UserContextProvider>
     </QueryClientProvider>
   </ThemeProvider>
 );

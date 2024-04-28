@@ -1,12 +1,12 @@
 import { createContext, useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import DialogStateContext from "./DialogStateContext";
+import { userContext } from "./UserContext";
 
 export const movementsContext = createContext();
 
 const MovementsContextProvider = ({ children }) => {
-  const { userToken } = useContext(DialogStateContext);
+  const { userToken } = useContext(userContext);
 
   // fetch Movements
   function getMovements() {

@@ -26,12 +26,13 @@ const ProductDetails = () => {
     documentTitle: `حركة الصنف - ${productName?.productName || "غير موجود"}`,
     onPrintError: () => alert("there is an error when printing"),
   });
-
   return (
     <section ref={componentRef} className="print:m-8">
-      <Heading>{`حركة الصنف - ${
-        productName?.productName || "غير موجود"
-      }`}</Heading>
+      <Heading>
+        {isLoading
+          ? `حركه الصنف - جاري التحميل`
+          : `حركة الصنف - ${productName?.productName || "لا يوجد"}`}
+      </Heading>
 
       <Button onClick={handlePrint} className="mb-4 flex mr-auto print:hidden">
         <span>طباعه</span>
@@ -42,7 +43,7 @@ const ProductDetails = () => {
         headers={movementsHeader}
         error={isError}
         loading={isLoading}
-        data={productDetailsData}
+        data={productDetailsData || []}
       />
     </section>
   );

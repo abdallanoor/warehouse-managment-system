@@ -6,7 +6,7 @@ import { toast } from "../ui/use-toast";
 import Dialog from "../shared/Dialog";
 import FormField from "../shared/FormField";
 import FormScroll from "../shared/FormScroll";
-import { UserPlus } from "lucide-react";
+import { SquarePen, UserPlus } from "lucide-react";
 import { customersContext } from "@/context/CustomersContext";
 import { Button } from "../ui/button";
 import {
@@ -15,44 +15,43 @@ import {
   customersSchema,
 } from "@/constants";
 
-const CustomersForm = () => {
+const CustomersForm = ({ rowData, setDropdownOpen, triggerClassName }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const { refetchCustomers } = useContext(customersContext);
 
   const onSubmit = async (values) => {
+    const method = isEditing ? axios.put : axios.post;
+
     setIsLoading(true);
-    axios
-      .post(`${import.meta.env.VITE_API_URL}/api/customers/`, values, {
-        headers: {
-          authorization: `Warhouse ${localStorage.getItem("userToken")}`,
-        },
-      })
+    method(`${import.meta.env.VITE_API_URL}/api/customers/`, values, {
+      headers: {
+        authorization: `Warhouse ${localStorage.getItem("userToken")}`,
+      },
+    })
       .then(({ data }) => {
         if (data.message === "Done") {
           setDialogOpen(false);
+          if (isEditing) {
+            setDropdownOpen(false);
+          }
           refetchCustomers();
+          const actionMessage = isEditing ? "تم تعديل" : "تم إضافة";
           toast({
-            title: `تم إضافة العميل ${formik.values.customerName} بنجاح`,
+            title: `${actionMessage} ${formik.values.customerName} بنجاح`,
           });
           formik.resetForm();
-        }
-        if (data.message === "customer is aleardy exist") {
+        } else {
           toast({
             variant: "destructive",
-            title: "العميل موجود بالفعل!",
-          });
-        }
-        if (data.message === "Code is exist") {
-          toast({
-            variant: "destructive",
-            title: "كود العميل موجود بالفعل! يرجي ادخال كود آخر",
+            title: "هناك خطأ!",
           });
         }
       })
       .catch((error) => {
         toast({
-          title: `${error.response.data.message}`,
+          title: `${error}`,
         });
       })
       .finally(() => setIsLoading(false));
@@ -64,14 +63,25 @@ const CustomersForm = () => {
     validationSchema: customersSchema,
   });
 
-  const renderDialogTrigger = () => (
-    <Button
-      className="w-full active:scale-95 transition-transform"
-      onClick={() => setDialogOpen(true)}
-    >
+  //adding
+  const renderAddDialogTrigger = () => (
+    <Button className="w-full" onClick={() => setDialogOpen(true)}>
       <span>إضافة عميل</span>
       <UserPlus className="mr-1 w-4 h-4" />
     </Button>
+  );
+  //editing
+  const handleUpdate = () => {
+    setIsEditing(true);
+    setDialogOpen(true);
+    formik.setValues(rowData);
+  };
+
+  const renderUpdateDialogTrigger = () => (
+    <div onClick={() => handleUpdate()} className={triggerClassName}>
+      <SquarePen className="w-4 h-4" />
+      <span>تعديل</span>
+    </div>
   );
 
   return (
@@ -79,22 +89,32 @@ const CustomersForm = () => {
       <Dialog
         dialogOpen={dialogOpen}
         setDialogOpen={setDialogOpen}
-        dialogTrigger={renderDialogTrigger()}
-        dialogTitle="أضافة عميل"
-        dialogDescription="يجب عليك ملء جميع الخانات لأضافة عميل جديد"
-        actionTitle="أضافة"
+        dialogTrigger={
+          rowData ? renderUpdateDialogTrigger() : renderAddDialogTrigger()
+        }
+        dialogTitle={`${
+          rowData ? `تعديل العميل | ${rowData.customerName}` : "إضافة عميل"
+        }`}
+        dialogDescription={`يجب عليك ملء ${
+          rowData
+            ? "الخانات المراد تعديلها"
+            : "اسم العميل اولاً لإضافة عميل جديد"
+        }`}
+        actionTitle={rowData ? "تعديل" : "إضافة"}
         handleAction={formik.handleSubmit}
         loadingButton={isLoading}
-        bottomDisabled={!(formik.isValid && formik.dirty) || isLoading}
+        bottomDisabled={isLoading}
       >
         <FormScroll>
-          {customersFormField.map(({ label, id }) => (
+          {customersFormField.map(({ label, key }) => (
             <FormField
-              key={id}
+              key={key}
               labelTitle={label}
-              id={id}
+              messageErrorCondition={formik.errors[key] && formik.touched[key]}
+              messageError={formik.errors[key]}
+              id={key}
               onChange={formik.handleChange}
-              value={formik.values[id]}
+              value={formik.values[key]}
               onBlur={formik.handleBlur}
             />
           ))}

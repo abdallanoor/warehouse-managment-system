@@ -1,13 +1,13 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Dialog from "../shared/Dialog";
-import DialogStateContext from "@/context/DialogStateContext";
+import { userContext } from "@/context/UserContext";
 import { toast } from "../ui/use-toast";
 import { Button } from "../ui/button";
 import { LogOut } from "lucide-react";
 
 const Logout = ({ setNavOpen }) => {
-  const { setUserToken } = useContext(DialogStateContext);
+  const { setUserToken } = useContext(userContext);
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -16,12 +16,14 @@ const Logout = ({ setNavOpen }) => {
     localStorage.removeItem("userToken");
     setUserToken(null);
     setDialogOpen(false);
-    setNavOpen(false);
     navigate("/");
     toast({
       title: "تم تسجيل الخروج بنجاح.",
       description: "لقد تم تسجيل الخروج من حسابك.",
     });
+    if (setNavOpen) {
+      setNavOpen(false);
+    }
   };
 
   const renderDialogTrigger = () => (
@@ -41,6 +43,7 @@ const Logout = ({ setNavOpen }) => {
       setDialogOpen={setDialogOpen}
       dialogTrigger={renderDialogTrigger()}
       alert
+      destructive
       dialogTitle="تسجيل الخروج"
       dialogDescription="سيتم تسجيل خروجك من البرنامج."
       actionTitle="تسجيل الخروج"

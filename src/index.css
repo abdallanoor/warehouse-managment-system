@@ -10,7 +10,7 @@ body{
 }
 
 .scroll::-webkit-scrollbar {
-  @apply bg-transparent w-[6px] rounded-lg ;
+  @apply bg-transparent w-[8px] rounded-lg ;
 }
 
 .scroll::-webkit-scrollbar-track {
@@ -131,6 +131,8 @@ input[type="search"]::-webkit-search-cancel-button {
  
   .dark {
     --background: 240 10% 3.9%;
+    /* --background: 240 3% 8%; */
+
     --foreground: 0 0% 98%;
  
     --card: 240 10% 3.9%;

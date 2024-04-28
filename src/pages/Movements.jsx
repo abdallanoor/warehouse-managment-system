@@ -28,7 +28,7 @@ const Movements = () => {
         headers={movementsHeader}
         error={isError}
         loading={isLoading}
-        data={filteredMovements?.reverse()}
+        data={filteredMovements?.reverse() || []}
       />
     </>
   );

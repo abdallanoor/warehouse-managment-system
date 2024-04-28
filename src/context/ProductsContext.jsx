@@ -1,12 +1,12 @@
 import { createContext, useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import DialogStateContext from "./DialogStateContext";
+import { userContext } from "./UserContext";
 
 export const productsContext = createContext();
 
 const ProductsContextProvider = ({ children }) => {
-  const { userToken } = useContext(DialogStateContext);
+  const { userToken } = useContext(userContext);
 
   // fetch all products
   function getProducts() {

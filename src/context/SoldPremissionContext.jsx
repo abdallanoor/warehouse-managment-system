@@ -1,12 +1,12 @@
 import { createContext, useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import DialogStateContext from "./DialogStateContext";
+import { userContext } from "./UserContext";
 
 export const soldPermissionContext = createContext();
 
 const SoldPermissionContextProvider = ({ children }) => {
-  const { userToken } = useContext(DialogStateContext);
+  const { userToken } = useContext(userContext);
 
   // fetch getSoldPermission
   function getSoldPermission() {
@@ -65,6 +65,8 @@ const SoldPermissionContextProvider = ({ children }) => {
     queryFn: getAllSoldPermission,
     enabled: !!userToken,
   });
+  const invoiceNumber =
+    (allSoldPermissions?.data?.allSoldPermissionInfo?.length || 0) + 1;
 
   const {
     data: soldPermissionInfo,
@@ -90,6 +92,7 @@ const SoldPermissionContextProvider = ({ children }) => {
         allSoldPermissionsError,
         soldPermissionInfo,
         refetchsoldPermissionInfo,
+        invoiceNumber,
       }}
     >
       {children}

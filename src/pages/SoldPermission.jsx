@@ -12,28 +12,23 @@ import { soldPermissionContext } from "@/context/SoldPremissionContext";
 import { Printer } from "lucide-react";
 
 const SoldPermission = () => {
-  const {
-    soldPermissions,
-    isLoading,
-    isError,
-    allSoldPermissions,
-    soldPermissionInfo,
-  } = useContext(soldPermissionContext);
+  const { soldPermissions, isLoading, isError, soldPermissionInfo } =
+    useContext(soldPermissionContext);
   const [slodSaved, setSlodSaved] = useState(null);
   const componentRef = useRef();
   const [permissionInfo, setPermissionInfo] = useState([]);
-  const invoiceNumber =
-    (allSoldPermissions?.data?.allSoldPermissionInfo?.length || 0) + 1;
 
   useEffect(() => {
     setPermissionInfo(soldPermissionInfo?.data?.Info?.[0] || "");
   }, [soldPermissionInfo]);
 
+  const localStorageSavedValue = localStorage.getItem("slodSaved");
+
   useEffect(() => {
-    if (localStorage.getItem("slodSaved")) {
-      setSlodSaved(localStorage.getItem("slodSaved"));
+    if (localStorageSavedValue) {
+      setSlodSaved(localStorageSavedValue);
     }
-  }, [localStorage.getItem("slodSaved")]);
+  }, [localStorageSavedValue]);
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -45,7 +40,7 @@ const SoldPermission = () => {
 
   const renderSoldPermissionActions = () => {
     if (!permissionInfo) {
-      return <SelectSoldCustomer invoiceNumber={invoiceNumber} />;
+      return <SelectSoldCustomer />;
     } else if (slodSaved === "true") {
       return (
         <>
@@ -60,7 +55,7 @@ const SoldPermission = () => {
       const productsExist = soldPermissions?.data?.products?.length > 0;
       return (
         <>
-          <SelectSoldProduct invoiceNumber={invoiceNumber} />
+          <SelectSoldProduct />
           {productsExist && <SaveSoldPermission setSlodSaved={setSlodSaved} />}
           <NewSoldPermission />
         </>
@@ -75,7 +70,7 @@ const SoldPermission = () => {
         <Heading className="hidden print:block">إذن إستلام</Heading>
         <div className="flex flex-col gap-4">
           <div className="flex justify-between gap-4 items-center max-md:flex-col max-sm:items-center print:items-start">
-            <p className="animate-fadeIn font-semibold">
+            <p className="font-semibold">
               {permissionInfo
                 ? `اسم العميل : ${permissionInfo?.customerName}`
                 : "الرجاء اختيار العميل"}
