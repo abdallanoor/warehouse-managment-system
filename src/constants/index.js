@@ -38,7 +38,7 @@ export const navLinks = [
     icon: ArrowRightLeft,
   },
   {
-    label: "إذن صرف",
+    label: "إذن بيع",
     route: "/sold-permission",
     icon: FileOutputIcon,
   },
@@ -48,7 +48,7 @@ export const navLinks = [
     icon: FilePlus2,
   },
   {
-    label: "فواتير الصرف",
+    label: "فواتير البيع",
     route: "/bills",
     icon: FileTextIcon,
   },
@@ -74,25 +74,40 @@ export const customersHeader = [
   { label: "عنوان العميل", key: "customerAddress" },
 ];
 
+export const vendorsHeader = [
+  { label: "اسم المورد", key: "vendorName" },
+  { label: "كود المورد", key: "vendorCode" },
+  { label: "رقم الهاتف", key: "vendorNumber" },
+  { label: "عنوان المورد", key: "vendorAddress" },
+];
+
 export const movementsHeader = [
   { label: "اسم الصنف", key: "productName" },
   { label: "حركـة الصـنف", key: "typeMovement" },
-  { label: "الكود", key: "productPartNumber" },
-  { label: "الماركة", key: "productType" },
+  { label: "الكود", key: "productBarCode" },
+  { label: "الماركة", key: "productModel" },
   { label: "العدد", key: "productCount" },
-  { label: "السعر", key: "productPriceSell" },
-  { label: "العميل", key: "productSeller" },
+  { label: "السعر", key: "productPrice" },
+  { label: "العميل", key: "seller" },
   { label: "التاريخ", key: "date" },
 ];
 
 export const soldPermissionHeader = [
   { label: "اسم الصنف", key: "productName" },
-  { label: "كود الصنف", key: "productCode" },
-  { label: "الكود", key: "productPartNumber" },
-  { label: "الماركة", key: "productType" },
-  { label: "بلد المنشـأ	", key: "productCountry" },
+  { label: "الكود", key: "productBarCode" },
+  { label: "الماركة", key: "productModel" },
   { label: "العدد", key: "productCount" },
-  { label: "سعـر الوحده", key: "productPriceSell" },
+  { label: "سعـر الوحده", key: "productPrice" },
+  { label: "الاجمالي", key: "totalPrice" },
+];
+
+export const addPermissionHeader = [
+  { label: "اسم الصنف", key: "productName" },
+  { label: "الكود", key: "productBarCode" },
+  { label: "الماركة", key: "productModel" },
+  { label: "العدد", key: "productCount" },
+  { label: "سعـر الوحده", key: "productPrice" },
+  { label: "الاجمالي", key: "totalPrice" },
 ];
 
 // Form Fields Data
@@ -117,6 +132,12 @@ export const customersFormField = [
   { label: "عنوان العميل", key: "customerAddress" },
 ];
 
+export const vendorsFormField = [
+  { label: "اسم المورد", key: "vendorName" },
+  { label: "رقم الهاتف", key: "vendorNumber" },
+  { label: "عنوان المورد", key: "vendorAddress" },
+];
+
 // Formik Validation Schema
 export const productsSchema = object({
   productName: string().required("يجب إدخال اسم الصنف"),
@@ -139,6 +160,12 @@ export const customersSchema = object({
   customerAddress: string(),
 });
 
+export const vendorsSchema = object({
+  vendorName: string().required("يجب إدخال اسم المورد"),
+  vendorNumber: number().typeError("يجب إدخال ارقام فقط").nullable(),
+  vendorAddress: string(),
+});
+
 // Formik Initial Values
 export const productsInitialValues = {
   productName: "",
@@ -159,4 +186,10 @@ export const customersInitialValues = {
   customerName: "",
   customerNumber: "",
   customerAddress: "",
+};
+
+export const vendorsInitialValues = {
+  vendorName: "",
+  vendorNumber: "",
+  vendorAddress: "",
 };

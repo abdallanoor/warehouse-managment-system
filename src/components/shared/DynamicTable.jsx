@@ -7,7 +7,14 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "../ui/badge";
 
-const DynamicTable = ({ headers, data, error, loading, ActionsComponent }) => {
+const DynamicTable = ({
+  headers,
+  data,
+  error,
+  loading,
+  ActionsComponent,
+  ActionsComponentProps,
+}) => {
   const renderTableHeader = () => (
     <TableHeader className="bg-muted dark:bg-muted/50">
       <TableRow>
@@ -69,7 +76,10 @@ const DynamicTable = ({ headers, data, error, loading, ActionsComponent }) => {
         ))}
         {ActionsComponent && (
           <TableCell className="p-2 print:hidden">
-            <ActionsComponent rowData={item} />
+            <ActionsComponent
+              rowData={item}
+              ActionsComponentProps={ActionsComponentProps}
+            />
           </TableCell>
         )}
       </TableRow>

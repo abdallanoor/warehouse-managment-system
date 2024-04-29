@@ -15,7 +15,7 @@ const ProductsActions = ({ rowData }) => {
   const { refetchProducts } = useContext(productsContext);
 
   const triggerClassName =
-    "flex gap-2 cursor-pointer items-center rounded-sm px-2 py-1.5 text-sm transition-colors hover:bg-accent";
+    "flex gap-1 cursor-pointer items-center rounded-sm px-2 py-1.5 text-sm transition-colors hover:bg-accent";
 
   const renderDeleteDialogTrigger = () => {
     return (

@@ -8,7 +8,7 @@ const Bills = () => {
   // console.log(allSoldPermissions?.data?.allSoldPermissionInfo);
   return (
     <>
-      <Heading>فواتير الصرف</Heading>
+      <Heading>فواتير البيع</Heading>
 
       <DynamicTable />
     </>

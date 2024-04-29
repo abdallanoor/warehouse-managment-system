@@ -30,6 +30,7 @@ const ProductsForm = ({ rowData, setDropdownOpen, triggerClassName }) => {
       },
     })
       .then(({ data }) => {
+        console.log(data);
         if (data.message === "Done") {
           setDialogOpen(false);
           if (isEditing) {
@@ -100,7 +101,7 @@ const ProductsForm = ({ rowData, setDropdownOpen, triggerClassName }) => {
           : "اسم الصنف و الكود اولاً لأضافة صنف جديد"
       }`}
       actionTitle={rowData ? "تعديل" : "إضافة"}
-      handleAction={formik.handleSubmit}
+      handleForm={formik.handleSubmit}
       loadingButton={isLoading}
       bottomDisabled={isLoading}
     >

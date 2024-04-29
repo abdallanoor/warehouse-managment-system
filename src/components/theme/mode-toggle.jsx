@@ -22,10 +22,7 @@ export function ModeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem
-          // className="flex items-center gap-2"
-          onClick={() => setTheme("light")}
-        >
+        <DropdownMenuItem onClick={() => setTheme("light")}>
           <Sun className="ml-2 w-4 h-4" />
           فاتح
         </DropdownMenuItem>

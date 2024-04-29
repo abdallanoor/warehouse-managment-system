@@ -1,18 +1,18 @@
 import { useContext, useState } from "react";
 import Dialog from "../shared/Dialog";
-import { customersContext } from "@/context/CustomersContext";
+import { vendorsContext } from "@/context/VendorsContext";
 import { SquareArrowOutUpRight, Trash2 } from "lucide-react";
 import axios from "axios";
 import { toast } from "../ui/use-toast";
 import ActionsDropdown from "../shared/ActionsDropdown";
 import { Link } from "react-router-dom";
-import CustomersForm from "./CustomersForm";
+import VendorsForm from "./VendorsForm";
 
-const CustomersActions = ({ rowData }) => {
+const VendorsActions = ({ rowData }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { refetchCustomers } = useContext(customersContext);
+  const { refetchVendors } = useContext(vendorsContext);
 
   const triggerClassName =
     "flex gap-1 cursor-pointer items-center rounded-sm px-2 py-1.5 text-sm transition-colors hover:bg-accent";
@@ -26,22 +26,23 @@ const CustomersActions = ({ rowData }) => {
     );
   };
 
-  const renderDeleteCustomerAction = async () => {
+  const renderDeleteVendorAction = async () => {
     setIsLoading(true);
     await axios
-      .delete(`${import.meta.env.VITE_API_URL}/api/customers/${rowData._id}`, {
+      .delete(`${import.meta.env.VITE_API_URL}/api/vendors/${rowData._id}`, {
         headers: {
           authorization: `Warhouse ${localStorage.getItem("userToken")}`,
         },
       })
       .then(({ data }) => {
+        console.log(data);
         if (data?.message === "Done") {
           setIsLoading(false);
-          refetchCustomers();
+          refetchVendors();
           setDialogOpen(false);
           setDropdownOpen(false);
           toast({
-            title: `تم حذف العميل بنجاح`,
+            title: `تم حذف المورد بنجاح`,
           });
         } else {
           toast({
@@ -61,10 +62,10 @@ const CustomersActions = ({ rowData }) => {
       });
   };
 
-  const renderCustomerDetails = () => (
+  const renderVendorDetails = () => (
     <Link to={rowData._id} className={triggerClassName}>
       <SquareArrowOutUpRight className="w-4 h-4" />
-      <span>حركة العميل</span>
+      <span>حركة المورد</span>
     </Link>
   );
 
@@ -73,7 +74,7 @@ const CustomersActions = ({ rowData }) => {
       setDropdownOpen={setDropdownOpen}
       dropdownOpen={dropdownOpen}
     >
-      <CustomersForm
+      <VendorsForm
         rowData={rowData}
         setDropdownOpen={setDropdownOpen}
         triggerClassName={triggerClassName}
@@ -83,16 +84,16 @@ const CustomersActions = ({ rowData }) => {
         setDialogOpen={setDialogOpen}
         dialogTrigger={renderDeleteDialogTrigger()}
         destructive
-        dialogTitle="حذف العميل"
-        dialogDescription="هل انت متاكد؟ سيتم حذف العميل نهائياً"
-        actionTitle="حذف العميل"
-        handleAction={renderDeleteCustomerAction}
+        dialogTitle="حذف المورد"
+        dialogDescription="هل انت متاكد؟ سيتم حذف المورد نهائياً"
+        actionTitle="حذف المورد"
+        handleAction={renderDeleteVendorAction}
         loadingButton={isLoading}
         bottomDisabled={isLoading}
       />
-      {renderCustomerDetails()}
+      {renderVendorDetails()}
     </ActionsDropdown>
   );
 };
 
-export default CustomersActions;
+export default VendorsActions;

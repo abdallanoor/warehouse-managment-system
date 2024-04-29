@@ -13,6 +13,7 @@ import { ModeToggle } from "../theme/mode-toggle";
 import { userContext } from "@/context/UserContext";
 import Logout from "../authentication/Logout";
 import Login from "../authentication/Login";
+import { Button } from "../ui/button";
 
 const MobileNav = () => {
   const { pathname } = useLocation();
@@ -22,8 +23,14 @@ const MobileNav = () => {
   return (
     <div className="flex items-center justify-between fixed z-10 h-16 w-full border-b p-5 bg-background/80 backdrop-blur lg:hidden">
       <Sheet open={navOpen} onOpenChange={setNavOpen}>
-        <SheetTrigger>
-          <Menu className="w-7 h-7 transition-colors active:text-muted-foreground" />
+        <SheetTrigger asChild>
+          <Button
+            className="active:text-muted-foreground"
+            variant="ghost"
+            size="icon"
+          >
+            <Menu className="w-6 h-6 transition-colors " />
+          </Button>
         </SheetTrigger>
         <SheetContent className="sm:w-80 overflow-auto">
           <div className="flex size-full flex-col gap-6">
@@ -31,8 +38,8 @@ const MobileNav = () => {
               <Link className="outline-0" to="/">
                 <SheetClose>إدارة المخزن</SheetClose>
               </Link>
-              <SheetClose className="flex h-8 w-8 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors dark:border-neutral-700 dark:text-white focus-visible:outline-none">
-                <X className="h-4 w-4" />
+              <SheetClose className="flex h-8 w-8 items-center justify-center rounded-md border opacity-70 hover:opacity-100 transition-opacity">
+                <X className="h-4 w-4 " />
                 <span className="sr-only">Close</span>
               </SheetClose>
             </div>

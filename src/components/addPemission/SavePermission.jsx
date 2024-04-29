@@ -6,7 +6,7 @@ import { Save } from "lucide-react";
 import { useContext, useState } from "react";
 import { movementsContext } from "@/context/MovmentsContext";
 
-const SaveSoldPermission = ({ setSlodSaved }) => {
+const SavePermission = ({ setAddSaved, productsData, vendorData }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const { refetchMovements } = useContext(movementsContext);
@@ -15,8 +15,8 @@ const SaveSoldPermission = ({ setSlodSaved }) => {
     setLoading(true);
     await axios
       .post(
-        `${import.meta.env.VITE_API_URL}/api/soldpermission/finalAddPermission`,
-        {},
+        `${import.meta.env.VITE_API_URL}/api/purchasedProducts/finalConfirm`,
+        { products: productsData, vendorData: vendorData },
         {
           headers: {
             authorization: `Warhouse ${localStorage.getItem("userToken")}`,
@@ -24,9 +24,10 @@ const SaveSoldPermission = ({ setSlodSaved }) => {
         }
       )
       .then(({ data }) => {
+        console.log(data);
         if (data.message === "Done") {
           localStorage.setItem("slodSaved", true);
-          setSlodSaved(true);
+          setAddSaved(true);
           setDialogOpen(false);
           refetchMovements();
           toast({
@@ -49,7 +50,7 @@ const SaveSoldPermission = ({ setSlodSaved }) => {
       })
       .catch((error) => {
         toast({
-          title: `${error.response.data.message}`,
+          title: `${error}`,
         });
       })
       .finally(() => setLoading(false));
@@ -60,6 +61,7 @@ const SaveSoldPermission = ({ setSlodSaved }) => {
       <Button
         className="gap-1 max-sm:w-full animate-fadeIn"
         onClick={() => setDialogOpen(true)}
+        disabled={productsData.length === 0}
       >
         <span>حفظ</span>
         <Save className="w-4 h-4" />
@@ -82,4 +84,4 @@ const SaveSoldPermission = ({ setSlodSaved }) => {
   );
 };
 
-export default SaveSoldPermission;
+export default SavePermission;

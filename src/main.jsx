@@ -23,6 +23,8 @@ import MovementsContextProvider from "./context/MovmentsContext";
 import SoldPermissionContextProvider from "./context/SoldPremissionContext";
 import Vendors from "./pages/Vendors";
 import CustomerDetails from "./components/customers/CustomerDetails";
+import VendorsContextProvider from "./context/VendorsContext";
+import VendorDetails from "./components/vendors/VendorDetails";
 
 const router = createBrowserRouter([
   {
@@ -82,6 +84,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/vendors/:id",
+        element: (
+          <ProtectedRoute>
+            <VendorDetails />
+          </ProtectedRoute>
+        ),
+      },
+      {
         path: "/sold-permission",
         element: (
           <ProtectedRoute>
@@ -118,12 +128,17 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <UserContextProvider>
         <ProductsContextProvider>
           <CustomersContextProvider>
-            <MovementsContextProvider>
-              <SoldPermissionContextProvider>
-                <RouterProvider router={router} />
-                <ReactQueryDevtools initialIsOpen={false} />
-              </SoldPermissionContextProvider>
-            </MovementsContextProvider>
+            <VendorsContextProvider>
+              <MovementsContextProvider>
+                <SoldPermissionContextProvider>
+                  <RouterProvider router={router} />
+                  <ReactQueryDevtools
+                    initialIsOpen={false}
+                    buttonPosition="bottom-left"
+                  />
+                </SoldPermissionContextProvider>
+              </MovementsContextProvider>
+            </VendorsContextProvider>
           </CustomersContextProvider>
         </ProductsContextProvider>
       </UserContextProvider>

@@ -37,7 +37,7 @@ const NewSoldPermission = () => {
           refetchsoldPermissionInfo();
           setDialogOpen(false);
           toast({
-            title: "يمكنك الان إضافة إذن صرف جديد",
+            title: "يمكنك الان إضافة إذن بيع جديد",
           });
         } else {
           toast({
@@ -60,7 +60,7 @@ const NewSoldPermission = () => {
         className="gap-1 max-sm:w-full animate-fadeIn"
         onClick={() => setDialogOpen(true)}
       >
-        <span>إذن صرف جديد</span>
+        <span>إذن بيع جديد</span>
         <FilePlus2 className="w-4 h-4" />
       </Button>
     </>
@@ -68,12 +68,11 @@ const NewSoldPermission = () => {
 
   return (
     <Dialog
-      alert
       dialogTrigger={renderNewPermissionTrigger()}
       dialogOpen={dialogOpen}
       setDialogOpen={setDialogOpen}
-      dialogTitle="إضافه إذن صرف جديد"
-      dialogDescription="يرجي التأكيد لإضافة إذن صرف جديد"
+      dialogTitle="إضافه إذن بيع جديد"
+      dialogDescription="يرجي التأكيد لإضافة إذن بيع جديد"
       actionTitle="تأكيد"
       handleAction={handleNewPermission}
       bottomDisabled={loading}

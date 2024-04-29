@@ -42,7 +42,6 @@ const Logout = ({ setNavOpen }) => {
       dialogOpen={dialogOpen}
       setDialogOpen={setDialogOpen}
       dialogTrigger={renderDialogTrigger()}
-      alert
       destructive
       dialogTitle="تسجيل الخروج"
       dialogDescription="سيتم تسجيل خروجك من البرنامج."

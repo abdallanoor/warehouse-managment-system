@@ -10,12 +10,13 @@ const FormField = ({
   onBlur,
   messageErrorCondition,
   messageError,
+  disabled,
 }) => {
   return (
     <>
-      <div className="grid grid-cols-4 items-center gap-4">
+      <div className="grid grid-cols-4 items-center gap-2">
         {messageErrorCondition && (
-          <div className="col-span-3 col-start-2 flex items-center gap-1 text-red-600 animate-fadeIn mb-2">
+          <div className="col-span-3 col-start-2 flex items-center gap-1 text-red-600 animate-fadeIn">
             <CircleAlert className="w-4 h-4" />
             <p className="text-xs">{messageError}</p>
           </div>
@@ -25,6 +26,7 @@ const FormField = ({
         </Label>
 
         <Input
+          disabled={disabled}
           className={`col-span-3 ${
             messageErrorCondition &&
             "border-destructive focus:border-destructive/70 focus-visible:ring-destructive"

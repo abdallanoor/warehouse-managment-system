@@ -10,7 +10,7 @@ const MovementsContextProvider = ({ children }) => {
 
   // fetch Movements
   function getMovements() {
-    return axios.get(`${import.meta.env.VITE_API_URL}/api/movementProduct`, {
+    return axios.get(`${import.meta.env.VITE_API_URL}/api/productsmovement`, {
       headers: {
         authorization: `Warhouse ${userToken}`,
       },

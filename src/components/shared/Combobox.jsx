@@ -23,7 +23,6 @@ export function Combobox({
   isLoading,
   buttonTitle,
   placeholder,
-  bodyInfo,
 }) {
   const [open, setOpen] = useState(false);
   const [value, internalSetValue] = useState("");
@@ -33,10 +32,9 @@ export function Combobox({
     internalSetValue(isSelected ? "" : item[lable]);
     setValues(
       isSelected
-        ? {}
+        ? null
         : {
             ...item,
-            ...bodyInfo,
           }
     );
     setOpen(false);

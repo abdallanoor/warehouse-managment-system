@@ -5,25 +5,33 @@ import { toast } from "../ui/use-toast";
 import Dialog from "../shared/Dialog";
 import FormField from "../shared/FormField";
 import { SquarePen, UserPlus } from "lucide-react";
-import { customersContext } from "@/context/CustomersContext";
+import { vendorsContext } from "@/context/VendorsContext";
 import { Button } from "../ui/button";
 import {
-  customersFormField,
-  customersInitialValues,
-  customersSchema,
+  vendorsFormField,
+  vendorsInitialValues,
+  vendorsSchema,
 } from "@/constants";
 
-const CustomersForm = ({ rowData, setDropdownOpen, triggerClassName }) => {
+const VendorsForm = ({
+  rowData,
+  setDropdownOpen,
+  triggerClassName,
+  vendorData,
+  setVendorData,
+}) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const { refetchCustomers } = useContext(customersContext);
+  const [isAddingPermission, setIsAddingPermission] = useState(false);
+  const { refetchVendors } = useContext(vendorsContext);
 
   const onSubmit = async (values) => {
+    // return console.log(values);
     const method = isEditing ? axios.put : axios.post;
 
     setIsLoading(true);
-    method(`${import.meta.env.VITE_API_URL}/api/customers/`, values, {
+    method(`${import.meta.env.VITE_API_URL}/api/vendors/`, values, {
       headers: {
         authorization: `Warhouse ${localStorage.getItem("userToken")}`,
       },
@@ -34,10 +42,14 @@ const CustomersForm = ({ rowData, setDropdownOpen, triggerClassName }) => {
           if (isEditing) {
             setDropdownOpen(false);
           }
-          refetchCustomers();
+          if (isAddingPermission) {
+            localStorage.setItem("vendor", JSON.stringify(data.vendor));
+            setVendorData(data.vendor);
+          }
+          refetchVendors();
           const actionMessage = isEditing ? "تم تعديل" : "تم إضافة";
           toast({
-            title: `${actionMessage} ${formik.values.customerName} بنجاح`,
+            title: `${actionMessage} ${formik.values.vendorName} بنجاح`,
           });
           formik.resetForm();
         } else {
@@ -56,15 +68,28 @@ const CustomersForm = ({ rowData, setDropdownOpen, triggerClassName }) => {
   };
 
   const formik = useFormik({
-    initialValues: customersInitialValues,
+    initialValues: vendorsInitialValues,
     onSubmit,
-    validationSchema: customersSchema,
+    validationSchema: vendorsSchema,
   });
 
   //adding
   const renderAddDialogTrigger = () => (
-    <Button className="w-full" onClick={() => setDialogOpen(true)}>
-      <span>إضافة عميل</span>
+    <Button onClick={() => setDialogOpen(true)} className="max-sm:w-full">
+      <span>إضافة مورد</span>
+      <UserPlus className="mr-1 w-4 h-4" />
+    </Button>
+  );
+
+  //adding permission
+  const handleAddPermission = () => {
+    setIsAddingPermission(true);
+    setDialogOpen(true);
+  };
+
+  const renderAddPermissionDialogTrigger = () => (
+    <Button onClick={() => handleAddPermission()} className="max-sm:w-full">
+      <span>إضافة مورد جديد</span>
       <UserPlus className="mr-1 w-4 h-4" />
     </Button>
   );
@@ -89,22 +114,26 @@ const CustomersForm = ({ rowData, setDropdownOpen, triggerClassName }) => {
         dialogOpen={dialogOpen}
         setDialogOpen={setDialogOpen}
         dialogTrigger={
-          rowData ? renderUpdateDialogTrigger() : renderAddDialogTrigger()
+          rowData
+            ? renderUpdateDialogTrigger()
+            : vendorData === null
+            ? renderAddPermissionDialogTrigger()
+            : renderAddDialogTrigger()
         }
         dialogTitle={`${
-          rowData ? `تعديل العميل | ${rowData.customerName}` : "إضافة عميل"
+          rowData ? `تعديل المورد | ${rowData.vendorName}` : "إضافة مورد"
         }`}
         dialogDescription={`يجب عليك ملء ${
           rowData
             ? "الخانات المراد تعديلها"
-            : "اسم العميل اولاً لإضافة عميل جديد"
+            : "اسم المورد اولاً لإضافة مورد جديد"
         }`}
         actionTitle={rowData ? "تعديل" : "إضافة"}
         handleForm={formik.handleSubmit}
         loadingButton={isLoading}
         bottomDisabled={isLoading}
       >
-        {customersFormField.map(({ label, key }) => (
+        {vendorsFormField.map(({ label, key }) => (
           <FormField
             key={key}
             labelTitle={label}
@@ -114,7 +143,7 @@ const CustomersForm = ({ rowData, setDropdownOpen, triggerClassName }) => {
             onChange={formik.handleChange}
             value={formik.values[key]}
             onBlur={formik.handleBlur}
-            disabled={isEditing ? key === "customerName" : null}
+            disabled={isEditing ? key === "vendorName" : null}
           />
         ))}
       </Dialog>
@@ -122,4 +151,4 @@ const CustomersForm = ({ rowData, setDropdownOpen, triggerClassName }) => {
   );
 };
 
-export default CustomersForm;
+export default VendorsForm;

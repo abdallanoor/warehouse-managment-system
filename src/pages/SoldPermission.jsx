@@ -14,7 +14,7 @@ import { Printer } from "lucide-react";
 const SoldPermission = () => {
   const { soldPermissions, isLoading, isError, soldPermissionInfo } =
     useContext(soldPermissionContext);
-  const [slodSaved, setSlodSaved] = useState(null);
+  const [slodSaved, setSlodSaved] = useState(false);
   const componentRef = useRef();
   const [permissionInfo, setPermissionInfo] = useState([]);
 
@@ -66,7 +66,7 @@ const SoldPermission = () => {
   return (
     <>
       <section ref={componentRef} className="print:m-8">
-        <Heading className="print:hidden">إذن صرف</Heading>
+        <Heading className="print:hidden">إذن بيع</Heading>
         <Heading className="hidden print:block">إذن إستلام</Heading>
         <div className="flex flex-col gap-4">
           <div className="flex justify-between gap-4 items-center max-md:flex-col max-sm:items-center print:items-start">
@@ -95,7 +95,7 @@ const SoldPermission = () => {
               <p className="hidden print:block font-semibold">{`التوقيع : `}</p>
               <p className="text-sm text-muted-foreground animate-fadeIn max-w-screen-md print:hidden">
                 يرجى ملاحظة أنه يمكن حذف البيانات الحالية والعميل، وإضافة بيانات
-                جديدة لعميل جديد عبر النقر على زر إذن صرف جديد.&nbsp;لحفظ
+                جديدة لعميل جديد عبر النقر على زر إذن بيع جديد.&nbsp;لحفظ
                 التغييرات بعد إضافة الأصناف، يُرجى الضغط على زر الحفظ.
               </p>
             </>
