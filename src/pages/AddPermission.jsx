@@ -22,6 +22,7 @@ const AddPermission = () => {
     vendorInfo: localStorage.getItem("vendor"),
     productInfo: localStorage.getItem("addPermissionProducts"),
     savedValue: localStorage.getItem("addSaved"),
+    // savedValue: localStorage.getItem("addSaved"),
   };
 
   useEffect(() => {
