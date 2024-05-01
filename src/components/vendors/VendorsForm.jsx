@@ -27,7 +27,15 @@ const VendorsForm = ({
   const { refetchVendors } = useContext(vendorsContext);
 
   const onSubmit = async (values) => {
-    // return console.log(values);
+    if (isAddingPermission) {
+      localStorage.setItem("vendor", JSON.stringify(values));
+      setVendorData(values);
+      toast({
+        title: `تم اختيار المورد ${values.vendorName} بنجاح`,
+      });
+      setDialogOpen(false);
+      return;
+    }
     const method = isEditing ? axios.put : axios.post;
 
     setIsLoading(true);
@@ -37,15 +45,13 @@ const VendorsForm = ({
       },
     })
       .then(({ data }) => {
+        console.log(data);
         if (data.message === "Done") {
           setDialogOpen(false);
           if (isEditing) {
             setDropdownOpen(false);
           }
-          if (isAddingPermission) {
-            localStorage.setItem("vendor", JSON.stringify(data.vendor));
-            setVendorData(data.vendor);
-          }
+
           refetchVendors();
           const actionMessage = isEditing ? "تم تعديل" : "تم إضافة";
           toast({
@@ -75,17 +81,17 @@ const VendorsForm = ({
 
   //adding
   const renderAddDialogTrigger = () => (
-    <Button onClick={() => setDialogOpen(true)} className="max-sm:w-full">
+    <Button
+      disabled={vendorData && vendorData !== null}
+      onClick={() => setDialogOpen(true)}
+      className="max-sm:w-full"
+    >
       <span>إضافة مورد</span>
       <UserPlus className="mr-1 w-4 h-4" />
     </Button>
   );
 
   //adding permission
-  const handleAddPermission = () => {
-    setIsAddingPermission(true);
-    setDialogOpen(true);
-  };
 
   const renderAddPermissionDialogTrigger = () => (
     <Button onClick={() => handleAddPermission()} className="max-sm:w-full">
@@ -94,12 +100,12 @@ const VendorsForm = ({
     </Button>
   );
 
-  //editing
-  const handleUpdate = () => {
-    setIsEditing(true);
+  const handleAddPermission = () => {
+    setIsAddingPermission(true);
     setDialogOpen(true);
-    formik.setValues(rowData);
   };
+
+  //editing
 
   const renderUpdateDialogTrigger = () => (
     <div onClick={() => handleUpdate()} className={triggerClassName}>
@@ -107,6 +113,12 @@ const VendorsForm = ({
       <span>تعديل</span>
     </div>
   );
+
+  const handleUpdate = () => {
+    setIsEditing(true);
+    setDialogOpen(true);
+    formik.setValues(rowData);
+  };
 
   return (
     <>

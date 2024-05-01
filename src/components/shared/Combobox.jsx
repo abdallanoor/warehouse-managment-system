@@ -28,7 +28,7 @@ export function Combobox({
   const [value, internalSetValue] = useState("");
 
   const selectItem = (item) => {
-    const isSelected = value === item[lable];
+    const isSelected = value === item._id;
     internalSetValue(isSelected ? "" : item[lable]);
     setValues(
       isSelected
@@ -61,20 +61,20 @@ export function Combobox({
               {isLoading ? "جاري التحميل..." : "لا توجد بيانات"}
             </CommandEmpty>
             <CommandGroup>
-              {data?.map((item, index) => (
+              {data?.map((item) => (
                 <CommandItem
-                  key={index}
-                  value={item[lable]}
+                  key={item._id}
+                  value={item._id}
                   onSelect={() => selectItem(item)}
                 >
                   <Check
                     className={`ml-2 h-4 w-4 ${
-                      value === item[lable] ? "opacity-100" : "opacity-0"
+                      value === item._id ? "opacity-100" : "opacity-0"
                     }`}
                   />
                   <div className="flex items-center gap-2">
                     {item[lable]}
-                    {additionalInfo && " - "}
+                    {item[additionalInfo] && " - "}
                     {item[additionalInfo]}
                   </div>
                 </CommandItem>

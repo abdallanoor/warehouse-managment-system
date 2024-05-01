@@ -12,15 +12,87 @@ import {
   productsFormField,
   productsSchema,
   productsInitialValues,
+  permissionProductsSchema,
 } from "@/constants";
 
-const ProductsForm = ({ rowData, setDropdownOpen, triggerClassName }) => {
+const ProductsForm = ({
+  rowData,
+  setDropdownOpen,
+  triggerClassName,
+  addPermissionProducts,
+  setAddPermissionProducts,
+  soldPermissionProducts,
+  setSoldPermissionProducts,
+  soldSaved,
+  addSaved,
+}) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const { refetchProducts } = useContext(productsContext);
 
-  const onSubmit = async (values) => {
+  const permissionSubmit = (values) => {
+    if (soldPermissionProducts) {
+      const isDuplicate = soldPermissionProducts.some(
+        (product) => product.productBarCode === values.productBarCode
+      );
+
+      if (!isDuplicate) {
+        const totalPrice = values.productPrice * values.productCount;
+        const newProduct = { ...values, totalPrice };
+        const updatedProducts = [...soldPermissionProducts, newProduct];
+
+        localStorage.setItem(
+          "soldPermissionProducts",
+          JSON.stringify(updatedProducts)
+        );
+        setSoldPermissionProducts(updatedProducts);
+        formik.resetForm();
+        toast({
+          title: `تم إضافة الصنف ${values.productName} بنجاح`,
+        });
+        return;
+      } else {
+        toast({
+          variant: "destructive",
+          title: `تم إضافة الصنف بالكود ${values.productBarCode} من قبل`,
+        });
+        return;
+      }
+    }
+
+    if (addPermissionProducts) {
+      const isDuplicate = addPermissionProducts.some(
+        (product) => product.productBarCode === values.productBarCode
+      );
+
+      if (!isDuplicate) {
+        const totalPrice = values.productPrice * values.productCount;
+        const newProduct = { ...values, totalPrice };
+        const updatedProducts = [...addPermissionProducts, newProduct];
+
+        localStorage.setItem(
+          "addPermissionProducts",
+          JSON.stringify(updatedProducts)
+        );
+        setAddPermissionProducts(updatedProducts);
+        formik.resetForm();
+        toast({
+          title: `تم إضافة الصنف ${values.productName} بنجاح`,
+        });
+        return;
+      } else {
+        toast({
+          variant: "destructive",
+          title: `تم إضافة الصنف بالكود ${values.productBarCode} من قبل`,
+        });
+        return;
+      }
+    }
+  };
+
+  //Add and Edit Products with feching
+  const addAndEditSubmit = async (values) => {
     const method = isEditing ? axios.put : axios.post;
 
     setIsLoading(true);
@@ -30,7 +102,6 @@ const ProductsForm = ({ rowData, setDropdownOpen, triggerClassName }) => {
       },
     })
       .then(({ data }) => {
-        console.log(data);
         if (data.message === "Done") {
           setDialogOpen(false);
           if (isEditing) {
@@ -59,14 +130,32 @@ const ProductsForm = ({ rowData, setDropdownOpen, triggerClassName }) => {
 
   const formik = useFormik({
     initialValues: productsInitialValues,
-    onSubmit,
-    validationSchema: productsSchema,
+    onSubmit:
+      addPermissionProducts || soldPermissionProducts
+        ? permissionSubmit
+        : addAndEditSubmit,
+    validationSchema:
+      addPermissionProducts || soldPermissionProducts
+        ? permissionProductsSchema
+        : productsSchema,
   });
 
   //adding
   const renderAddDialogTrigger = () => (
-    <Button className="w-full" onClick={() => setDialogOpen(true)}>
+    <Button className="max-sm:w-full" onClick={() => setDialogOpen(true)}>
       <span>إضافة صنف</span>
+      <PackagePlus className="mr-1 w-4 h-4" />
+    </Button>
+  );
+
+  //adding permission
+  const renderPermissionDialogTrigger = () => (
+    <Button
+      disabled={soldSaved || addSaved}
+      className="max-sm:w-full"
+      onClick={() => setDialogOpen(true)}
+    >
+      <span>إضافة صنف جديد</span>
       <PackagePlus className="mr-1 w-4 h-4" />
     </Button>
   );
@@ -90,7 +179,11 @@ const ProductsForm = ({ rowData, setDropdownOpen, triggerClassName }) => {
       dialogOpen={dialogOpen}
       setDialogOpen={setDialogOpen}
       dialogTrigger={
-        rowData ? renderUpdateDialogTrigger() : renderAddDialogTrigger()
+        rowData
+          ? renderUpdateDialogTrigger()
+          : addPermissionProducts || soldPermissionProducts
+          ? renderPermissionDialogTrigger()
+          : renderAddDialogTrigger()
       }
       dialogTitle={`${
         rowData ? `تعديل الصنف | ${rowData.productName}` : "إضافة صنف"
@@ -98,6 +191,8 @@ const ProductsForm = ({ rowData, setDropdownOpen, triggerClassName }) => {
       dialogDescription={`يجب عليك ملء ${
         rowData
           ? "الخانات المراد تعديلها"
+          : addPermissionProducts || soldPermissionProducts
+          ? "اسم الصنف و الكود والعدد والسعر اولاً لأضافة صنف جديد"
           : "اسم الصنف و الكود اولاً لأضافة صنف جديد"
       }`}
       actionTitle={rowData ? "تعديل" : "إضافة"}

@@ -35,7 +35,6 @@ const VendorsActions = ({ rowData }) => {
         },
       })
       .then(({ data }) => {
-        console.log(data);
         if (data?.message === "Done") {
           setIsLoading(false);
           refetchVendors();

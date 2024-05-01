@@ -1,103 +1,142 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 import DynamicTable from "@/components/shared/DynamicTable";
 import Heading from "@/components/shared/Heading";
-import NewSoldPermission from "@/components/soldpermission/NewSoldPermission";
-import SaveSoldPermission from "@/components/soldpermission/SaveSoldPermission";
-import SelectSoldCustomer from "@/components/soldpermission/SelectSoldCustomer";
-import { SelectSoldProduct } from "@/components/soldpermission/SelectSoldProduct";
 import { Button } from "@/components/ui/button";
 import { soldPermissionHeader } from "@/constants";
-import { soldPermissionContext } from "@/context/SoldPremissionContext";
 import { Printer } from "lucide-react";
+import SelectCustomer from "@/components/soldpermission/SelectCustomer";
+import useLocalStorageEffect from "@/hooks/useLocalStorageEffect";
+import ResetData from "@/components/sharedPermission/ResetData";
+import CustomersForm from "@/components/customers/CustomersForm";
+import SelectProduct from "@/components/sharedPermission/SelectProduct";
+import ProductsForm from "@/components/products/ProductsForm";
+import DeleteProduct from "@/components/sharedPermission/DeleteProduct";
+import SavePermission from "@/components/sharedPermission/SavePermission";
 
 const SoldPermission = () => {
-  const { soldPermissions, isLoading, isError, soldPermissionInfo } =
-    useContext(soldPermissionContext);
-  const [slodSaved, setSlodSaved] = useState(false);
+  const [customerData, setCustomerData] = useState(null);
+  const [soldPermissionProducts, setSoldPermissionProducts] = useState([]);
+  const [invoiceNumber, setInvoiceNumber] = useState(null);
+  const [soldSaved, setSoldSaved] = useState(false);
   const componentRef = useRef();
-  const [permissionInfo, setPermissionInfo] = useState([]);
 
-  useEffect(() => {
-    setPermissionInfo(soldPermissionInfo?.data?.Info?.[0] || "");
-  }, [soldPermissionInfo]);
-
-  const localStorageSavedValue = localStorage.getItem("slodSaved");
-
-  useEffect(() => {
-    if (localStorageSavedValue) {
-      setSlodSaved(localStorageSavedValue);
-    }
-  }, [localStorageSavedValue]);
+  useLocalStorageEffect("customer", setCustomerData);
+  useLocalStorageEffect("soldPermissionProducts", setSoldPermissionProducts);
+  useLocalStorageEffect("soldSaved", setSoldSaved);
+  useLocalStorageEffect("soldInvoiceNumber", setInvoiceNumber);
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-    documentTitle: `إذن استلام - ${
-      permissionInfo?.invoiceNumber || "غير موجود"
-    }`,
-    onPrintError: () => alert("there is an error when printing"),
+    documentTitle: `إذن استلام - ${"" || "غير موجود"}`,
+    onPrintError: () => alert("يوجد مشكلة في الطباعة"),
   });
 
-  const renderSoldPermissionActions = () => {
-    if (!permissionInfo) {
-      return <SelectSoldCustomer />;
-    } else if (slodSaved === "true") {
-      return (
-        <>
-          <Button onClick={handlePrint} className="flex max-sm:w-full">
-            <span>طباعه</span>
-            <Printer className="w-4 h-4 mr-2" />
-          </Button>
-          <NewSoldPermission />
-        </>
-      );
-    } else {
-      const productsExist = soldPermissions?.data?.products?.length > 0;
-      return (
-        <>
-          <SelectSoldProduct />
-          {productsExist && <SaveSoldPermission setSlodSaved={setSlodSaved} />}
-          <NewSoldPermission />
-        </>
-      );
-    }
+  const renderActions = () => {
+    const renderResetData = () => (
+      <ResetData
+        setCustomerData={setCustomerData}
+        customerData={customerData}
+        soldPermissionProducts={soldPermissionProducts}
+        setSoldPermissionProducts={setSoldPermissionProducts}
+        setSoldSaved={setSoldSaved}
+        setInvoiceNumber={setInvoiceNumber}
+      />
+    );
+
+    return (
+      <>
+        {!customerData && (
+          <>
+            <SelectCustomer
+              setCustomerData={setCustomerData}
+              customerData={customerData}
+            />
+            <CustomersForm
+              setCustomerData={setCustomerData}
+              customerData={customerData}
+            />
+          </>
+        )}
+
+        {customerData && !soldSaved && (
+          <>
+            <SelectProduct
+              setSoldPermissionProducts={setSoldPermissionProducts}
+              soldPermissionProducts={soldPermissionProducts}
+              soldSaved={soldSaved}
+            />
+            <ProductsForm
+              setSoldPermissionProducts={setSoldPermissionProducts}
+              soldPermissionProducts={soldPermissionProducts}
+              soldSaved={soldSaved}
+            />
+
+            {renderResetData()}
+
+            {soldPermissionProducts.length > 0 && (
+              <SavePermission
+                customerData={customerData}
+                soldPermissionProducts={soldPermissionProducts}
+                soldSaved={soldSaved}
+                setSoldSaved={setSoldSaved}
+                setInvoiceNumber={setInvoiceNumber}
+              />
+            )}
+          </>
+        )}
+
+        {soldSaved && (
+          <>
+            {renderResetData()}
+
+            <Button
+              onClick={handlePrint}
+              disabled={!soldSaved}
+              className="flex max-sm:w-full"
+            >
+              <span>طباعه</span>
+              <Printer className="w-4 h-4 mr-1" />
+            </Button>
+          </>
+        )}
+      </>
+    );
   };
 
   return (
     <>
       <section ref={componentRef} className="print:m-8">
-        <Heading className="print:hidden">إذن بيع</Heading>
-        <Heading className="hidden print:block">إذن إستلام</Heading>
+        <Heading>إذن بيع</Heading>
         <div className="flex flex-col gap-4">
           <div className="flex justify-between gap-4 items-center max-md:flex-col max-sm:items-center print:items-start">
             <p className="font-semibold">
-              {permissionInfo
-                ? `اسم العميل : ${permissionInfo?.customerName}`
+              {customerData
+                ? `اسم العميل : ${customerData.customerName}`
                 : "الرجاء اختيار العميل"}
             </p>
-            <div className="flex items-center max-sm:w-full w-fit md:mr-auto max-sm:justify-between flex-wrap gap-4 print:hidden">
-              {renderSoldPermissionActions()}
+            <div className="flex items-center justify-center md:justify-end max-sm:w-full w-fit md:mr-auto max-sm:justify-between flex-wrap gap-4 print:hidden">
+              {renderActions()}
             </div>
           </div>
-          {permissionInfo && (
-            <p className="hidden print:block font-semibold">{`تحرير في : ${permissionInfo?.datePermission}`}</p>
+          {soldSaved && (
+            <p className="hidden print:block font-semibold">{`تحرير في : ${new Date().toLocaleDateString(
+              "en-GB"
+            )}`}</p>
           )}
           <DynamicTable
             headers={soldPermissionHeader}
-            data={soldPermissions?.data?.products || []}
-            error={isError}
-            loading={isLoading}
-            tableAction
+            data={soldPermissionProducts.reverse() || []}
+            ActionsComponent={DeleteProduct}
+            ActionsComponentProps={{
+              soldPermissionProducts: soldPermissionProducts,
+              setSoldPermissionProducts: setSoldPermissionProducts,
+            }}
           />
-          {permissionInfo && (
+          {soldSaved && (
             <>
-              <p className="hidden print:block font-semibold">{`رقم الاذن : ${permissionInfo?.invoiceNumber}`}</p>
+              <p className="hidden print:block font-semibold">{`رقم الاذن : ${invoiceNumber}`}</p>
               <p className="hidden print:block font-semibold">{`التوقيع : `}</p>
-              <p className="text-sm text-muted-foreground animate-fadeIn max-w-screen-md print:hidden">
-                يرجى ملاحظة أنه يمكن حذف البيانات الحالية والعميل، وإضافة بيانات
-                جديدة لعميل جديد عبر النقر على زر إذن بيع جديد.&nbsp;لحفظ
-                التغييرات بعد إضافة الأصناف، يُرجى الضغط على زر الحفظ.
-              </p>
             </>
           )}
         </div>

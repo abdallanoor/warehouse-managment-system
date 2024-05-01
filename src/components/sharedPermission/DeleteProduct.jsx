@@ -13,6 +13,13 @@ import { Trash2 } from "lucide-react";
 const DeleteProduct = ({ ActionsComponentProps, rowData }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
+  const {
+    soldPermissionProducts,
+    setSoldPermissionProducts,
+    addPermissionProducts,
+    setAddPermissionProducts,
+  } = ActionsComponentProps;
+
   const renderDeleteDialogTrigger = () => (
     <TooltipProvider>
       <Tooltip>
@@ -28,21 +35,34 @@ const DeleteProduct = ({ ActionsComponentProps, rowData }) => {
     </TooltipProvider>
   );
 
-  <Button
-    className="gap-1 max-sm:w-full animate-fadeIn"
-    onClick={() => setDialogOpen(true)}
-  >
+  <Button className="gap-1 max-sm:w-full" onClick={() => setDialogOpen(true)}>
     <span>إعادة تهيئة</span>
   </Button>;
+
   const handleDeleteProduct = () => {
-    const filteredProducts = ActionsComponentProps.productsData.filter(
-      (product) => product._id !== rowData._id
-    );
-    localStorage.setItem(
-      "addPermissionProducts",
-      JSON.stringify(filteredProducts)
-    );
-    ActionsComponentProps.setProductsData(filteredProducts);
+    if (soldPermissionProducts) {
+      const filteredProducts = soldPermissionProducts.filter(
+        (product) => product.productBarCode !== rowData.productBarCode
+      );
+
+      localStorage.setItem(
+        "soldPermissionProducts",
+        JSON.stringify(filteredProducts)
+      );
+      setSoldPermissionProducts(filteredProducts);
+    }
+
+    if (addPermissionProducts) {
+      const filteredProducts = addPermissionProducts.filter(
+        (product) => product.productBarCode !== rowData.productBarCode
+      );
+      localStorage.setItem(
+        "addPermissionProducts",
+        JSON.stringify(filteredProducts)
+      );
+      setAddPermissionProducts(filteredProducts);
+    }
+
     setDialogOpen(false);
   };
   return (
@@ -53,7 +73,7 @@ const DeleteProduct = ({ ActionsComponentProps, rowData }) => {
         dialogTrigger={renderDeleteDialogTrigger()}
         actionTitle="حذف"
         dialogTitle="حذف الصنف"
-        dialogDescription="هل انت متاكد؟ سيتم حذف الصنف نهائياً"
+        dialogDescription="هل انت متاكد؟ سيتم حذف الصنف"
         destructive
         handleAction={handleDeleteProduct}
       />

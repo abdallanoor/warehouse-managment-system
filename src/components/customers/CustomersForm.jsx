@@ -13,13 +13,29 @@ import {
   customersSchema,
 } from "@/constants";
 
-const CustomersForm = ({ rowData, setDropdownOpen, triggerClassName }) => {
+const CustomersForm = ({
+  rowData,
+  setDropdownOpen,
+  triggerClassName,
+  customerData,
+  setCustomerData,
+}) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [isSoldingPermission, setIsSoldingPermission] = useState(false);
   const { refetchCustomers } = useContext(customersContext);
 
   const onSubmit = async (values) => {
+    if (isSoldingPermission) {
+      localStorage.setItem("customer", JSON.stringify(values));
+      setCustomerData(values);
+      toast({
+        title: `تم اختيار العميل ${values.customerName} بنجاح`,
+      });
+      setDialogOpen(false);
+      return;
+    }
     const method = isEditing ? axios.put : axios.post;
 
     setIsLoading(true);
@@ -29,6 +45,7 @@ const CustomersForm = ({ rowData, setDropdownOpen, triggerClassName }) => {
       },
     })
       .then(({ data }) => {
+        console.log(data);
         if (data.message === "Done") {
           setDialogOpen(false);
           if (isEditing) {
@@ -63,18 +80,31 @@ const CustomersForm = ({ rowData, setDropdownOpen, triggerClassName }) => {
 
   //adding
   const renderAddDialogTrigger = () => (
-    <Button className="w-full" onClick={() => setDialogOpen(true)}>
+    <Button
+      disabled={customerData && customerData !== null}
+      onClick={() => setDialogOpen(true)}
+      className="max-sm:w-full"
+    >
       <span>إضافة عميل</span>
       <UserPlus className="mr-1 w-4 h-4" />
     </Button>
   );
 
-  //editing
-  const handleUpdate = () => {
-    setIsEditing(true);
+  //adding permission
+
+  const renderSoldPemmissionDialogTrigger = () => (
+    <Button onClick={() => handleSoldPermission()} className="max-sm:w-full">
+      <span>إضافة عميل جديد</span>
+      <UserPlus className="mr-1 w-4 h-4" />
+    </Button>
+  );
+
+  const handleSoldPermission = () => {
+    setIsSoldingPermission(true);
     setDialogOpen(true);
-    formik.setValues(rowData);
   };
+
+  //editing
 
   const renderUpdateDialogTrigger = () => (
     <div onClick={() => handleUpdate()} className={triggerClassName}>
@@ -83,13 +113,23 @@ const CustomersForm = ({ rowData, setDropdownOpen, triggerClassName }) => {
     </div>
   );
 
+  const handleUpdate = () => {
+    setIsEditing(true);
+    setDialogOpen(true);
+    formik.setValues(rowData);
+  };
+
   return (
     <>
       <Dialog
         dialogOpen={dialogOpen}
         setDialogOpen={setDialogOpen}
         dialogTrigger={
-          rowData ? renderUpdateDialogTrigger() : renderAddDialogTrigger()
+          rowData
+            ? renderUpdateDialogTrigger()
+            : customerData === null
+            ? renderSoldPemmissionDialogTrigger()
+            : renderAddDialogTrigger()
         }
         dialogTitle={`${
           rowData ? `تعديل العميل | ${rowData.customerName}` : "إضافة عميل"

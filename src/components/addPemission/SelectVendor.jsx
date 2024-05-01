@@ -6,14 +6,12 @@ import Dialog from "../shared/Dialog";
 import { toast } from "../ui/use-toast";
 import { vendorsContext } from "@/context/VendorsContext";
 
-const SelectVendor = ({ setVendorData }) => {
+const SelectVendor = ({ setVendorData, vendorData }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [vendorValues, setVendorValues] = useState(null);
-  const [loading, setLoading] = useState(false);
   const { vendors, isLoading } = useContext(vendorsContext);
 
   const handleVendorData = () => {
-    //setDialog => false when vendorValues exsist only
     if (vendorValues) {
       localStorage.setItem("vendor", JSON.stringify(vendorValues));
       setVendorData(vendorValues);
@@ -32,10 +30,11 @@ const SelectVendor = ({ setVendorData }) => {
   const renderVendorTrigger = () => (
     <>
       <Button
+        disabled={vendorData && vendorData !== null}
         className="gap-1 max-sm:w-full"
         onClick={() => setDialogOpen(true)}
       >
-        <span>اختر مورد موجود</span>
+        <span>اختر المورد</span>
         <User className="w-4 h-4" />
       </Button>
     </>
@@ -51,8 +50,6 @@ const SelectVendor = ({ setVendorData }) => {
         dialogTitle="اختر المورد"
         dialogDescription="يرجي اختيار المورد من فضلك"
         handleAction={handleVendorData}
-        bottomDisabled={loading}
-        loadingButton={loading}
       >
         <Combobox
           data={vendors?.data?.vendors}

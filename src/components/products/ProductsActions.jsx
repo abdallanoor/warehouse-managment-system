@@ -38,7 +38,6 @@ const ProductsActions = ({ rowData }) => {
         }
       )
       .then(({ data }) => {
-        console.log(data);
         if (data?.message === "Delete Successfully") {
           setIsLoading(false);
           refetchProducts();

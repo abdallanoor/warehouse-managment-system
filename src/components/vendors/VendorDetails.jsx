@@ -26,7 +26,7 @@ const VendorDetails = () => {
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
     documentTitle: `حركة المورد - ${productName?.productName || "غير موجود"}`,
-    onPrintError: () => alert("there is an error when printing"),
+    onPrintError: () => alert("يوجد مشكلة في الطباعة"),
   });
   return (
     <section ref={componentRef} className="print:m-8">
