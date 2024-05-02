@@ -5,7 +5,7 @@ import DeleteProduct from "@/components/sharedPermission/DeleteProduct";
 import ResetData from "@/components/sharedPermission/ResetData";
 import SavePermission from "@/components/sharedPermission/SavePermission";
 import SelectProduct from "@/components/sharedPermission/SelectProduct";
-import SelectVendor from "@/components/additionPemission/SelectVendor";
+import SelectVendor from "@/components/sharedPermission/SelectVendor";
 import DynamicTable from "@/components/shared/DynamicTable";
 import Heading from "@/components/shared/Heading";
 import { Button } from "@/components/ui/button";

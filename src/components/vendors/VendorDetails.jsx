@@ -10,32 +10,33 @@ import { movementsHeader } from "@/constants";
 
 const VendorDetails = () => {
   const { movements, isError, isLoading } = useContext(movementsContext);
-  const { id } = useParams();
+  const { code } = useParams();
   const componentRef = useRef();
 
-  const productDetailsData = movements?.data?.products?.filter(
-    (product) => product.productId === id
-  );
+  // const customerDetailsData = movements?.data?.products?.filter(
+  //   (product) => product?.customerId?.customerCode == id
+  // );
 
-  const productName = movements?.data?.products?.find(
-    (product) => product.productId === id
-  );
+  // const vendorName = customerDetailsData?.find(
+  //   (product) => product?.customerId?.customerCode == id
+  // );
 
-  // console.log(movements?.data?.products);
+  // console.log(vendorName?.seller);
 
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-    documentTitle: `حركة المورد - ${productName?.productName || "غير موجود"}`,
-    onPrintError: () => alert("يوجد مشكلة في الطباعة"),
-  });
+  // const handlePrint = useReactToPrint({
+  //   content: () => componentRef.current,
+  //   documentTitle: `حركة العميل - ${vendorName?.seller || "غير موجود"}`,
+  //   onPrintError: () => alert("يوجد مشكلة في الطباعة"),
+  // });
   return (
     <section ref={componentRef} className="print:m-8">
       <Heading>
-        {isLoading
-          ? `حركه المورد - جاري التحميل`
-          : `حركة المورد - ${productName?.productName || "لا يوجد"}`}
+        حركة المورد
+        {/* {isLoading
+          ? `حركه العميل - جاري التحميل`
+          : `حركة العميل - ${vendorName?.seller || "لا يوجد"}`} */}
       </Heading>
-
+      {/* 
       <Button onClick={handlePrint} className="mb-4 flex mr-auto print:hidden">
         <span>طباعه</span>
         <Printer className="w-4 h-4 mr-2" />
@@ -45,8 +46,8 @@ const VendorDetails = () => {
         headers={movementsHeader}
         error={isError}
         loading={isLoading}
-        data={productDetailsData || []}
-      />
+        data={customerDetailsData || []}
+      /> */}
     </section>
   );
 };

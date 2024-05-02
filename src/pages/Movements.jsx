@@ -13,8 +13,6 @@ const Movements = () => {
     product.productName.toLowerCase().includes(searchValue.toLowerCase())
   );
 
-  // console.log(movements?.data?.products);
-
   return (
     <>
       <Heading>حركة الاصناف</Heading>

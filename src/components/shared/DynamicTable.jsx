@@ -71,7 +71,6 @@ const DynamicTable = ({
                     : "destructive"
                 }
               >
-                {console.log(item.typeMovement)}
                 {item[header.key] === "buy"
                   ? "شراء"
                   : item[header.key] === "sold"

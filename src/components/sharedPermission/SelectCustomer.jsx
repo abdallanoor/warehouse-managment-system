@@ -6,7 +6,7 @@ import { Users } from "lucide-react";
 import { Combobox } from "../shared/Combobox";
 import { toast } from "../ui/use-toast";
 
-const SelectSoldCustomer = ({ setCustomerData, customerData }) => {
+const SelectCustomer = ({ setCustomerData, customerData }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [customerValues, setCustomerValues] = useState(null);
   const { customers, isLoading } = useContext(customersContext);
@@ -39,7 +39,6 @@ const SelectSoldCustomer = ({ setCustomerData, customerData }) => {
       </Button>
     </>
   );
-
   return (
     <>
       <Dialog
@@ -52,7 +51,7 @@ const SelectSoldCustomer = ({ setCustomerData, customerData }) => {
         handleAction={handleCustomerData}
       >
         <Combobox
-          data={customers?.data?.customers}
+          data={customers?.data?.customers?.reverse()}
           setValues={setCustomerValues}
           lable="customerName"
           additionalInfo="customerAddress"
@@ -65,4 +64,4 @@ const SelectSoldCustomer = ({ setCustomerData, customerData }) => {
   );
 };
 
-export default SelectSoldCustomer;
+export default SelectCustomer;

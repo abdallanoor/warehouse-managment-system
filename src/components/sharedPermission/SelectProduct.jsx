@@ -162,9 +162,9 @@ const SelectProduct = ({
         <Combobox
           data={
             soldPermissionProducts
-              ? filteredSoldPermissionProducts
+              ? filteredSoldPermissionProducts.reverse()
               : additionPermissionProducts
-              ? filteredadditionPermissionProducts
+              ? filteredadditionPermissionProducts.reverse()
               : []
           }
           setValues={setProductValues}

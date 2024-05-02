@@ -72,7 +72,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/customers/:id",
+        path: "/customers/:code",
         element: (
           <ProtectedRoute>
             <CustomerDetails />
@@ -88,7 +88,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/vendors/:id",
+        path: "/vendors/:code",
         element: (
           <ProtectedRoute>
             <VendorDetails />

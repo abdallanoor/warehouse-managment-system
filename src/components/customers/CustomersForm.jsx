@@ -45,7 +45,6 @@ const CustomersForm = ({
       },
     })
       .then(({ data }) => {
-        console.log(data);
         if (data.message === "Done") {
           setDialogOpen(false);
           if (isEditing) {

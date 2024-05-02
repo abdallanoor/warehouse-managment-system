@@ -8,6 +8,8 @@ import { movementsContext } from "@/context/MovmentsContext";
 import { productsContext } from "@/context/ProductsContext";
 import { soldPermissionContext } from "@/context/SoldPremissionContext";
 import { additionPermissionContext } from "@/context/AdditionPermissionContext";
+import { customersContext } from "@/context/CustomersContext";
+import { vendorsContext } from "@/context/VendorsContext";
 
 const SavePermission = ({
   setAdditionIsSaved,
@@ -24,6 +26,8 @@ const SavePermission = ({
   const [loading, setLoading] = useState(false);
   const { refetchMovements } = useContext(movementsContext);
   const { refetchProducts } = useContext(productsContext);
+  const { refetchCustomers } = useContext(customersContext);
+  const { refetchVendors } = useContext(vendorsContext);
   const { refetchSoldInvoicesProducts, refetchSoldInvoicesInfo } = useContext(
     soldPermissionContext
   );
@@ -49,13 +53,14 @@ const SavePermission = ({
           localStorage.setItem("addInvoiceNumber", data.currentInvoiceNumber);
           setInvoiceNumber(data.currentInvoiceNumber);
           refetchProducts();
+          refetchVendors();
           refetchAdditionInvoicesInfo();
           refetchAdditionInvoicesProducts();
-          refetchMovements();
           setDialogOpen(false);
           toast({
             title: "تم الحفظ",
           });
+          refetchMovements();
         } else {
           toast({
             variant: "destructive",
@@ -84,20 +89,20 @@ const SavePermission = ({
         }
       )
       .then(({ data }) => {
-        console.log(data);
         if (data.message === "Done") {
           localStorage.setItem("soldIsSaved", true);
           setSoldIsSaved(true);
           localStorage.setItem("soldInvoiceNumber", data.currentInvoiceNumber);
           setInvoiceNumber(data.currentInvoiceNumber);
           refetchProducts();
+          refetchCustomers();
           refetchSoldInvoicesProducts();
           refetchSoldInvoicesInfo();
-          refetchMovements();
           setDialogOpen(false);
           toast({
             title: "تم الحفظ",
           });
+          refetchMovements();
         } else {
           toast({
             variant: "destructive",

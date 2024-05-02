@@ -5,7 +5,7 @@ import { SquareArrowOutUpRight, Trash2 } from "lucide-react";
 import axios from "axios";
 import { toast } from "../ui/use-toast";
 import ActionsDropdown from "../shared/ActionsDropdown";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import CustomersForm from "./CustomersForm";
 
 const CustomersActions = ({ rowData }) => {
@@ -13,6 +13,7 @@ const CustomersActions = ({ rowData }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { refetchCustomers } = useContext(customersContext);
+  const navigate = useNavigate();
 
   const triggerClassName =
     "flex gap-1 cursor-pointer items-center rounded-sm px-2 py-1.5 text-sm transition-colors hover:bg-accent";
@@ -60,12 +61,16 @@ const CustomersActions = ({ rowData }) => {
         setIsLoading(false);
       });
   };
-
   const renderCustomerDetails = () => (
-    <Link to={rowData._id} className={triggerClassName}>
+    <div
+      onClick={() => {
+        navigate(`${rowData.customerCode}`);
+      }}
+      className={triggerClassName}
+    >
       <SquareArrowOutUpRight className="w-4 h-4" />
       <span>حركة العميل</span>
-    </Link>
+    </div>
   );
 
   return (
