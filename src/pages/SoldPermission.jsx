@@ -5,6 +5,7 @@ import Heading from "@/components/shared/Heading";
 import { Button } from "@/components/ui/button";
 import { soldPermissionHeader } from "@/constants";
 import { Printer } from "lucide-react";
+import SelectCustomer from "@/components/soldPermission/SelectCustomer";
 import useLocalStorageEffect from "@/hooks/useLocalStorageEffect";
 import ResetData from "@/components/sharedPermission/ResetData";
 import CustomersForm from "@/components/customers/CustomersForm";
@@ -46,11 +47,10 @@ const SoldPermission = () => {
       <>
         {!customerData && (
           <>
-            {/* <SelectCustomer
+            <SelectCustomer
               setCustomerData={setCustomerData}
               customerData={customerData}
-            /> */}
-            {/* <SelectCustomer /> */}
+            />
             <CustomersForm
               setCustomerData={setCustomerData}
               customerData={customerData}
