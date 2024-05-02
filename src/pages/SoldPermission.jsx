@@ -11,7 +11,7 @@ import CustomersForm from "@/components/customers/CustomersForm";
 import SelectProduct from "@/components/sharedPermission/SelectProduct";
 import DeleteProduct from "@/components/sharedPermission/DeleteProduct";
 import SavePermission from "@/components/sharedPermission/SavePermission";
-import SelectCustomer from "../components/soldPermission/SelectCustomer";
+import SelectSoldCustomer from "@/components/soldPermission/SelectSoldCustomer";
 
 const SoldPermission = () => {
   const [customerData, setCustomerData] = useState(null);
@@ -47,7 +47,7 @@ const SoldPermission = () => {
       <>
         {!customerData && (
           <>
-            <SelectCustomer
+            <SelectSoldCustomer
               setCustomerData={setCustomerData}
               customerData={customerData}
             />

@@ -143,9 +143,9 @@ export const productsFormField = [
   { label: "المكان", key: "productLocation" },
   { label: "اللون", key: "productColor" },
   { label: "الحجم", key: "productSize" },
-  { label: "حد الطلب", key: "requestLimit" },
-  { label: "حد المخاطر", key: "riskLimit" },
-  { label: "ملاحظات", key: "notes" },
+  // { label: "حد الطلب", key: "requestLimit" },
+  // { label: "حد المخاطر", key: "riskLimit" },
+  // { label: "ملاحظات", key: "notes" },
 ];
 
 export const customersFormField = [
