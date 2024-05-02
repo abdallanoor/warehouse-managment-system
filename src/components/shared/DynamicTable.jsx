@@ -101,7 +101,7 @@ const DynamicTable = ({
   return (
     <div className="rounded-md border overflow-hidden">
       <Table>
-        {headers && data?.length !== 0 && renderTableHeader()}
+        {headers && data && data?.length !== 0 && renderTableHeader()}
         <TableBody>
           {loading || error || data?.length === 0 || !data
             ? renderLoadingOrEmptyState()

@@ -25,6 +25,7 @@ import Vendors from "./pages/Vendors";
 import CustomerDetails from "./components/customers/CustomerDetails";
 import VendorsContextProvider from "./context/VendorsContext";
 import VendorDetails from "./components/vendors/VendorDetails";
+import SoldInvoicesDetails from "./components/soldInvoices/SoldInvoicesDetails";
 
 const router = createBrowserRouter([
   {
@@ -112,6 +113,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <SoldInvoices />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/sold-invoices/:invoiceNumber",
+        element: (
+          <ProtectedRoute>
+            <SoldInvoicesDetails />
           </ProtectedRoute>
         ),
       },

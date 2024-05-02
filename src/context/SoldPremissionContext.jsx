@@ -8,22 +8,11 @@ export const soldPermissionContext = createContext();
 const SoldPermissionContextProvider = ({ children }) => {
   const { userToken } = useContext(userContext);
 
-  // fetch getSoldPermission
-  function getSoldPermission() {
-    return axios.get(
-      `${import.meta.env.VITE_API_URL}/api/soldpermission/getPreViewProducts`,
-      {
-        headers: {
-          authorization: `Warhouse ${userToken}`,
-        },
-      }
-    );
-  }
-  function getAllSoldPermission() {
+  function getSoldInvoicesProducts() {
     return axios.get(
       `${
         import.meta.env.VITE_API_URL
-      }/api/soldpermission/allSoldPermissionInfo`,
+      }/api/externalSale/allExternalSaleProducts`,
       {
         headers: {
           authorization: `Warhouse ${userToken}`,
@@ -32,9 +21,9 @@ const SoldPermissionContextProvider = ({ children }) => {
     );
   }
 
-  function getSoldPermissionInfo() {
+  function getSoldInvoicesInfo() {
     return axios.get(
-      `${import.meta.env.VITE_API_URL}/api/soldpermission/getInfoPermission`,
+      `${import.meta.env.VITE_API_URL}/api/externalSale/allExternalSaleInfo`,
       {
         headers: {
           authorization: `Warhouse ${userToken}`,
@@ -45,54 +34,37 @@ const SoldPermissionContextProvider = ({ children }) => {
 
   // Fetching getSoldPermission using useQuery hook
   const {
-    data: soldPermissions,
-    isLoading,
-    isError,
-    refetch: refetchSoldPermission,
+    data: soldInvoicesProducts,
+    isLoading: soldInvoicesProductsLoading,
+    isError: soldInvoicesProductsError,
+    refetch: refetchSoldInvoicesProducts,
   } = useQuery({
-    queryKey: ["soldPermissions"],
-    queryFn: getSoldPermission,
+    queryKey: ["soldInvoicesProducts"],
+    queryFn: getSoldInvoicesProducts,
     enabled: !!userToken,
   });
 
   const {
-    data: allSoldPermissions,
-    isLoading: allSoldPermissionsLoading,
-    isError: allSoldPermissionsError,
-    refetch: refetchAllSoldPermissions,
+    data: soldInvoicesInfo,
+    isLoading: soldInvoicesInfoLoading,
+    refetch: refetchSoldInvoicesInfo,
   } = useQuery({
-    queryKey: ["allSoldPermissions"],
-    queryFn: getAllSoldPermission,
-    enabled: !!userToken,
-  });
-  const invoiceNumber =
-    (allSoldPermissions?.data?.allSoldPermissionInfo?.length || 0) + 1;
-
-  const {
-    data: soldPermissionInfo,
-    isLoading: soldPermissionInfoLoading,
-    isError: soldPermissionInfoError,
-    refetch: refetchsoldPermissionInfo,
-  } = useQuery({
-    queryKey: ["soldPermissionInfo"],
-    queryFn: getSoldPermissionInfo,
+    queryKey: ["soldInvoicesInfo"],
+    queryFn: getSoldInvoicesInfo,
     enabled: !!userToken,
   });
 
   return (
     <soldPermissionContext.Provider
       value={{
-        soldPermissions,
-        isLoading,
-        isError,
-        refetchSoldPermission,
-        allSoldPermissions,
-        refetchAllSoldPermissions,
-        allSoldPermissionsLoading,
-        allSoldPermissionsError,
-        soldPermissionInfo,
-        refetchsoldPermissionInfo,
-        invoiceNumber,
+        soldInvoicesProducts:
+          soldInvoicesProducts?.data?.allExternalSaleProducts,
+        soldInvoicesInfoLoading,
+        refetchSoldInvoicesProducts,
+        soldInvoicesProductsLoading,
+        soldInvoicesProductsError,
+        soldInvoicesInfo: soldInvoicesInfo?.data?.allExternalSaleInfo,
+        refetchSoldInvoicesInfo,
       }}
     >
       {children}

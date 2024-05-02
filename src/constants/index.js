@@ -115,6 +115,12 @@ export const additionPermissionHeader = [
   { label: "الاجمالي", key: "totalPrice" },
 ];
 
+export const soldInvoicesInfoHeader = [
+  { label: "اسم العميل", key: "customerName" },
+  { label: "التاريخ", key: "date" },
+  { label: "رقم الفاتورة", key: "invoiceNumber" },
+];
+
 // Form Fields Data
 export const productsFormField = [
   { label: "اسم الصنف", key: "productName" },

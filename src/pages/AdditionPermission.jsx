@@ -135,7 +135,7 @@ const AdditionPermission = () => {
           <DynamicTable
             headers={additionPermissionHeader}
             data={additionPermissionProducts.reverse() || []}
-            ActionsComponent={DeleteProduct}
+            ActionsComponent={!additionIsSaved && DeleteProduct}
             ActionsComponentProps={{
               additionPermissionProducts: additionPermissionProducts,
               setAdditionPermissionProducts: setAdditionPermissionProducts,

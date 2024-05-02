@@ -15,7 +15,7 @@ const ResetData = ({
   setCustomerData,
   soldPermissionProducts,
   setSoldPermissionProducts,
-  setSoldSaved,
+  setSoldIsSaved,
 }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -31,8 +31,8 @@ const ResetData = ({
       setCustomerData(null);
       localStorage.removeItem("soldPermissionProducts");
       setSoldPermissionProducts([]);
-      localStorage.setItem("soldSaved", false);
-      setSoldSaved(false);
+      localStorage.setItem("soldIsSaved", false);
+      setSoldIsSaved(false);
       localStorage.removeItem("soldInvoiceNumber");
       setInvoiceNumber(null);
     }

@@ -13,7 +13,7 @@ const SelectProduct = ({
   setAdditionPermissionProducts,
   soldPermissionProducts,
   setSoldPermissionProducts,
-  soldSaved,
+  soldIsSaved,
   additionIsSaved,
 }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -136,7 +136,7 @@ const SelectProduct = ({
       <Button
         className="gap-1 max-sm:w-full"
         onClick={() => setDialogOpen(true)}
-        disabled={soldSaved || additionIsSaved}
+        disabled={soldIsSaved || additionIsSaved}
       >
         <span>اختر الصنف</span>
         <Package className="w-4 h-4" />

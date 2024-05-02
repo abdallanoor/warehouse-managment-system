@@ -5,7 +5,7 @@ import Heading from "@/components/shared/Heading";
 import { Button } from "@/components/ui/button";
 import { soldPermissionHeader } from "@/constants";
 import { Printer } from "lucide-react";
-import SelectCustomer from "@/components/soldpermission/SelectCustomer";
+import SelectCustomer from "@/components/soldPermission/SelectCustomer";
 import useLocalStorageEffect from "@/hooks/useLocalStorageEffect";
 import ResetData from "@/components/sharedPermission/ResetData";
 import CustomersForm from "@/components/customers/CustomersForm";
@@ -18,17 +18,17 @@ const SoldPermission = () => {
   const [customerData, setCustomerData] = useState(null);
   const [soldPermissionProducts, setSoldPermissionProducts] = useState([]);
   const [invoiceNumber, setInvoiceNumber] = useState(null);
-  const [soldSaved, setSoldSaved] = useState(false);
+  const [soldIsSaved, setSoldIsSaved] = useState(false);
   const componentRef = useRef();
 
   useLocalStorageEffect("customer", setCustomerData);
   useLocalStorageEffect("soldPermissionProducts", setSoldPermissionProducts);
-  useLocalStorageEffect("soldSaved", setSoldSaved);
+  useLocalStorageEffect("soldIsSaved", setSoldIsSaved);
   useLocalStorageEffect("soldInvoiceNumber", setInvoiceNumber);
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-    documentTitle: `إذن استلام - ${"" || "غير موجود"}`,
+    documentTitle: `إذن بيع - ${invoiceNumber || "غير موجود"}`,
     onPrintError: () => alert("يوجد مشكلة في الطباعة"),
   });
 
@@ -39,7 +39,7 @@ const SoldPermission = () => {
         customerData={customerData}
         soldPermissionProducts={soldPermissionProducts}
         setSoldPermissionProducts={setSoldPermissionProducts}
-        setSoldSaved={setSoldSaved}
+        setSoldIsSaved={setSoldIsSaved}
         setInvoiceNumber={setInvoiceNumber}
       />
     );
@@ -59,17 +59,12 @@ const SoldPermission = () => {
           </>
         )}
 
-        {customerData && !soldSaved && (
+        {customerData && !soldIsSaved && (
           <>
             <SelectProduct
               setSoldPermissionProducts={setSoldPermissionProducts}
               soldPermissionProducts={soldPermissionProducts}
-              soldSaved={soldSaved}
-            />
-            <ProductsForm
-              setSoldPermissionProducts={setSoldPermissionProducts}
-              soldPermissionProducts={soldPermissionProducts}
-              soldSaved={soldSaved}
+              soldIsSaved={soldIsSaved}
             />
 
             {renderResetData()}
@@ -78,21 +73,21 @@ const SoldPermission = () => {
               <SavePermission
                 customerData={customerData}
                 soldPermissionProducts={soldPermissionProducts}
-                soldSaved={soldSaved}
-                setSoldSaved={setSoldSaved}
+                soldIsSaved={soldIsSaved}
+                setSoldIsSaved={setSoldIsSaved}
                 setInvoiceNumber={setInvoiceNumber}
               />
             )}
           </>
         )}
 
-        {soldSaved && (
+        {soldIsSaved && (
           <>
             {renderResetData()}
 
             <Button
               onClick={handlePrint}
-              disabled={!soldSaved}
+              disabled={!soldIsSaved}
               className="flex max-sm:w-full"
             >
               <span>طباعه</span>
@@ -119,7 +114,7 @@ const SoldPermission = () => {
               {renderActions()}
             </div>
           </div>
-          {soldSaved && (
+          {soldIsSaved && (
             <p className="hidden print:block font-semibold">{`تحرير في : ${new Date().toLocaleDateString(
               "en-GB"
             )}`}</p>
@@ -127,13 +122,13 @@ const SoldPermission = () => {
           <DynamicTable
             headers={soldPermissionHeader}
             data={soldPermissionProducts.reverse() || []}
-            ActionsComponent={DeleteProduct}
+            ActionsComponent={!soldIsSaved && DeleteProduct}
             ActionsComponentProps={{
               soldPermissionProducts: soldPermissionProducts,
               setSoldPermissionProducts: setSoldPermissionProducts,
             }}
           />
-          {soldSaved && (
+          {soldIsSaved && (
             <>
               <p className="hidden print:block font-semibold">{`رقم الاذن : ${invoiceNumber}`}</p>
               <p className="hidden print:block font-semibold">{`التوقيع : `}</p>

@@ -6,6 +6,7 @@ import { Save } from "lucide-react";
 import { useContext, useState } from "react";
 import { movementsContext } from "@/context/MovmentsContext";
 import { productsContext } from "@/context/ProductsContext";
+import { soldPermissionContext } from "@/context/SoldPremissionContext";
 
 const SavePermission = ({
   setAdditionIsSaved,
@@ -15,15 +16,18 @@ const SavePermission = ({
   setInvoiceNumber,
   customerData,
   soldPermissionProducts,
-  setSoldSaved,
-  soldSaved,
+  setSoldIsSaved,
+  soldIsSaved,
 }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const { refetchMovements } = useContext(movementsContext);
   const { refetchProducts } = useContext(productsContext);
+  const { refetchSoldInvoicesProducts, refetchSoldInvoicesInfo } = useContext(
+    soldPermissionContext
+  );
 
-  const handleAddSave = async () => {
+  const handleAdditionSave = async () => {
     setLoading(true);
     await axios
       .post(
@@ -75,12 +79,15 @@ const SavePermission = ({
         }
       )
       .then(({ data }) => {
+        console.log(data);
         if (data.message === "Done") {
-          localStorage.setItem("soldSaved", true);
-          setSoldSaved(true);
+          localStorage.setItem("soldIsSaved", true);
+          setSoldIsSaved(true);
           localStorage.setItem("soldInvoiceNumber", data.currentInvoiceNumber);
           setInvoiceNumber(data.currentInvoiceNumber);
           refetchProducts();
+          refetchSoldInvoicesProducts();
+          refetchSoldInvoicesInfo();
           refetchMovements();
           setDialogOpen(false);
           toast({
@@ -105,7 +112,9 @@ const SavePermission = ({
     !vendorData ||
     additionIsSaved === true;
   const soldDisabledSaveTrigger =
-    soldPermissionProducts?.length === 0 || !customerData || soldSaved === true;
+    soldPermissionProducts?.length === 0 ||
+    !customerData ||
+    soldIsSaved === true;
 
   const renderSaveTrigger = () => (
     <>
@@ -138,7 +147,7 @@ const SavePermission = ({
         soldPermissionProducts
           ? handleSoldSave
           : additionPermissionProducts
-          ? handleAddSave
+          ? handleAdditionSave
           : null
       }
       bottomDisabled={loading}
