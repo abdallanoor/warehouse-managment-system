@@ -9,7 +9,7 @@ import { Repeat2 } from "lucide-react";
 import { Button } from "../ui/button";
 import { useState } from "react";
 
-const SoldInvoicesProductActions = ({ rowData }) => {
+const InvoicesProductActions = ({ rowData }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -48,4 +48,4 @@ const SoldInvoicesProductActions = ({ rowData }) => {
   );
 };
 
-export default SoldInvoicesProductActions;
+export default InvoicesProductActions;

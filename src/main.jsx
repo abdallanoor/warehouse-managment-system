@@ -26,6 +26,9 @@ import CustomerDetails from "./components/customers/CustomerDetails";
 import VendorsContextProvider from "./context/VendorsContext";
 import VendorDetails from "./components/vendors/VendorDetails";
 import SoldInvoicesDetails from "./components/soldInvoices/SoldInvoicesDetails";
+import AdditionInvoices from "./pages/AdditionInvoices";
+import AdditionPermissionContextProvider from "./context/AdditionPermissionContext";
+import AdditionInvoicesDetails from "./components/additionInvoices/AdditionInvoicesDetails";
 
 const router = createBrowserRouter([
   {
@@ -124,6 +127,22 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      {
+        path: "/addition-invoices",
+        element: (
+          <ProtectedRoute>
+            <AdditionInvoices />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/addition-invoices/:invoiceNumber",
+        element: (
+          <ProtectedRoute>
+            <AdditionInvoicesDetails />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
 ]);
@@ -140,11 +159,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <VendorsContextProvider>
               <MovementsContextProvider>
                 <SoldPermissionContextProvider>
-                  <RouterProvider router={router} />
-                  <ReactQueryDevtools
-                    initialIsOpen={false}
-                    buttonPosition="bottom-left"
-                  />
+                  <AdditionPermissionContextProvider>
+                    <RouterProvider router={router} />
+                    <ReactQueryDevtools
+                      initialIsOpen={false}
+                      buttonPosition="bottom-left"
+                    />
+                  </AdditionPermissionContextProvider>
                 </SoldPermissionContextProvider>
               </MovementsContextProvider>
             </VendorsContextProvider>

@@ -52,6 +52,11 @@ export const navLinks = [
     route: "/sold-invoices",
     icon: FileTextIcon,
   },
+  {
+    label: "فواتير الإضافة",
+    route: "/addition-invoices",
+    icon: FileTextIcon,
+  },
 ];
 
 // Table Data
@@ -117,6 +122,12 @@ export const additionPermissionHeader = [
 
 export const soldInvoicesInfoHeader = [
   { label: "اسم العميل", key: "customerName" },
+  { label: "التاريخ", key: "date" },
+  { label: "رقم الفاتورة", key: "invoiceNumber" },
+];
+
+export const additionInvoicesInfoHeader = [
+  { label: "اسم المورد", key: "vendorName" },
   { label: "التاريخ", key: "date" },
   { label: "رقم الفاتورة", key: "invoiceNumber" },
 ];

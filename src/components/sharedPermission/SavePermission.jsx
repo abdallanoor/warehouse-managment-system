@@ -7,6 +7,7 @@ import { useContext, useState } from "react";
 import { movementsContext } from "@/context/MovmentsContext";
 import { productsContext } from "@/context/ProductsContext";
 import { soldPermissionContext } from "@/context/SoldPremissionContext";
+import { additionPermissionContext } from "@/context/AdditionPermissionContext";
 
 const SavePermission = ({
   setAdditionIsSaved,
@@ -26,6 +27,8 @@ const SavePermission = ({
   const { refetchSoldInvoicesProducts, refetchSoldInvoicesInfo } = useContext(
     soldPermissionContext
   );
+  const { refetchAdditionInvoicesProducts, refetchAdditionInvoicesInfo } =
+    useContext(additionPermissionContext);
 
   const handleAdditionSave = async () => {
     setLoading(true);
@@ -46,6 +49,8 @@ const SavePermission = ({
           localStorage.setItem("addInvoiceNumber", data.currentInvoiceNumber);
           setInvoiceNumber(data.currentInvoiceNumber);
           refetchProducts();
+          refetchAdditionInvoicesInfo();
+          refetchAdditionInvoicesProducts();
           refetchMovements();
           setDialogOpen(false);
           toast({
@@ -107,6 +112,7 @@ const SavePermission = ({
       })
       .finally(() => setLoading(false));
   };
+
   const addDisabledSaveTrigger =
     additionPermissionProducts?.length === 0 ||
     !vendorData ||

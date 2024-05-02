@@ -4,13 +4,11 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { FileSymlink, SquareArrowOutUpRight } from "lucide-react";
+import { FileSymlink, FileText, SquareArrowOutUpRight } from "lucide-react";
 import { Button } from "../ui/button";
 import { useNavigate } from "react-router-dom";
 
-const SoldInvoicesInfoActions = ({ rowData }) => {
-  // console.log(rowData);
-
+const InvoicesInfoActions = ({ rowData }) => {
   const navigate = useNavigate();
 
   const handleAction = () => {
@@ -21,8 +19,8 @@ const SoldInvoicesInfoActions = ({ rowData }) => {
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger onClick={() => handleAction()} asChild>
-            <Button variant="ghost" size="icon" to="">
-              <FileSymlink className="w-4 h-4" />
+            <Button variant="ghost" size="icon">
+              <FileText className="w-4 h-4" />
             </Button>
           </TooltipTrigger>
           <TooltipContent>
@@ -34,4 +32,4 @@ const SoldInvoicesInfoActions = ({ rowData }) => {
   );
 };
 
-export default SoldInvoicesInfoActions;
+export default InvoicesInfoActions;

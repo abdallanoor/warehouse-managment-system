@@ -1,6 +1,6 @@
 import DynamicTable from "@/components/shared/DynamicTable";
 import Heading from "@/components/shared/Heading";
-import SoldInvoicesInfoActions from "@/components/soldInvoices/SoldInvoicesInfoActions";
+import InvoicesInfoActions from "@/components/sharedInvoices/InvoicesInfoActions";
 import { soldInvoicesInfoHeader } from "@/constants";
 import { soldPermissionContext } from "@/context/SoldPremissionContext";
 import { useContext } from "react";
@@ -16,9 +16,9 @@ const SoldInvoices = () => {
 
       <DynamicTable
         headers={soldInvoicesInfoHeader}
-        data={soldInvoicesInfo?.reverse()}
+        data={soldInvoicesInfo?.reverse() || []}
         loading={soldInvoicesInfoLoading}
-        ActionsComponent={SoldInvoicesInfoActions}
+        ActionsComponent={InvoicesInfoActions}
       />
     </>
   );
