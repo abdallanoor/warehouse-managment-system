@@ -5,13 +5,13 @@ import Heading from "@/components/shared/Heading";
 import { Button } from "@/components/ui/button";
 import { soldPermissionHeader } from "@/constants";
 import { Printer } from "lucide-react";
-import SelectCustomer from "@/components/soldPermission/SelectCustomer";
 import useLocalStorageEffect from "@/hooks/useLocalStorageEffect";
 import ResetData from "@/components/sharedPermission/ResetData";
 import CustomersForm from "@/components/customers/CustomersForm";
 import SelectProduct from "@/components/sharedPermission/SelectProduct";
 import DeleteProduct from "@/components/sharedPermission/DeleteProduct";
 import SavePermission from "@/components/sharedPermission/SavePermission";
+import SelectCustomer from "@/components/soldPermission/SelectCustomer";
 
 const SoldPermission = () => {
   const [customerData, setCustomerData] = useState(null);
