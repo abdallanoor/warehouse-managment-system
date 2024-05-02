@@ -44,12 +44,12 @@ export const navLinks = [
   },
   {
     label: "إذن اضافة",
-    route: "/add-permission",
+    route: "/addition-permission",
     icon: FilePlus2,
   },
   {
     label: "فواتير البيع",
-    route: "/bills",
+    route: "/sold-invoices",
     icon: FileTextIcon,
   },
 ];
@@ -103,7 +103,7 @@ export const soldPermissionHeader = [
   { label: "الاجمالي", key: "totalPrice" },
 ];
 
-export const addPermissionHeader = [
+export const additionPermissionHeader = [
   { label: "اسم الصنف", key: "productName" },
   { label: "الكود", key: "productBarCode" },
   { label: "الماركة", key: "productModel" },

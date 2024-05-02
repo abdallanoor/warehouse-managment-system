@@ -62,7 +62,16 @@ const DynamicTable = ({
             }`}
           >
             {header.key === "typeMovement" ? (
-              <Badge variant={item.typeMovement === "sold" ? "secondary" : ""}>
+              <Badge
+                variant={
+                  item.typeMovement === "buy"
+                    ? "default"
+                    : item.typeMovement === "sold"
+                    ? "secondary"
+                    : "destructive"
+                }
+              >
+                {console.log(item.typeMovement)}
                 {item[header.key] === "buy"
                   ? "شراء"
                   : item[header.key] === "sold"

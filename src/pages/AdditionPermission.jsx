@@ -5,26 +5,31 @@ import DeleteProduct from "@/components/sharedPermission/DeleteProduct";
 import ResetData from "@/components/sharedPermission/ResetData";
 import SavePermission from "@/components/sharedPermission/SavePermission";
 import SelectProduct from "@/components/sharedPermission/SelectProduct";
-import SelectVendor from "@/components/addPemission/SelectVendor";
+import SelectVendor from "@/components/additionPemission/SelectVendor";
 import DynamicTable from "@/components/shared/DynamicTable";
 import Heading from "@/components/shared/Heading";
 import { Button } from "@/components/ui/button";
 import VendorsForm from "@/components/vendors/VendorsForm";
-import { addPermissionHeader } from "@/constants";
+import { additionPermissionHeader } from "@/constants";
 import useLocalStorageEffect from "@/hooks/useLocalStorageEffect";
 import ProductsForm from "@/components/products/ProductsForm";
 
-const AddPermission = () => {
+const AdditionPermission = () => {
   const [vendorData, setVendorData] = useState(null);
-  const [addPermissionProducts, setAddPermissionProducts] = useState([]);
+  const [additionPermissionProducts, setAdditionPermissionProducts] = useState(
+    []
+  );
   const [invoiceNumber, setInvoiceNumber] = useState(null);
-  const [addSaved, setAddSaved] = useState(false);
+  const [additionIsSaved, setAdditionIsSaved] = useState(false);
 
   const componentRef = useRef();
 
   useLocalStorageEffect("vendor", setVendorData);
-  useLocalStorageEffect("addPermissionProducts", setAddPermissionProducts);
-  useLocalStorageEffect("addSaved", setAddSaved);
+  useLocalStorageEffect(
+    "additionPermissionProducts",
+    setAdditionPermissionProducts
+  );
+  useLocalStorageEffect("additionIsSaved", setAdditionIsSaved);
   useLocalStorageEffect("addInvoiceNumber", setInvoiceNumber);
 
   const handlePrint = useReactToPrint({
@@ -38,9 +43,9 @@ const AddPermission = () => {
       <ResetData
         setVendorData={setVendorData}
         vendorData={vendorData}
-        addPermissionProducts={addPermissionProducts}
-        setAddPermissionProducts={setAddPermissionProducts}
-        setAddSaved={setAddSaved}
+        additionPermissionProducts={additionPermissionProducts}
+        setAdditionPermissionProducts={setAdditionPermissionProducts}
+        setAdditionIsSaved={setAdditionIsSaved}
         setInvoiceNumber={setInvoiceNumber}
       />
     );
@@ -60,27 +65,27 @@ const AddPermission = () => {
           </>
         )}
 
-        {vendorData && !addSaved && (
+        {vendorData && !additionIsSaved && (
           <>
             <SelectProduct
-              setAddPermissionProducts={setAddPermissionProducts}
-              addPermissionProducts={addPermissionProducts}
-              addSaved={addSaved}
+              setAdditionPermissionProducts={setAdditionPermissionProducts}
+              additionPermissionProducts={additionPermissionProducts}
+              additionIsSaved={additionIsSaved}
             />
             <ProductsForm
-              setAddPermissionProducts={setAddPermissionProducts}
-              addPermissionProducts={addPermissionProducts}
-              addSaved={addSaved}
+              setAdditionPermissionProducts={setAdditionPermissionProducts}
+              additionPermissionProducts={additionPermissionProducts}
+              additionIsSaved={additionIsSaved}
             />
             {renderResetData()}
 
-            {addPermissionProducts.length > 0 && (
+            {additionPermissionProducts.length > 0 && (
               <>
                 <SavePermission
-                  addSaved={addSaved}
-                  setAddSaved={setAddSaved}
+                  additionIsSaved={additionIsSaved}
+                  setAdditionIsSaved={setAdditionIsSaved}
                   vendorData={vendorData}
-                  addPermissionProducts={addPermissionProducts}
+                  additionPermissionProducts={additionPermissionProducts}
                   setInvoiceNumber={setInvoiceNumber}
                 />
               </>
@@ -88,12 +93,12 @@ const AddPermission = () => {
           </>
         )}
 
-        {addSaved && (
+        {additionIsSaved && (
           <>
             {renderResetData()}
 
             <Button
-              disabled={!addSaved}
+              disabled={!additionIsSaved}
               onClick={handlePrint}
               className="flex max-sm:w-full"
             >
@@ -122,22 +127,22 @@ const AddPermission = () => {
             </div>
           </div>
 
-          {addSaved && (
+          {additionIsSaved && (
             <p className="hidden print:block font-semibold">{`تحرير في : ${new Date().toLocaleDateString(
               "en-GB"
             )}`}</p>
           )}
           <DynamicTable
-            headers={addPermissionHeader}
-            data={addPermissionProducts.reverse() || []}
+            headers={additionPermissionHeader}
+            data={additionPermissionProducts.reverse() || []}
             ActionsComponent={DeleteProduct}
             ActionsComponentProps={{
-              addPermissionProducts: addPermissionProducts,
-              setAddPermissionProducts: setAddPermissionProducts,
+              additionPermissionProducts: additionPermissionProducts,
+              setAdditionPermissionProducts: setAdditionPermissionProducts,
             }}
           />
 
-          {addSaved && (
+          {additionIsSaved && (
             <>
               <p className="hidden print:block font-semibold">{`رقم الاذن : ${invoiceNumber}`}</p>
               <p className="hidden print:block font-semibold">{`التوقيع : `}</p>
@@ -149,4 +154,4 @@ const AddPermission = () => {
   );
 };
 
-export default AddPermission;
+export default AdditionPermission;

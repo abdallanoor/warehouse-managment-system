@@ -19,12 +19,12 @@ const ProductsForm = ({
   rowData,
   setDropdownOpen,
   triggerClassName,
-  addPermissionProducts,
-  setAddPermissionProducts,
+  additionPermissionProducts,
+  setAdditionPermissionProducts,
   soldPermissionProducts,
   setSoldPermissionProducts,
   soldSaved,
-  addSaved,
+  additionIsSaved,
 }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -61,21 +61,21 @@ const ProductsForm = ({
       }
     }
 
-    if (addPermissionProducts) {
-      const isDuplicate = addPermissionProducts.some(
+    if (additionPermissionProducts) {
+      const isDuplicate = additionPermissionProducts.some(
         (product) => product.productBarCode === values.productBarCode
       );
 
       if (!isDuplicate) {
         const totalPrice = values.productPrice * values.productCount;
         const newProduct = { ...values, totalPrice };
-        const updatedProducts = [...addPermissionProducts, newProduct];
+        const updatedProducts = [...additionPermissionProducts, newProduct];
 
         localStorage.setItem(
-          "addPermissionProducts",
+          "additionPermissionProducts",
           JSON.stringify(updatedProducts)
         );
-        setAddPermissionProducts(updatedProducts);
+        setAdditionPermissionProducts(updatedProducts);
         formik.resetForm();
         toast({
           title: `تم إضافة الصنف ${values.productName} بنجاح`,
@@ -131,11 +131,11 @@ const ProductsForm = ({
   const formik = useFormik({
     initialValues: productsInitialValues,
     onSubmit:
-      addPermissionProducts || soldPermissionProducts
+      additionPermissionProducts || soldPermissionProducts
         ? permissionSubmit
         : addAndEditSubmit,
     validationSchema:
-      addPermissionProducts || soldPermissionProducts
+      additionPermissionProducts || soldPermissionProducts
         ? permissionProductsSchema
         : productsSchema,
   });
@@ -151,7 +151,7 @@ const ProductsForm = ({
   //adding permission
   const renderPermissionDialogTrigger = () => (
     <Button
-      disabled={soldSaved || addSaved}
+      disabled={soldSaved || additionIsSaved}
       className="max-sm:w-full"
       onClick={() => setDialogOpen(true)}
     >
@@ -181,7 +181,7 @@ const ProductsForm = ({
       dialogTrigger={
         rowData
           ? renderUpdateDialogTrigger()
-          : addPermissionProducts || soldPermissionProducts
+          : additionPermissionProducts || soldPermissionProducts
           ? renderPermissionDialogTrigger()
           : renderAddDialogTrigger()
       }
@@ -191,7 +191,7 @@ const ProductsForm = ({
       dialogDescription={`يجب عليك ملء ${
         rowData
           ? "الخانات المراد تعديلها"
-          : addPermissionProducts || soldPermissionProducts
+          : additionPermissionProducts || soldPermissionProducts
           ? "اسم الصنف و الكود والعدد والسعر اولاً لأضافة صنف جديد"
           : "اسم الصنف و الكود اولاً لأضافة صنف جديد"
       }`}

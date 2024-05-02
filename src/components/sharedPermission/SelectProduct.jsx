@@ -9,21 +9,21 @@ import FormField from "../shared/FormField";
 import { useFormik } from "formik";
 import { number, object } from "yup";
 const SelectProduct = ({
-  addPermissionProducts,
-  setAddPermissionProducts,
+  additionPermissionProducts,
+  setAdditionPermissionProducts,
   soldPermissionProducts,
   setSoldPermissionProducts,
   soldSaved,
-  addSaved,
+  additionIsSaved,
 }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [productValues, setProductValues] = useState(null);
   const { products, isLoading } = useContext(productsContext);
 
-  if (addPermissionProducts) {
-    var filteredAddPermissionProducts = products?.data?.products.filter(
+  if (additionPermissionProducts) {
+    var filteredadditionPermissionProducts = products?.data?.products.filter(
       (product) => {
-        return !addPermissionProducts.some(
+        return !additionPermissionProducts.some(
           (productInStorage) =>
             product.productBarCode === productInStorage.productBarCode
         );
@@ -43,14 +43,14 @@ const SelectProduct = ({
   }
 
   const handleProductData = (values) => {
-    if (addPermissionProducts) {
-      const isDuplicate = addPermissionProducts.some(
+    if (additionPermissionProducts) {
+      const isDuplicate = additionPermissionProducts.some(
         (product) => product.productBarCode === productValues.productBarCode
       );
 
       if (!isDuplicate) {
         const updatedProducts = [
-          ...addPermissionProducts,
+          ...additionPermissionProducts,
           {
             ...productValues,
             ...values,
@@ -59,10 +59,10 @@ const SelectProduct = ({
         ];
 
         localStorage.setItem(
-          "addPermissionProducts",
+          "additionPermissionProducts",
           JSON.stringify(updatedProducts)
         );
-        setAddPermissionProducts(updatedProducts);
+        setAdditionPermissionProducts(updatedProducts);
         setProductValues({});
         setDialogOpen(false);
         formik.resetForm();
@@ -136,7 +136,7 @@ const SelectProduct = ({
       <Button
         className="gap-1 max-sm:w-full"
         onClick={() => setDialogOpen(true)}
-        disabled={soldSaved || addSaved}
+        disabled={soldSaved || additionIsSaved}
       >
         <span>اختر الصنف</span>
         <Package className="w-4 h-4" />
@@ -163,8 +163,8 @@ const SelectProduct = ({
           data={
             soldPermissionProducts
               ? filteredSoldPermissionProducts
-              : addPermissionProducts
-              ? filteredAddPermissionProducts
+              : additionPermissionProducts
+              ? filteredadditionPermissionProducts
               : []
           }
           setValues={setProductValues}

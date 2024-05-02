@@ -3,9 +3,9 @@ import Heading from "@/components/shared/Heading";
 import { soldPermissionContext } from "@/context/SoldPremissionContext";
 import { useContext } from "react";
 
-const Bills = () => {
+const SoldInvoices = () => {
   const { allSoldPermissions } = useContext(soldPermissionContext);
-  // console.log(allSoldPermissions?.data?.allSoldPermissionInfo);
+
   return (
     <>
       <Heading>فواتير البيع</Heading>
@@ -15,4 +15,4 @@ const Bills = () => {
   );
 };
 
-export default Bills;
+export default SoldInvoices;

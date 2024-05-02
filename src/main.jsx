@@ -15,8 +15,8 @@ import Products from "./pages/Products";
 import Movements from "./pages/Movements";
 import Customers from "./pages/Customers";
 import SoldPermission from "./pages/SoldPermission";
-import AddPermission from "./pages/AddPermission";
-import Bills from "./pages/Bills";
+import AdditionPermission from "./pages/AdditionPermission";
+import SoldInvoices from "./pages/SoldInvoices";
 import ProductDetails from "./components/products/ProductDetails";
 import CustomersContextProvider from "./context/CustomersContext";
 import MovementsContextProvider from "./context/MovmentsContext";
@@ -100,18 +100,18 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/add-permission",
+        path: "/addition-permission",
         element: (
           <ProtectedRoute>
-            <AddPermission />
+            <AdditionPermission />
           </ProtectedRoute>
         ),
       },
       {
-        path: "/bills",
+        path: "/sold-invoices",
         element: (
           <ProtectedRoute>
-            <Bills />
+            <SoldInvoices />
           </ProtectedRoute>
         ),
       },

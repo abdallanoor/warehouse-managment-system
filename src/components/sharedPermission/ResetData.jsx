@@ -7,9 +7,9 @@ import { toast } from "../ui/use-toast";
 const ResetData = ({
   vendorData,
   setVendorData,
-  addPermissionProducts,
-  setAddPermissionProducts,
-  setAddSaved,
+  additionPermissionProducts,
+  setAdditionPermissionProducts,
+  setAdditionIsSaved,
   setInvoiceNumber,
   customerData,
   setCustomerData,
@@ -37,13 +37,13 @@ const ResetData = ({
       setInvoiceNumber(null);
     }
 
-    if (vendorData || addPermissionProducts) {
+    if (vendorData || additionPermissionProducts) {
       localStorage.removeItem("vendor");
       setVendorData(null);
-      localStorage.removeItem("addPermissionProducts");
-      setAddPermissionProducts([]);
-      localStorage.setItem("addSaved", false);
-      setAddSaved(false);
+      localStorage.removeItem("additionPermissionProducts");
+      setAdditionPermissionProducts([]);
+      localStorage.setItem("additionIsSaved", false);
+      setAdditionIsSaved(false);
       localStorage.removeItem("addInvoiceNumber");
       setInvoiceNumber(null);
     }

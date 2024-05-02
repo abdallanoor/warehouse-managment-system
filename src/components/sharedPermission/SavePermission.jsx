@@ -8,9 +8,9 @@ import { movementsContext } from "@/context/MovmentsContext";
 import { productsContext } from "@/context/ProductsContext";
 
 const SavePermission = ({
-  setAddSaved,
-  addSaved,
-  addPermissionProducts,
+  setAdditionIsSaved,
+  additionIsSaved,
+  additionPermissionProducts,
   vendorData,
   setInvoiceNumber,
   customerData,
@@ -28,7 +28,7 @@ const SavePermission = ({
     await axios
       .post(
         `${import.meta.env.VITE_API_URL}/api/purchasedProducts/finalConfirm`,
-        { products: addPermissionProducts, vendorData: vendorData },
+        { products: additionPermissionProducts, vendorData: vendorData },
         {
           headers: {
             authorization: `Warhouse ${localStorage.getItem("userToken")}`,
@@ -37,8 +37,8 @@ const SavePermission = ({
       )
       .then(({ data }) => {
         if (data.message === "Done") {
-          localStorage.setItem("addSaved", true);
-          setAddSaved(true);
+          localStorage.setItem("additionIsSaved", true);
+          setAdditionIsSaved(true);
           localStorage.setItem("addInvoiceNumber", data.currentInvoiceNumber);
           setInvoiceNumber(data.currentInvoiceNumber);
           refetchProducts();
@@ -101,7 +101,9 @@ const SavePermission = ({
       .finally(() => setLoading(false));
   };
   const addDisabledSaveTrigger =
-    addPermissionProducts?.length === 0 || !vendorData || addSaved === true;
+    additionPermissionProducts?.length === 0 ||
+    !vendorData ||
+    additionIsSaved === true;
   const soldDisabledSaveTrigger =
     soldPermissionProducts?.length === 0 || !customerData || soldSaved === true;
 
@@ -111,7 +113,7 @@ const SavePermission = ({
         className="gap-1 max-sm:w-full"
         onClick={() => setDialogOpen(true)}
         disabled={
-          addPermissionProducts
+          additionPermissionProducts
             ? addDisabledSaveTrigger
             : soldPermissionProducts
             ? soldDisabledSaveTrigger
@@ -135,7 +137,7 @@ const SavePermission = ({
       handleAction={
         soldPermissionProducts
           ? handleSoldSave
-          : addPermissionProducts
+          : additionPermissionProducts
           ? handleAddSave
           : null
       }

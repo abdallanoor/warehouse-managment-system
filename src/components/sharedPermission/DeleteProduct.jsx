@@ -16,8 +16,8 @@ const DeleteProduct = ({ ActionsComponentProps, rowData }) => {
   const {
     soldPermissionProducts,
     setSoldPermissionProducts,
-    addPermissionProducts,
-    setAddPermissionProducts,
+    additionPermissionProducts,
+    setAdditionPermissionProducts,
   } = ActionsComponentProps;
 
   const renderDeleteDialogTrigger = () => (
@@ -52,15 +52,15 @@ const DeleteProduct = ({ ActionsComponentProps, rowData }) => {
       setSoldPermissionProducts(filteredProducts);
     }
 
-    if (addPermissionProducts) {
-      const filteredProducts = addPermissionProducts.filter(
+    if (additionPermissionProducts) {
+      const filteredProducts = additionPermissionProducts.filter(
         (product) => product.productBarCode !== rowData.productBarCode
       );
       localStorage.setItem(
-        "addPermissionProducts",
+        "additionPermissionProducts",
         JSON.stringify(filteredProducts)
       );
-      setAddPermissionProducts(filteredProducts);
+      setAdditionPermissionProducts(filteredProducts);
     }
 
     setDialogOpen(false);
