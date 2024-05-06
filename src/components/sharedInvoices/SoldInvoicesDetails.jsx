@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { soldPermissionContext } from "@/context/SoldPremissionContext";
 import { soldPermissionHeader } from "@/constants";
-import InvoicesProductActions from "../sharedInvoices/InvoicesProductActions";
 import InvoiceDetails from "../shared/InvoicesDetails";
+import InvoicesProductActions from "./actions/InvoicesProductActions";
 
 const SoldInvoicesDetails = () => {
   const {
@@ -13,6 +13,8 @@ const SoldInvoicesDetails = () => {
     soldInvoicesProductsError,
   } = useContext(soldPermissionContext);
 
+  console.log(soldInvoicesProducts);
+
   return (
     <>
       <InvoiceDetails
@@ -21,7 +23,7 @@ const SoldInvoicesDetails = () => {
         invoiceInfoLoading={soldInvoicesInfoLoading}
         invoiceProductsLoading={soldInvoicesProductsLoading}
         invoiceProductsError={soldInvoicesProductsError}
-        ActionsComponent={InvoicesProductActions}
+        // ActionsComponent={InvoicesProductActions}
         header={soldPermissionHeader}
         sold
       />

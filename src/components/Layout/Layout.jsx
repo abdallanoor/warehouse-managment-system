@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "../navigation/Sidebar";
 import MobileNav from "../navigation/MobileNav";
 import { Toaster } from "../ui/toaster";
+import ScrollToTop from "../shared/ScrollToTop";
 
 const Layout = () => {
   return (
@@ -14,6 +15,7 @@ const Layout = () => {
         </div>
       </div>
       <Toaster />
+      <ScrollToTop />
     </div>
   );
 };

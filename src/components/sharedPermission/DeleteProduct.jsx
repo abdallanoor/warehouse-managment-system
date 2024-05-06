@@ -41,7 +41,7 @@ const DeleteProduct = ({ ActionsComponentProps, rowData }) => {
 
   const handleDeleteProduct = () => {
     if (soldPermissionProducts) {
-      const filteredProducts = soldPermissionProducts.filter(
+      const filteredProducts = soldPermissionProducts?.filter(
         (product) => product.productBarCode !== rowData.productBarCode
       );
 
@@ -53,7 +53,7 @@ const DeleteProduct = ({ ActionsComponentProps, rowData }) => {
     }
 
     if (additionPermissionProducts) {
-      const filteredProducts = additionPermissionProducts.filter(
+      const filteredProducts = additionPermissionProducts?.filter(
         (product) => product.productBarCode !== rowData.productBarCode
       );
       localStorage.setItem(

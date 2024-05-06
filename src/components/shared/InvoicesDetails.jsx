@@ -41,7 +41,7 @@ const InvoiceDetails = ({
       <Heading>{sold ? "إذن بيع" : addition ? "إذن إضافة" : null}</Heading>
       <div className="flex flex-col gap-4 print:gap-2">
         <div className="flex justify-between items-center flex-col sm:flex-row gap-4">
-          <div className="flex justify-between items-center flex-col sm:flex-row w-full sm:w-4/5 print:w-full">
+          <div className="flex justify-between items-center gap-1 flex-col sm:flex-row w-full sm:w-4/5 print:w-full">
             {invoiceInfoLoading ? (
               <p className="font-semibold">جاري التحميل...</p>
             ) : (

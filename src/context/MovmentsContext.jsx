@@ -31,7 +31,12 @@ const MovementsContextProvider = ({ children }) => {
 
   return (
     <movementsContext.Provider
-      value={{ movements, isLoading, isError, refetchMovements }}
+      value={{
+        movements: movements?.data?.products,
+        isLoading,
+        isError,
+        refetchMovements,
+      }}
     >
       {children}
     </movementsContext.Provider>

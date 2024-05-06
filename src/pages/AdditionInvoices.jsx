@@ -1,7 +1,7 @@
 import DynamicTable from "@/components/shared/DynamicTable";
 import Heading from "@/components/shared/Heading";
 import Search from "@/components/shared/Search";
-import InvoicesInfoActions from "@/components/sharedInvoices/InvoicesInfoActions";
+import InvoicesInfoActions from "@/components/sharedInvoices/actions/InvoicesInfoActions";
 import { additionInvoicesInfoHeader } from "@/constants";
 import { additionPermissionContext } from "@/context/AdditionPermissionContext";
 import { useContext, useState } from "react";

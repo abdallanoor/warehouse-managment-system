@@ -25,10 +25,10 @@ import Vendors from "./pages/Vendors";
 import CustomerDetails from "./components/customers/CustomerDetails";
 import VendorsContextProvider from "./context/VendorsContext";
 import VendorDetails from "./components/vendors/VendorDetails";
-import SoldInvoicesDetails from "./components/soldInvoices/SoldInvoicesDetails";
 import AdditionInvoices from "./pages/AdditionInvoices";
 import AdditionPermissionContextProvider from "./context/AdditionPermissionContext";
-import AdditionInvoicesDetails from "./components/additionInvoices/AdditionInvoicesDetails";
+import AdditionInvoicesDetails from "./components/sharedInvoices/AdditionInvoicesDetails";
+import SoldInvoicesDetails from "./components/sharedInvoices/SoldInvoicesDetails";
 
 const router = createBrowserRouter([
   {

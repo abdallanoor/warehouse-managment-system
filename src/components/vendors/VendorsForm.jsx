@@ -54,7 +54,7 @@ const VendorsForm = ({
           refetchVendors();
           const actionMessage = isEditing ? "تم تعديل" : "تم إضافة";
           toast({
-            title: `${actionMessage} ${formik.values.vendorName} بنجاح`,
+            title: `${actionMessage} المورد ${formik.values.vendorName} بنجاح`,
           });
           formik.resetForm();
         } else {

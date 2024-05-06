@@ -11,7 +11,7 @@ const Vendors = () => {
   const [searchValue, setSearchValue] = useState("");
   const { vendors, isError, isLoading } = useContext(vendorsContext);
 
-  const filteredVendors = vendors?.data?.vendors?.filter(
+  const filteredVendors = vendors?.filter(
     (vendor) =>
       vendor.vendorName.toLowerCase().includes(searchValue.toLowerCase()) ||
       vendor.vendorCode

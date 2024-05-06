@@ -1,4 +1,3 @@
-import Dialog from "../shared/Dialog";
 import {
   TooltipProvider,
   Tooltip,
@@ -6,8 +5,9 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Repeat2 } from "lucide-react";
-import { Button } from "../ui/button";
 import { useState } from "react";
+import Dialog from "@/components/shared/Dialog";
+import { Button } from "@/components/ui/button";
 
 const InvoicesProductActions = ({ rowData }) => {
   const [dialogOpen, setDialogOpen] = useState(false);

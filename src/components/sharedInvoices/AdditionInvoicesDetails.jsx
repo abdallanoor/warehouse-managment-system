@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { additionPermissionHeader } from "@/constants";
 import { additionPermissionContext } from "@/context/AdditionPermissionContext";
-import InvoicesProductActions from "../sharedInvoices/InvoicesProductActions";
 import InvoiceDetails from "../shared/InvoicesDetails";
+import InvoicesProductActions from "./actions/InvoicesProductActions";
 
 const AdditionInvoicesDetails = () => {
   const {
@@ -21,7 +21,7 @@ const AdditionInvoicesDetails = () => {
         invoiceInfoLoading={additionInvoicesInfoLoading}
         invoiceProductsLoading={additionInvoicesProductsLoading}
         invoiceProductsError={additionInvoicesProductsError}
-        ActionsComponent={InvoicesProductActions}
+        // ActionsComponent={InvoicesProductActions}
         header={additionPermissionHeader}
         addition
       />

@@ -12,7 +12,7 @@ const Sidebar = () => {
   const { userToken } = useContext(userContext);
 
   return (
-    <div className="hidden h-screen w-72 p-5 border-l overflow-auto scroll lg:flex">
+    <div className="hidden h-screen dark:bg-black w-72 p-5 border-l overflow-auto scroll lg:flex">
       <div className="flex size-full flex-col gap-6">
         <div className="flex items-center justify-center border-b pb-5">
           <Link to="/">

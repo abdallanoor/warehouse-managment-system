@@ -61,7 +61,7 @@ const Login = ({ setNavOpen }) => {
   });
 
   const renderErrorMessage = (value) => (
-    <div className="flex items-center gap-2 text-red-600 animate-fadeIn mb-2">
+    <div className="flex items-center gap-2 text-destructive animate-fadeIn mb-2">
       <CircleAlert className="w-4 h-4" />
       <p className="text-xs">{value}</p>
     </div>

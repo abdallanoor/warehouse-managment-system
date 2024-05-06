@@ -120,7 +120,7 @@ const SoldPermission = () => {
           )}
           <DynamicTable
             headers={soldPermissionHeader}
-            data={soldPermissionProducts.reverse() || []}
+            data={soldPermissionProducts?.reverse() || []}
             ActionsComponent={!soldIsSaved && DeleteProduct}
             ActionsComponentProps={{
               soldPermissionProducts: soldPermissionProducts,

@@ -13,30 +13,27 @@ const VendorDetails = () => {
   const { code } = useParams();
   const componentRef = useRef();
 
-  // const customerDetailsData = movements?.data?.products?.filter(
-  //   (product) => product?.customerId?.customerCode == id
-  // );
+  const customerDetailsData = movements?.filter(
+    (product) => product?.vendorId?.vendorCode == code
+  );
 
-  // const vendorName = customerDetailsData?.find(
-  //   (product) => product?.customerId?.customerCode == id
-  // );
+  const vendorName = customerDetailsData?.find(
+    (product) => product?.vendorId?.vendorCode == code
+  );
 
-  // console.log(vendorName?.seller);
-
-  // const handlePrint = useReactToPrint({
-  //   content: () => componentRef.current,
-  //   documentTitle: `حركة العميل - ${vendorName?.seller || "غير موجود"}`,
-  //   onPrintError: () => alert("يوجد مشكلة في الطباعة"),
-  // });
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: `حركة المورد - ${vendorName?.seller || "غير موجود"}`,
+    onPrintError: () => alert("يوجد مشكلة في الطباعة"),
+  });
   return (
     <section ref={componentRef} className="print:m-8">
       <Heading>
-        حركة المورد
-        {/* {isLoading
-          ? `حركه العميل - جاري التحميل`
-          : `حركة العميل - ${vendorName?.seller || "لا يوجد"}`} */}
+        {isLoading
+          ? `حركه المورد - جاري التحميل`
+          : `حركة المورد - ${vendorName?.seller || "لا يوجد"}`}
       </Heading>
-      {/* 
+
       <Button onClick={handlePrint} className="mb-4 flex mr-auto print:hidden">
         <span>طباعه</span>
         <Printer className="w-4 h-4 mr-2" />
@@ -47,7 +44,7 @@ const VendorDetails = () => {
         error={isError}
         loading={isLoading}
         data={customerDetailsData || []}
-      /> */}
+      />
     </section>
   );
 };

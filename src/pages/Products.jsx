@@ -11,7 +11,7 @@ const Products = () => {
   const [searchValue, setSearchValue] = useState("");
   const { products, isError, isLoading } = useContext(productsContext);
 
-  const filteredProducts = products?.data?.products?.filter(
+  const filteredProducts = products?.filter(
     (product) =>
       product.productName.toLowerCase().includes(searchValue.toLowerCase()) ||
       product.productBarCode

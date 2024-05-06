@@ -9,7 +9,7 @@ const Movements = () => {
   const [searchValue, setSearchValue] = useState("");
   const { movements, isError, isLoading } = useContext(movementsContext);
 
-  const filteredMovements = movements?.data?.products?.filter((product) =>
+  const filteredMovements = movements?.filter((product) =>
     product.productName.toLowerCase().includes(searchValue.toLowerCase())
   );
 

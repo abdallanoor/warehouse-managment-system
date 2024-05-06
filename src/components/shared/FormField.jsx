@@ -16,7 +16,7 @@ const FormField = ({
     <>
       <div className="grid grid-cols-4 items-center gap-2">
         {messageErrorCondition && (
-          <div className="col-span-3 col-start-2 flex items-center gap-1 text-red-600 animate-fadeIn">
+          <div className="col-span-3 col-start-2 flex items-center gap-1 text-destructive animate-fadeIn">
             <CircleAlert className="w-4 h-4" />
             <p className="text-xs">{messageError}</p>
           </div>

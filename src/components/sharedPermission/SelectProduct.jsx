@@ -21,25 +21,21 @@ const SelectProduct = ({
   const { products, isLoading } = useContext(productsContext);
 
   if (additionPermissionProducts) {
-    var filteredadditionPermissionProducts = products?.data?.products.filter(
-      (product) => {
-        return !additionPermissionProducts.some(
-          (productInStorage) =>
-            product.productBarCode === productInStorage.productBarCode
-        );
-      }
-    );
+    var filteredadditionPermissionProducts = products?.filter((product) => {
+      return !additionPermissionProducts.some(
+        (productInStorage) =>
+          product.productBarCode === productInStorage.productBarCode
+      );
+    });
   }
 
   if (soldPermissionProducts) {
-    var filteredSoldPermissionProducts = products?.data?.products.filter(
-      (product) => {
-        return !soldPermissionProducts.some(
-          (productInStorage) =>
-            product.productBarCode === productInStorage.productBarCode
-        );
-      }
-    );
+    var filteredSoldPermissionProducts = products?.filter((product) => {
+      return !soldPermissionProducts.some(
+        (productInStorage) =>
+          product.productBarCode === productInStorage.productBarCode
+      );
+    });
   }
 
   const handleProductData = (values) => {
@@ -162,9 +158,9 @@ const SelectProduct = ({
         <Combobox
           data={
             soldPermissionProducts
-              ? filteredSoldPermissionProducts.reverse()
+              ? filteredSoldPermissionProducts?.reverse()
               : additionPermissionProducts
-              ? filteredadditionPermissionProducts.reverse()
+              ? filteredadditionPermissionProducts?.reverse()
               : []
           }
           setValues={setProductValues}
@@ -188,7 +184,7 @@ const SelectProduct = ({
               )}
             </div>
             {soldPermissionProducts && !productValues.productCount ? (
-              <p className="text-sm text-red-600">{`الصنف ${productValues.productName} لا يوجد منه في المخزن لذالك لا يمكنك بيعه`}</p>
+              <p className="text-sm text-destructive">{`الصنف ${productValues.productName} لا يوجد منه في المخزن لذالك لا يمكنك بيعه`}</p>
             ) : (
               <>
                 {["productCount", "productPrice"].map((field) => (

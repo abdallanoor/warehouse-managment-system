@@ -64,7 +64,7 @@ const CustomersActions = ({ rowData }) => {
   const renderCustomerDetails = () => (
     <div
       onClick={() => {
-        navigate(`${rowData.customerCode}`);
+        navigate(`${rowData._id}`);
       }}
       className={triggerClassName}
     >

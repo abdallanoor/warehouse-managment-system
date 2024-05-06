@@ -13,17 +13,17 @@ const CustomerDetails = () => {
   const { code } = useParams();
   const componentRef = useRef();
 
-  const customerDetailsData = movements?.data?.products?.filter(
-    (product) => product?.customerId?.customerCode == code
+  const customerDetailsData = movements?.filter(
+    (product) => product?.customerId == code
   );
 
-  const vendorName = customerDetailsData?.find(
-    (product) => product?.customerId?.customerCode == code
+  const customerName = customerDetailsData?.find(
+    (product) => product?.customerId == code
   );
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-    documentTitle: `حركة العميل - ${vendorName?.seller || "غير موجود"}`,
+    documentTitle: `حركة العميل - ${customerName?.seller || "غير موجود"}`,
     onPrintError: () => alert("يوجد مشكلة في الطباعة"),
   });
   return (
@@ -31,7 +31,7 @@ const CustomerDetails = () => {
       <Heading>
         {isLoading
           ? `حركه العميل - جاري التحميل`
-          : `حركة العميل - ${vendorName?.seller || "لا يوجد"}`}
+          : `حركة العميل - ${customerName?.seller || "لا يوجد"}`}
       </Heading>
 
       <Button onClick={handlePrint} className="mb-4 flex mr-auto print:hidden">

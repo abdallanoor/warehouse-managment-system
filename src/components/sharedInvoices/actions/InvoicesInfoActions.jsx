@@ -1,11 +1,11 @@
+import { Button } from "@/components/ui/button";
 import {
   TooltipProvider,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { FileSymlink, FileText, SquareArrowOutUpRight } from "lucide-react";
-import { Button } from "../ui/button";
+import { FileText } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const InvoicesInfoActions = ({ rowData }) => {

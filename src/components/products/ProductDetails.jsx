@@ -13,13 +13,11 @@ const ProductDetails = () => {
   const { id } = useParams();
   const componentRef = useRef();
 
-  const productDetailsData = movements?.data?.products?.filter(
+  const productDetailsData = movements?.filter(
     (product) => product.productId === id
   );
 
-  const productName = movements?.data?.products?.find(
-    (product) => product.productId === id
-  );
+  const productName = movements?.find((product) => product.productId === id);
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,

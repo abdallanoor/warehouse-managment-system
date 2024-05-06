@@ -31,7 +31,12 @@ const ProductsContextProvider = ({ children }) => {
 
   return (
     <productsContext.Provider
-      value={{ products, isLoading, isError, refetchProducts }}
+      value={{
+        products: products?.data?.products,
+        isLoading,
+        isError,
+        refetchProducts,
+      }}
     >
       {children}
     </productsContext.Provider>

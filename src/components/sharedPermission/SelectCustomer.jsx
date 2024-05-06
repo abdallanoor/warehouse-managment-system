@@ -51,7 +51,7 @@ const SelectCustomer = ({ setCustomerData, customerData }) => {
         handleAction={handleCustomerData}
       >
         <Combobox
-          data={customers?.data?.customers?.reverse()}
+          data={customers?.reverse()}
           setValues={setCustomerValues}
           lable="customerName"
           additionalInfo="customerAddress"

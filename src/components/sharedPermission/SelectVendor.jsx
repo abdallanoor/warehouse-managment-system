@@ -52,7 +52,7 @@ const SelectVendor = ({ setVendorData, vendorData }) => {
         handleAction={handleVendorData}
       >
         <Combobox
-          data={vendors?.data?.vendors}
+          data={vendors}
           setValues={setVendorValues}
           lable="vendorName"
           additionalInfo="vendorAddress"

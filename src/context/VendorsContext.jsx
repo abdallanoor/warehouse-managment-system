@@ -31,7 +31,12 @@ const VendorsContextProvider = ({ children }) => {
 
   return (
     <vendorsContext.Provider
-      value={{ vendors, isLoading, isError, refetchVendors }}
+      value={{
+        vendors: vendors?.data?.vendors,
+        isLoading,
+        isError,
+        refetchVendors,
+      }}
     >
       {children}
     </vendorsContext.Provider>

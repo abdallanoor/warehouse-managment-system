@@ -4,7 +4,7 @@ import {
   FilePlus2,
   FileTextIcon,
   Home,
-  Package2,
+  Package,
   User,
   Users,
 } from "lucide-react";
@@ -20,7 +20,7 @@ export const navLinks = [
   {
     label: " ارصدة المخزن",
     route: "/products",
-    icon: Package2,
+    icon: Package,
   },
   {
     label: "العملاء",
@@ -66,7 +66,7 @@ export const productsHeader = [
   { label: "الماركة", key: "productModel" },
   { label: "الحجم", key: "productSize" },
   { label: "اللون", key: "productColor" },
-  { label: "الموقع", key: "productLocation" },
+  { label: "المكان", key: "productLocation" },
   { label: "بلد المنشـأ	", key: "productCountry" },
   { label: "العدد", key: "productCount" },
   { label: "السعر", key: "productPrice" },
@@ -114,7 +114,7 @@ export const additionPermissionHeader = [
   { label: "الماركة", key: "productModel" },
   { label: "الحجم", key: "productSize" },
   { label: "اللون", key: "productColor" },
-  { label: "الموقع", key: "productLocation" },
+  { label: "المكان", key: "productLocation" },
   { label: "العدد", key: "productCount" },
   { label: "السعر", key: "productPrice" },
   { label: "الاجمالي", key: "totalPrice" },

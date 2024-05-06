@@ -25,11 +25,13 @@ export function Combobox({
   placeholder,
 }) {
   const [open, setOpen] = useState(false);
-  const [value, internalSetValue] = useState("");
+  const [value, setValue] = useState("");
+  const [buttonValue, setButtonValue] = useState("");
 
   const selectItem = (item) => {
     const isSelected = value === item._id;
-    internalSetValue(isSelected ? "" : item[lable]);
+    setValue(isSelected ? "" : item._id);
+    setButtonValue(isSelected ? "" : item[lable]);
     setValues(
       isSelected
         ? null
@@ -49,7 +51,7 @@ export function Combobox({
           aria-expanded={open}
           className="w-full justify-between"
         >
-          {value ? value : buttonTitle}
+          {buttonValue ? buttonValue : buttonTitle}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>

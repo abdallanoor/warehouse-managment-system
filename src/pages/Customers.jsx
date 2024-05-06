@@ -11,7 +11,7 @@ const Customers = () => {
   const [searchValue, setSearchValue] = useState("");
   const { customers, isError, isLoading } = useContext(customersContext);
 
-  const filteredCustomers = customers?.data?.customers?.filter(
+  const filteredCustomers = customers?.filter(
     (customer) =>
       customer.customerName.toLowerCase().includes(searchValue.toLowerCase()) ||
       customer.customerCode

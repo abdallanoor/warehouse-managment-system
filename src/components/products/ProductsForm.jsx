@@ -173,6 +173,11 @@ const ProductsForm = ({
             onChange={formik.handleChange}
             value={formik.values[key]}
             onBlur={formik.handleBlur}
+            disabled={
+              isEditing
+                ? key === "productBarCode" || key === "productCount"
+                : null
+            }
           />
         ))}
       </FormScroll>

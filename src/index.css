@@ -30,72 +30,6 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 
-
-@layer base {
-  :root {
-    --background: #ffffff;
-    --foreground: #09090b;
-
-    --card: #ffffff;
-    --card-foreground: #09090b;
- 
-    --popover: #ffffff;
-    --popover-foreground: #09090b;
- 
-    --primary: #18181b;
-    --primary-foreground:  #fafafa;
- 
-    --secondary: #f4f4f5;
-    --secondary-foreground: #18181b;
- 
-    --muted: #f4f4f5;
-    --muted-foreground: #71717a;
- 
-    --accent: #f4f4f5;
-    --accent-foreground: #18181b;
- 
-    --destructive: #dc2626;
-    --destructive-foreground:  #fafafa;
-
-    --border: #e4e4e7;
-    --input: #e4e4e7;
-    --ring: #09090b;
- 
-    --radius: 0.5rem;
-  }
- 
-  .dark {
-    --background: #09090b;
-    --foreground:  #fafafa;
- 
-    --card: #09090b;
-    --card-foreground:  #fafafa;
- 
-    --popover: #09090b;
-    --popover-foreground:  #fafafa;
- 
-    --primary:  #fafafa;
-    --primary-foreground: #18181b;
- 
-    --secondary: #27272a;
-    --secondary-foreground:  #fafafa;
- 
-    --muted: #27272a;
-    --muted-foreground: #a1a1aa;
- 
-    --accent: #27272a;
-    --accent-foreground:  #fafafa;
- 
-    --destructive: #7f1d1d;
-    --destructive-foreground:  #fafafa;
- 
-    --border: #27272a;
-    --input: #27272a;
-    --ring: #d4d4d8;
-  }
-}
-
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -131,8 +65,6 @@ input[type="search"]::-webkit-search-cancel-button {
  
   .dark {
     --background: 240 10% 3.9%;
-    /* --background: 240 3% 8%; */
-
     --foreground: 0 0% 98%;
  
     --card: 240 10% 3.9%;
@@ -170,42 +102,3 @@ input[type="search"]::-webkit-search-cancel-button {
     @apply bg-background text-foreground;
   }
 }
-
-
-
-
-/* colors: {
-  border: "var(--border)",
-  input: "var(--input)",
-  ring: "var(--ring))",
-  background: "var(--background)",
-  foreground: "var(--foreground)",
-  primary: {
-    DEFAULT: "var(--primary)",
-    foreground: "var(--primary-foreground)",
-  },
-  secondary: {
-    DEFAULT: "var(--secondary)",
-    foreground: "var(--secondary-foreground)",
-  },
-  destructive: {
-    DEFAULT: "var(--destructive)",
-    foreground: "var(--destructive-foreground)",
-  },
-  muted: {
-    DEFAULT: "var(--muted)",
-    foreground: "var(--muted-foreground)",
-  },
-  accent: {
-    DEFAULT: "var(--accent)",
-    foreground: "var(--accent-foreground)",
-  },
-  popover: {
-    DEFAULT: "var(--popover)",
-    foreground: "var(--popover-foreground)",
-  },
-  card: {
-    DEFAULT: "var(--card)",
-    foreground: "var(--card-foreground)",
-  },
-}, */

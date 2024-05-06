@@ -49,7 +49,7 @@ const DynamicTable = ({
 
   const renderTableRows = () =>
     data?.map((item, index) => (
-      <TableRow key={index} className={` ${index % 2 ? "bg-muted/30" : ""}`}>
+      <TableRow key={index} className={` ${index % 2 ? "" : ""}`}>
         {headers.map((header, idx) => (
           <TableCell
             key={idx}
@@ -72,7 +72,7 @@ const DynamicTable = ({
                 }
               >
                 {item[header.key] === "buy"
-                  ? "شراء"
+                  ? "إضافة"
                   : item[header.key] === "sold"
                   ? "بيع"
                   : "مرتجع"}
@@ -98,7 +98,7 @@ const DynamicTable = ({
     ));
 
   return (
-    <div className="rounded-md border overflow-hidden">
+    <div className="rounded-md border overflow-hidden dark:bg-black">
       <Table>
         {headers && data && data?.length !== 0 && renderTableHeader()}
         <TableBody>
