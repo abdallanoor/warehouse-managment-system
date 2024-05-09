@@ -29,15 +29,27 @@ import AdditionInvoices from "./pages/AdditionInvoices";
 import AdditionPermissionContextProvider from "./context/AdditionPermissionContext";
 import AdditionInvoicesDetails from "./components/sharedInvoices/AdditionInvoicesDetails";
 import SoldInvoicesDetails from "./components/sharedInvoices/SoldInvoicesDetails";
+import Heading from "./components/shared/Heading";
+import Login from "./pages/Login";
+import { Toaster } from "./components/ui/toaster";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: (
+      <ProtectedRoute>
+        <Layout />
+      </ProtectedRoute>
+    ),
+
     children: [
       {
         index: true,
-        element: <Home />,
+        element: (
+          <ProtectedRoute>
+            <Products />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/products",
@@ -143,7 +155,15 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      {
+        path: "/*",
+        element: <Heading>الصفحة غير موجودة</Heading>,
+      },
     ],
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
 ]);
 
@@ -161,6 +181,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                 <SoldPermissionContextProvider>
                   <AdditionPermissionContextProvider>
                     <RouterProvider router={router} />
+                    <Toaster />
+
                     <ReactQueryDevtools
                       initialIsOpen={false}
                       buttonPosition="bottom-left"

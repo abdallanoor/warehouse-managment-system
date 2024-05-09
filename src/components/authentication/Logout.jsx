@@ -16,7 +16,7 @@ const Logout = ({ setNavOpen }) => {
     localStorage.removeItem("userToken");
     setUserToken(null);
     setDialogOpen(false);
-    navigate("/");
+    navigate("/login");
     toast({
       title: "تم تسجيل الخروج بنجاح.",
       description: "لقد تم تسجيل الخروج من حسابك.",

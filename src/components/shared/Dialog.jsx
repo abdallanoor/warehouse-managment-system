@@ -1,8 +1,4 @@
-import {
-  AlertDialog,
-  AlertDialogContent,
-  AlertDialogFooter,
-} from "@/components/ui/alert-dialog";
+import { AlertDialog, AlertDialogContent } from "@/components/ui/alert-dialog";
 import { Button } from "../ui/button";
 import { X } from "lucide-react";
 import ButtonLoader from "../loading/ButtonLoader";
@@ -17,21 +13,14 @@ const Dialog = ({
   handleForm,
   loadingButton,
   bottomDisabled,
-  alert,
   dialogOpen,
   setDialogOpen,
   destructive,
 }) => {
   const handleClose = () => setDialogOpen(false);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleForm && handleForm();
-  };
-
   return (
-    <AlertDialog asChiled open={dialogOpen} onOpenChange={setDialogOpen}>
+    <AlertDialog open={dialogOpen} onOpenChange={setDialogOpen}>
       {dialogTrigger && dialogTrigger}
-
       <AlertDialogContent>
         <button
           onClick={handleClose}
@@ -48,16 +37,33 @@ const Dialog = ({
             <p className="text-sm text-muted-foreground">{dialogDescription}</p>
           )}
         </div>
-
-        {(handleForm || handleAction) && (
-          <div className="flex flex-col gap-5" onSubmit={handleSubmit}>
+        {handleForm && (
+          <form className="flex flex-col gap-5" onSubmit={handleForm}>
             {children}
             <div className="flex flex-col sm:flex-row-reverse gap-2">
               <Button
                 type="submit"
                 variant={destructive ? "destructive" : "default"}
                 disabled={bottomDisabled}
-                onClick={handleForm || handleAction}
+                onClick={handleForm}
+              >
+                {actionTitle}
+                {loadingButton && <ButtonLoader />}
+              </Button>
+              <Button type="button" variant="outline" onClick={handleClose}>
+                إلغي
+              </Button>
+            </div>
+          </form>
+        )}
+        {handleAction && (
+          <div className="flex flex-col gap-5">
+            {children}
+            <div className="flex flex-col sm:flex-row-reverse gap-2">
+              <Button
+                variant={destructive ? "destructive" : "default"}
+                disabled={bottomDisabled}
+                onClick={handleAction}
               >
                 {actionTitle}
                 {loadingButton && <ButtonLoader />}
@@ -68,22 +74,6 @@ const Dialog = ({
             </div>
           </div>
         )}
-
-        {/* {alert && (
-          <AlertDialogFooter>
-            <Button variant="outline" onClick={handleClose}>
-              إلغي
-            </Button>
-            <Button
-              variant={destructive ? "destructive" : "default"}
-              disabled={bottomDisabled}
-              onClick={handleAction}
-            >
-              {actionTitle}
-              {loadingButton && <ButtonLoader />}
-            </Button>
-          </AlertDialogFooter>
-        )} */}
       </AlertDialogContent>
     </AlertDialog>
   );

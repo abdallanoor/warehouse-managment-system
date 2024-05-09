@@ -11,7 +11,7 @@ const ProtectedRoute = ({ children }) => {
       variant: "destructive",
       title: "يجب تسجيل الدخول اولاً.",
     });
-    return <Navigate to={"/"} />;
+    return <Navigate to={"/login"} />;
   }
 };
 

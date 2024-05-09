@@ -12,14 +12,14 @@ import { object, string, number } from "yup";
 
 // NavLink Data
 export const navLinks = [
-  {
-    label: "الصفحة الرئيسية",
-    route: "/",
-    icon: Home,
-  },
+  // {
+  //   label: "الصفحة الرئيسية",
+  //   route: "/",
+  //   icon: Home,
+  // },
   {
     label: " ارصدة المخزن",
-    route: "/products",
+    route: "/",
     icon: Package,
   },
   {

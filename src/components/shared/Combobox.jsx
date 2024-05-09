@@ -66,7 +66,7 @@ export function Combobox({
               {data?.map((item) => (
                 <CommandItem
                   key={item._id}
-                  value={item._id}
+                  // value={item._id}
                   onSelect={() => selectItem(item)}
                 >
                   <Check

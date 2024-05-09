@@ -149,7 +149,7 @@ const SelectProduct = ({
         actionTitle="إضافة"
         dialogTitle="اختر الصنف"
         dialogDescription="يرجي اختيار الصنف من فضلك"
-        handleAction={formik.handleSubmit}
+        handleForm={formik.handleSubmit}
         bottomDisabled={
           productValues === null ||
           (soldPermissionProducts && !productValues.productCount)
