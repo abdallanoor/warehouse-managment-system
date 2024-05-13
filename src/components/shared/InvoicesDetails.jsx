@@ -30,7 +30,9 @@ const InvoiceDetails = ({
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-    documentTitle: `${sold ? "إذن بيع" : addition ? "إذن إضافة" : null} - ${
+    documentTitle: `${
+      sold ? "فاتورة بيع" : addition ? "فاتورة إضافة" : null
+    } - ${
       filteredInvoiceInfo ? filteredInvoiceInfo?.invoiceNumber : "غير موجود"
     }`,
     onPrintError: () => alert("يوجد مشكلة في الطباعة"),
@@ -38,7 +40,9 @@ const InvoiceDetails = ({
 
   return (
     <section ref={componentRef} className="print:m-8">
-      <Heading>{sold ? "إذن بيع" : addition ? "إذن إضافة" : null}</Heading>
+      <Heading>
+        {sold ? "فاتورة بيع" : addition ? "فاتورة إضافة" : null}
+      </Heading>
       <div className="flex flex-col gap-4 print:gap-2">
         <div className="flex justify-between items-center flex-col sm:flex-row gap-4">
           <div className="flex justify-between items-center gap-1 flex-col sm:flex-row w-full sm:w-4/5 print:w-full">
@@ -56,7 +60,7 @@ const InvoiceDetails = ({
                         : null}
                     </p>
                     <p className="font-semibold">{`تحرير في : ${filteredInvoiceInfo?.date}`}</p>
-                    <p className="font-semibold">{`رقم الإذن : ${filteredInvoiceInfo?.invoiceNumber}`}</p>
+                    <p className="font-semibold">{`رقم الفاتورة : ${filteredInvoiceInfo?.invoiceNumber}`}</p>
                   </>
                 ) : (
                   <p className="font-semibold">المعلومات غير متوفرة</p>
