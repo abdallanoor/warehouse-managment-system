@@ -65,7 +65,7 @@ const ProductsActions = ({ rowData }) => {
   };
 
   const renderProductDetails = () => (
-    <Link to={`products/${rowData._id}`} className={triggerClassName}>
+    <Link to={`/products/${rowData._id}`} className={triggerClassName}>
       <SquareArrowOutUpRight className="w-4 h-4" />
       <span>حركة الصنف</span>
     </Link>

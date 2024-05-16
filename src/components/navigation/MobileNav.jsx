@@ -45,7 +45,7 @@ const MobileNav = () => {
             </div>
             {userToken && (
               <nav className="mb-auto">
-                <ul className="flex flex-col gap-3">
+                <ul className="flex flex-col gap-2">
                   {navLinks.map((link, index) => (
                     <li key={index}>
                       <Link to={link.route}>
