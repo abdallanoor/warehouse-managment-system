@@ -10,7 +10,7 @@ body{
 }
 
 .scroll::-webkit-scrollbar {
-  @apply bg-transparent w-[8px] rounded-lg ;
+  @apply bg-transparent w-[6px] rounded-lg ;
 }
 
 .scroll::-webkit-scrollbar-track {

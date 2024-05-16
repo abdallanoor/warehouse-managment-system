@@ -67,7 +67,9 @@ const MobileNav = () => {
             {userToken ? (
               <Logout setNavOpen={setNavOpen} />
             ) : (
-              <Login setNavOpen={setNavOpen} />
+              <Link to="/login">
+              <Button className="w-full">تسجيل الدخول</Button>
+            </Link>
             )}
           </div>
         </SheetContent>

@@ -16,7 +16,7 @@ const Logout = ({ setNavOpen }) => {
     localStorage.removeItem("userToken");
     setUserToken(null);
     setDialogOpen(false);
-    navigate("/login");
+    navigate("/");
     toast({
       title: "تم تسجيل الخروج بنجاح.",
       description: "لقد تم تسجيل الخروج من حسابك.",
@@ -30,9 +30,9 @@ const Logout = ({ setNavOpen }) => {
     <Button
       variant="ghost"
       onClick={() => setDialogOpen(true)}
-      className="justify-start"
+      className="justify-start gap-2  p-2 w-full"
     >
-      <LogOut className="ml-2 w-5 h-5" />
+      <LogOut className=" w-5 h-5" />
       تسجيل الخروج
     </Button>
   );

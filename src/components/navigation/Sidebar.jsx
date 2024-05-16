@@ -6,6 +6,7 @@ import { ModeToggle } from "../theme/mode-toggle";
 import { userContext } from "@/context/UserContext";
 import Logout from "../authentication/Logout";
 import Login from "../authentication/Login";
+import { Button } from "../ui/button";
 
 const Sidebar = () => {
   const { pathname } = useLocation();
@@ -13,7 +14,7 @@ const Sidebar = () => {
 
   return (
     <div className="hidden h-screen dark:bg-black w-72 p-5 border-l overflow-auto scroll lg:flex">
-      <div className="flex size-full flex-col gap-6">
+      <div className="flex size-full flex-col gap-5">
         <div className="flex items-center justify-center border-b pb-5">
           <Link to="/">
             <img
@@ -25,16 +26,18 @@ const Sidebar = () => {
             />
           </Link>
         </div>
-        <div className="flex items-center justify-between">
-          <Link className="outline-0" to="/">
-            إدارة المخزن
-          </Link>
-          <ModeToggle />
-        </div>
+        {/* {userToken && (
+          <div className="flex items-center justify-between">
+            <Link className="outline-0" to="/">
+              إدارة المخزن
+            </Link>
+            <ModeToggle />
+          </div>
+        )} */}
 
         {userToken && (
           <nav className="mb-auto font-semibold">
-            <ul className="flex flex-col gap-2">
+            <ul className="flex flex-col gap-1">
               {navLinks.map((link, index) => (
                 <li key={index}>
                   <Link
@@ -52,7 +55,16 @@ const Sidebar = () => {
           </nav>
         )}
 
-        {userToken ? <Logout /> : <Login />}
+        {userToken ? (
+          <div className="w-full flex flex-col gap-1">
+            <ModeToggle sideBar />
+            <Logout />
+          </div>
+        ) : (
+          <Link to="/login">
+            <Button className="w-full">تسجيل الدخول</Button>
+          </Link>
+        )}
       </div>
     </div>
   );

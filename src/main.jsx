@@ -36,20 +36,12 @@ import { Toaster } from "./components/ui/toaster";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <ProtectedRoute>
-        <Layout />
-      </ProtectedRoute>
-    ),
+    element: <Layout />,
 
     children: [
       {
         index: true,
-        element: (
-          <ProtectedRoute>
-            <Products />
-          </ProtectedRoute>
-        ),
+        element: <Home />,
       },
       {
         path: "/products",
