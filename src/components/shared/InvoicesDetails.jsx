@@ -45,7 +45,7 @@ const InvoiceDetails = ({
       </Heading>
       <div className="flex flex-col gap-4 print:gap-2">
         <div className="flex justify-between items-center flex-col sm:flex-row gap-4">
-          <div className="flex justify-between items-center gap-1 flex-col sm:flex-row w-full sm:w-4/5 print:w-full">
+          <div className="flex justify-between items-center gap-2 flex-col sm:flex-row w-full sm:w-4/5 print:w-full print:items-start print:flex-col">
             {invoiceInfoLoading ? (
               <p className="font-semibold">جاري التحميل...</p>
             ) : (

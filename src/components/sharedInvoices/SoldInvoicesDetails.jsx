@@ -13,8 +13,6 @@ const SoldInvoicesDetails = () => {
     soldInvoicesProductsError,
   } = useContext(soldPermissionContext);
 
-  console.log(soldInvoicesProducts);
-
   return (
     <>
       <InvoiceDetails
