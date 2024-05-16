@@ -163,7 +163,7 @@ const router = createBrowserRouter([
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
+  <ThemeProvider defaultTheme="light" storageKey="ui-theme">
     <QueryClientProvider client={queryClient}>
       <UserContextProvider>
         <ProductsContextProvider>
