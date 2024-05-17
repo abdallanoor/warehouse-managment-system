@@ -14,6 +14,7 @@ import Home from "./pages/Home";
 import Products from "./pages/Products";
 import Movements from "./pages/Movements";
 import Customers from "./pages/Customers";
+import Orders from "./pages/Orders";
 import SoldPermission from "./pages/SoldPermission";
 import AdditionPermission from "./pages/AdditionPermission";
 import SoldInvoices from "./pages/SoldInvoices";
@@ -99,6 +100,14 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      // {
+      //   path: "/orders",
+      //   element: (
+      //     <ProtectedRoute>
+      //       <Orders />
+      //     </ProtectedRoute>
+      //   ),
+      // },
       {
         path: "/sold-permission",
         element: (
@@ -175,10 +184,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                     <RouterProvider router={router} />
                     <Toaster />
 
-                    <ReactQueryDevtools
+                    {/* <ReactQueryDevtools
                       initialIsOpen={false}
                       buttonPosition="bottom-left"
-                    />
+                    /> */}
                   </AdditionPermissionContextProvider>
                 </SoldPermissionContextProvider>
               </MovementsContextProvider>

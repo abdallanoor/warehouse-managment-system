@@ -5,6 +5,7 @@ import {
   FileTextIcon,
   Home,
   Package,
+  ShoppingCart,
   User,
   Users,
 } from "lucide-react";
@@ -37,6 +38,11 @@ export const navLinks = [
     route: "/movements",
     icon: ArrowRightLeft,
   },
+  // {
+  //   label: "الطلبات",
+  //   route: "/orders",
+  //   icon: ShoppingCart,
+  // },
   {
     label: "إذن بيع",
     route: "/sold-permission",
