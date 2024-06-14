@@ -6,6 +6,7 @@ import { ThemeProvider } from "./context/theme-provider";
 import UserContextProvider from "./context/UserContext";
 import ProductsContextProvider from "./context/ProductsContext";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import { Analytics } from "@vercel/analytics/react";
 
 import "./index.css";
 
@@ -183,6 +184,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                   <AdditionPermissionContextProvider>
                     <RouterProvider router={router} />
                     <Toaster />
+                    <Analytics />
 
                     {/* <ReactQueryDevtools
                       initialIsOpen={false}
