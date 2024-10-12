@@ -1,18 +1,12 @@
-import { Mail, MessageSquare, SettingsIcon, UserPlus } from "lucide-react";
+import { SettingsIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
-  DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useTranslation } from "react-i18next";
@@ -37,7 +31,7 @@ export function Settings({ sidebar }) {
           <span className="hidden lg:block">{t("settings")}</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="start" className="sm:w-56">
+      <DropdownMenuContent align="start" className="min-w-36 sm:w-56">
         <DropdownMenuLabel>{t("settings")}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>

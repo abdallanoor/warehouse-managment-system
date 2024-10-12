@@ -9,10 +9,7 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { ModeToggle } from "../theme/mode-toggle";
 import { userContext } from "@/context/UserContext";
-import Logout from "../authentication/Logout";
-import Login from "../authentication/Login";
 import { Button } from "../ui/button";
 import { useTranslation } from "react-i18next";
 import { Settings } from "../settings/Settings";
@@ -51,8 +48,14 @@ const MobileNav = () => {
         <SheetContent className="sm:w-80 overflow-auto">
           <div className="flex size-full flex-col gap-6">
             <div className="flex items-center justify-between">
-              <Link className="outline-0" to="/">
-                <SheetClose>إدارة المخزن</SheetClose>
+              <Link to="/">
+                <img
+                  src={Logo}
+                  width={80}
+                  height={20}
+                  className="invert dark:invert-0 w-20 h-5"
+                  alt="logo"
+                />
               </Link>
               <SheetClose className="flex h-8 w-8 items-center justify-center rounded-md border opacity-70 hover:opacity-100 transition-opacity">
                 <X className="h-4 w-4 " />
@@ -61,13 +64,15 @@ const MobileNav = () => {
             </div>
             {userToken && (
               <nav className="mb-auto">
-                <ul className="flex flex-col gap-2">
+                <ul className="flex flex-col gap-1">
                   {navLinks.map((link, index) => (
                     <li key={index}>
                       <Link to={link.route}>
                         <SheetClose
-                          className={`flex items-center p-2 w-full sm:hover:bg-secondary transition-colors rounded gap-2 ${
-                            pathname === link.route && "bg-secondary"
+                          className={`flex items-center p-2 w-full transition-all rounded gap-2 active:scale-[.98] ${
+                            pathname === link.route
+                              ? "bg-secondary"
+                              : "hover:bg-secondary active:bg-secondary"
                           }`}
                         >
                           {<link.icon className="w-5 h-5" />}
@@ -79,19 +84,14 @@ const MobileNav = () => {
                 </ul>
               </nav>
             )}
-
-            {userToken ? (
-              <Logout setNavOpen={setNavOpen} />
-            ) : (
+            {!userToken && (
               <Link to="/login">
-                <Button className="w-full">تسجيل الدخول</Button>
+                <Button className="w-full">{t("login.login")}</Button>
               </Link>
             )}
           </div>
         </SheetContent>
       </Sheet>
-
-      {/* <ModeToggle /> */}
     </div>
   );
 };

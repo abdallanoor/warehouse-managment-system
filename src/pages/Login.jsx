@@ -29,8 +29,8 @@ const Login = () => {
   const [t] = useTranslation("global");
 
   const validationSchema = object({
-    userName: string().required("يجب إدخال اسم المستخدم"),
-    password: string().required("يجب إدخال كلمة المرور"),
+    userName: string().required(t("messageError.usernameEntered")),
+    password: string().required(t("messageError.passwordEntered")),
   });
 
   const onSubmit = async (values) => {
@@ -42,13 +42,13 @@ const Login = () => {
           localStorage.setItem("userToken", data.token);
           setUserToken(data.token);
           toast({
-            title: "مرحباً بعودتك! تم تسجيل الدخول بنجاح.",
+            title: t("login.toastSuccess"),
           });
           navigate("/products");
         } else {
           toast({
             variant: "destructive",
-            title: "هناك خطأ! تأكد من صحة اسم المستخدم او كلمة المرور",
+            title: t("login.toastError"),
           });
         }
       })

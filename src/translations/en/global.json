@@ -58,7 +58,9 @@
     "login": "Login",
     "des": "You can use the User Name 'admin' with the Password 'admin' to login and try the system.",
     "username": "User Name",
-    "password": "Password"
+    "password": "Password",
+    "toastSuccess": "Welcome back! You have successfully logged in.",
+    "toastError": "There is an error! Please ensure the username or password is correct."
   },
   "logOut": {
     "title": "Log out",
@@ -146,6 +148,8 @@
     "quantityEntered": "Quantity must be entered",
     "priceEntered": "Price must be entered",
     "nameEntered": "Name must be entered",
-    "codeEntered": "Code must be entered"
+    "codeEntered": "Code must be entered",
+    "usernameEntered": "Username must be entered",
+    "passwordEntered": "Password must be entered"
   }
 }

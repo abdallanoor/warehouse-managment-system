@@ -2,12 +2,8 @@ import { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { getNavLinks } from "@/constants";
 import Logo from "../../assets/logo.svg";
-import { ModeToggle } from "../theme/mode-toggle";
 import { userContext } from "@/context/UserContext";
-import Logout from "../authentication/Logout";
-import Login from "../authentication/Login";
 import { Button } from "../ui/button";
-import { LanguageToggle } from "../language/language-toggle";
 import { useTranslation } from "react-i18next";
 import { Settings } from "../settings/Settings";
 
@@ -56,12 +52,7 @@ const Sidebar = () => {
         )}
 
         {userToken ? (
-          <div className="w-full flex flex-col gap-1">
-            {/* <LanguageToggle sideBar />
-            <ModeToggle sideBar />
-            <Logout /> */}
-            <Settings sidebar />
-          </div>
+          <Settings sidebar />
         ) : (
           <Link to="/login">
             <Button className="w-full">{t("login.login")}</Button>
