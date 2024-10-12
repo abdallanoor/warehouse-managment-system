@@ -1,8 +1,9 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { soldPermissionContext } from "@/context/SoldPremissionContext";
-import { soldPermissionHeader } from "@/constants";
+import { getSoldPermissionHeader } from "@/constants";
 import InvoiceDetails from "../shared/InvoicesDetails";
 import InvoicesProductActions from "./actions/InvoicesProductActions";
+import { useTranslation } from "react-i18next";
 
 const SoldInvoicesDetails = () => {
   const {
@@ -11,7 +12,16 @@ const SoldInvoicesDetails = () => {
     soldInvoicesProducts,
     soldInvoicesProductsLoading,
     soldInvoicesProductsError,
+    setFetchSaleInvoices,
   } = useContext(soldPermissionContext);
+
+  const [t] = useTranslation("global");
+
+  const soldPermissionHeader = getSoldPermissionHeader(t);
+
+  useEffect(() => {
+    setFetchSaleInvoices(true);
+  }, []);
 
   return (
     <>

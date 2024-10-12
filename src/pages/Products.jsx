@@ -1,15 +1,17 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Heading from "@/components/shared/Heading";
 import DynamicTable from "@/components/shared/DynamicTable";
-import { productsHeader } from "@/constants";
+import { getProductsHeader } from "@/constants";
 import { productsContext } from "@/context/ProductsContext";
 import Search from "@/components/shared/Search";
 import ProductsForm from "@/components/products/ProductsForm";
 import ProductsActions from "@/components/products/ProductsActions";
+import { useTranslation } from "react-i18next";
 
 const Products = () => {
   const [searchValue, setSearchValue] = useState("");
-  const { products, isError, isLoading } = useContext(productsContext);
+  const { products, isError, isLoading, setFetchProducts } =
+    useContext(productsContext);
 
   const filteredProducts = products?.filter(
     (product) =>
@@ -20,14 +22,22 @@ const Products = () => {
         .includes(searchValue.toLowerCase())
   );
 
+  useEffect(() => {
+    setFetchProducts(true);
+  }, []);
+
+  const [t] = useTranslation("global");
+
+  const productsHeader = getProductsHeader(t);
+
   return (
     <>
-      <Heading>ارصدة المخزن</Heading>
+      <Heading>{t("products.title")}</Heading>
 
       <div className="flex items-center justify-between max-sm:flex-wrap gap-5 sm:gap-10 mb-5">
         <Search
           setSearchValue={setSearchValue}
-          placeholder="يمكنك البحث عن الصنف بالأسم والكود"
+          placeholder={t("search.name-code")}
         />
 
         <div className="max-sm:w-full">

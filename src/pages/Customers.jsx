@@ -1,15 +1,21 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Heading from "@/components/shared/Heading";
 import DynamicTable from "@/components/shared/DynamicTable";
-import { customersHeader } from "@/constants";
+import { getCustomersHeader } from "@/constants";
 import { customersContext } from "@/context/CustomersContext";
 import Search from "@/components/shared/Search";
 import CustomersForm from "@/components/customers/CustomersForm";
 import CustomersActions from "@/components/customers/CustomersActions";
+import { useTranslation } from "react-i18next";
 
 const Customers = () => {
   const [searchValue, setSearchValue] = useState("");
-  const { customers, isError, isLoading } = useContext(customersContext);
+  const { customers, isError, isLoading, setFetchCustomers } =
+    useContext(customersContext);
+
+  const [t] = useTranslation("global");
+
+  const customersHeader = getCustomersHeader(t);
 
   const filteredCustomers = customers?.filter(
     (customer) =>
@@ -20,17 +26,21 @@ const Customers = () => {
         .includes(searchValue.toLowerCase())
   );
 
+  useEffect(() => {
+    setFetchCustomers(true);
+  }, []);
+
   return (
     <>
-      <Heading>العملاء</Heading>
+      <Heading>{t("customers.title")}</Heading>
 
       <div className="flex items-center justify-between max-sm:flex-wrap gap-5 sm:gap-10 mb-5">
         <Search
           setSearchValue={setSearchValue}
-          placeholder="يمكنك البحث عن العميل بالأسم والكود"
+          placeholder={t("search.name-code")}
         />
 
-        <div className="mr-auto max-sm:w-full">
+        <div className="max-sm:w-full">
           <CustomersForm />
         </div>
       </div>

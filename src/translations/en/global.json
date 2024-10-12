@@ -1,0 +1,151 @@
+{
+  "settings": "Settings",
+  "loading": "Loading...",
+  "noData": "No data available",
+  "notFound": "Not Found",
+  "print": {
+    "title": "Print",
+    "created": "Created in",
+    "invoiceNumber": "Invoice Number",
+    "signature": "Signature"
+  },
+  "lang": "Language",
+  "cancel": "Cancel",
+  "share": {
+    "add": "Add",
+    "edit": "Edit",
+    "delete": "Delete",
+    "movement": "Movements",
+    "movementType": "Movement Type",
+    "name": "Name",
+    "code": "Code",
+    "model": "Model",
+    "date": "Date",
+    "price": "Price",
+    "totalPrice": "Total Price",
+    "unitPrice": "Unit Price",
+    "quantity": "Quantity",
+    "color": "Color",
+    "size": "Size",
+    "location": "Location",
+    "country": "Country",
+    "customer": "Customer",
+    "vendor": "Vendor",
+    "customer/vendor": "Customer/Vendor",
+    "actions": "Actions",
+    "phone": "Phone",
+    "address": "Address",
+    "invoiceNumber": "Invoice Number",
+    "viewInvoice": "View Invoice",
+    "resetData": {
+      "title": "Reset Data",
+      "description": "Are you sure? The data will be reset. If you wish to keep the data, please click 'Save' before resetting.",
+      "toastTitle": "Data reset successful."
+    },
+    "save": {
+      "title": "Save",
+      "description": "Please confirm saving the data.",
+      "toastTitle": "Data saved successfully."
+    }
+  },
+  "theme": {
+    "title": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "login": {
+    "login": "Login",
+    "des": "You can use the User Name 'admin' with the Password 'admin' to login and try the system.",
+    "username": "User Name",
+    "password": "Password"
+  },
+  "logOut": {
+    "title": "Log out",
+    "dialogDescription": "You will be logged out of the system.",
+    "toastTitle": "You have successfully logged out."
+  },
+  "search": {
+    "name": "Search by name",
+    "name-code": "Search by name and code",
+    "name-invoiceNum": "Search by name and invoice number"
+  },
+  "homePage": {
+    "title": "Home",
+    "trialVersion": "Trial version of the system",
+    "getStarted": "Get started"
+  },
+  "products": {
+    "title": "Products",
+    "addProduct": "Add Product",
+    "deleteProduct": "Delete Product",
+    "description-n-c": "Please enter the product name and code first to add a new product.",
+    "description-n-c-c-p": "Please enter the product name, code, quantity, and price first to add a new product.",
+    "movement": "Product Movement"
+  },
+  "customers": {
+    "title": "Customers",
+    "addCustomer": "Add Customer",
+    "deleteCustomer": "Delete Customer",
+    "description": "Please enter the customer's name first to add a new customer.",
+    "movement": "Customer Movement"
+  },
+  "vendors": {
+    "title": "Vendors",
+    "addVendor": "Add Vendor",
+    "deleteVendor": "Delete Vendor",
+    "description": "Please enter the vendor's name first to add a new vendor.",
+    "movement": "Vendor Movement"
+  },
+  "movements": {
+    "title": "Movements",
+    "sell": "Sell",
+    "purchase": "Purchase",
+    "add": "Add",
+    "return": "Return"
+  },
+  "saleProducts": {
+    "title": "Sale Products",
+    "customerName": "Customer Name",
+    "selectCustomer": "Select Customer",
+    "customerNotSelected": "Please select the customer",
+    "selectProduct": "Select Product",
+    "productNotSelected": "Please select the product",
+    "noneInStock": "There is none in stock, so you cannot sell it",
+    "quantityLimit": "quantity cannot be greater than",
+    "stockQuantity": "Stock Quantity",
+    "stockPrice": "Stock Price"
+  },
+  "purchaseProducts": {
+    "title": "Purchase Products",
+    "vendorName": "Vendor Name",
+    "selectVendor": "Select Vendor",
+    "vendorNotSelected": "Please select the vendor",
+    "selectProduct": "Select Product",
+    "productNotSelected": "Please select the product"
+  },
+  "saleInvoices": {
+    "title": "Sale Invoices",
+    "single": "Sale Invoice"
+  },
+  "parchaseInvoices": {
+    "title": "Purchase Invoices",
+    "single": "Purchase Invoice"
+  },
+  "descriptions": {
+    "wrong": "Something went wrong!",
+    "delete": "Are you sure? This will be permanently deleted.",
+    "successfullyDeleted": "Successfully Deleted",
+    "successfullyAdded": "Successfully Added",
+    "successfullyEdited": "Successfully Edited",
+    "wrongAdded": "The product has been added before with code",
+    "edit": "Please enter the fields to be edited."
+  },
+  "messageError": {
+    "onlyNumber": "Only numbers are allowed",
+    "quantityEntered": "Quantity must be entered",
+    "priceEntered": "Price must be entered",
+    "nameEntered": "Name must be entered",
+    "codeEntered": "Code must be entered"
+  }
+}

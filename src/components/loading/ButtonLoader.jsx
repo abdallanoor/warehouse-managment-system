@@ -1,9 +1,7 @@
 const ButtonLoader = ({ foreground }) => {
   return (
     <svg
-      className={`mr-2 h-4 w-4 ${
-        foreground ? "fill-foreground" : "fill-background"
-      }`}
+      className={`h-4 w-4${foreground ? "fill-foreground" : "fill-background"}`}
       width="16"
       height="16"
       viewBox="0 0 24 24"

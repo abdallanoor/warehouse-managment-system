@@ -3,6 +3,7 @@ import Dialog from "../shared/Dialog";
 import { Button } from "../ui/button";
 import { useState } from "react";
 import { toast } from "../ui/use-toast";
+import { useTranslation } from "react-i18next";
 
 const ResetData = ({
   vendorData,
@@ -19,9 +20,11 @@ const ResetData = ({
 }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
+  const [t] = useTranslation("global");
+
   const renderDeleteDialogTrigger = () => (
-    <Button className="gap-1 max-sm:w-full" onClick={() => setDialogOpen(true)}>
-      <span>إعادة تهيئة</span>
+    <Button className="max-sm:w-full" onClick={() => setDialogOpen(true)}>
+      <span>{t("share.resetData.title")}</span>
       <FileSymlink className="w-4 h-4" />
     </Button>
   );
@@ -48,7 +51,7 @@ const ResetData = ({
       setInvoiceNumber(null);
     }
     toast({
-      title: "تم إعادة تهيئة البيانات",
+      title: t("share.resetData.toastTitle"),
     });
     setDialogOpen(false);
   };
@@ -58,9 +61,9 @@ const ResetData = ({
         dialogOpen={dialogOpen}
         setDialogOpen={setDialogOpen}
         dialogTrigger={renderDeleteDialogTrigger()}
-        actionTitle="إعادة تهيئة"
-        dialogTitle="إعادة تهيئة البيانات"
-        dialogDescription="هل أنت متأكد؟ سيتم إعادة تهيئة البيانات، إذا كنت ترغب في الاحتفاظ بالبيانات، يُرجى الضغط على 'حفظ' قبل إعادة التهيئة."
+        actionTitle={t("share.resetData.title")}
+        dialogTitle={t("share.resetData.title")}
+        dialogDescription={t("share.resetData.description")}
         destructive
         handleAction={handleResetData}
       />

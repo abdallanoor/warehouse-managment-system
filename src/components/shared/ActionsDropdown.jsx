@@ -7,14 +7,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import { useTranslation } from "react-i18next";
 
 const ActionsDropdown = ({ children, dropdownOpen, setDropdownOpen }) => {
+  const [t, i18n] = useTranslation("global");
+
   return (
     <DropdownMenu
       modal={false}
       open={dropdownOpen}
       onOpenChange={setDropdownOpen}
-      dir="rtl"
+      dir={i18n.dir()}
     >
       <DropdownMenuTrigger asChild>
         <Button aria-haspopup="true" size="icon" variant="ghost">
@@ -23,7 +26,7 @@ const ActionsDropdown = ({ children, dropdownOpen, setDropdownOpen }) => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuLabel>إجراءات</DropdownMenuLabel>
+        <DropdownMenuLabel>{t("share.actions")}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {children}
       </DropdownMenuContent>

@@ -2,15 +2,23 @@ import DynamicTable from "@/components/shared/DynamicTable";
 import Heading from "@/components/shared/Heading";
 import Search from "@/components/shared/Search";
 import InvoicesInfoActions from "@/components/sharedInvoices/actions/InvoicesInfoActions";
-import { soldInvoicesInfoHeader } from "@/constants";
+import { getSoldInvoicesInfoHeader } from "@/constants";
 import { soldPermissionContext } from "@/context/SoldPremissionContext";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const SoldInvoices = () => {
   const [searchValue, setSearchValue] = useState("");
-  const { soldInvoicesInfo, soldInvoicesInfoLoading } = useContext(
-    soldPermissionContext
-  );
+  const { soldInvoicesInfo, soldInvoicesInfoLoading, setFetchSaleInvoices } =
+    useContext(soldPermissionContext);
+
+  const [t] = useTranslation("global");
+
+  const soldInvoicesInfoHeader = getSoldInvoicesInfoHeader(t);
+
+  useEffect(() => {
+    setFetchSaleInvoices(true);
+  }, []);
 
   const filteredInvoices = soldInvoicesInfo?.filter(
     (invoice) =>
@@ -25,12 +33,12 @@ const SoldInvoices = () => {
 
   return (
     <>
-      <Heading>فواتير البيع</Heading>
+      <Heading>{t("saleInvoices.title")}</Heading>
 
       <div className="mb-5">
         <Search
           setSearchValue={setSearchValue}
-          placeholder="يمكنك البحث عن العميل بالأسم ورقم الفاتوره"
+          placeholder={t("search.name-invoiceNum")}
         />
       </div>
 

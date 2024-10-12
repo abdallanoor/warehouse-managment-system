@@ -9,9 +9,12 @@ import Dialog from "../shared/Dialog";
 
 import { useState } from "react";
 import { Trash2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const DeleteProduct = ({ ActionsComponentProps, rowData }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
+
+  const [t] = useTranslation("global");
 
   const {
     soldPermissionProducts,
@@ -29,15 +32,11 @@ const DeleteProduct = ({ ActionsComponentProps, rowData }) => {
           </Button>
         </TooltipTrigger>
         <TooltipContent>
-          <p>حذف</p>
+          <p>{t("share.delete")}</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
   );
-
-  <Button className="gap-1 max-sm:w-full" onClick={() => setDialogOpen(true)}>
-    <span>إعادة تهيئة</span>
-  </Button>;
 
   const handleDeleteProduct = () => {
     if (soldPermissionProducts) {
@@ -71,9 +70,9 @@ const DeleteProduct = ({ ActionsComponentProps, rowData }) => {
         dialogOpen={dialogOpen}
         setDialogOpen={setDialogOpen}
         dialogTrigger={renderDeleteDialogTrigger()}
-        actionTitle="حذف"
-        dialogTitle="حذف الصنف"
-        dialogDescription="هل انت متاكد؟ سيتم حذف الصنف"
+        actionTitle={t("share.delete")}
+        dialogTitle={t("products.deleteProduct")}
+        dialogDescription={t("descriptions.delete")}
         destructive
         handleAction={handleDeleteProduct}
       />

@@ -34,6 +34,10 @@ import SoldInvoicesDetails from "./components/sharedInvoices/SoldInvoicesDetails
 import Heading from "./components/shared/Heading";
 import Login from "./pages/Login";
 import { Toaster } from "./components/ui/toaster";
+import "./i18n";
+import { I18nextProvider } from "react-i18next";
+import i18n from "./i18n";
+import { LanguageProvider } from "./context/language-provider";
 
 const router = createBrowserRouter([
   {
@@ -171,32 +175,37 @@ const router = createBrowserRouter([
 
 // React Query Client
 const queryClient = new QueryClient();
+// const location = useLocation();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <ThemeProvider defaultTheme="light" storageKey="ui-theme">
-    <QueryClientProvider client={queryClient}>
-      <UserContextProvider>
-        <ProductsContextProvider>
-          <CustomersContextProvider>
-            <VendorsContextProvider>
-              <MovementsContextProvider>
-                <SoldPermissionContextProvider>
-                  <AdditionPermissionContextProvider>
-                    <RouterProvider router={router} />
-                    <Toaster />
-                    <Analytics />
-
-                    {/* <ReactQueryDevtools
-                      initialIsOpen={false}
-                      buttonPosition="bottom-left"
-                    /> */}
-                  </AdditionPermissionContextProvider>
-                </SoldPermissionContextProvider>
-              </MovementsContextProvider>
-            </VendorsContextProvider>
-          </CustomersContextProvider>
-        </ProductsContextProvider>
-      </UserContextProvider>
-    </QueryClientProvider>
-  </ThemeProvider>
+  <I18nextProvider i18n={i18n}>
+    <LanguageProvider defaultLang="ar" storageKey="lang">
+      <ThemeProvider defaultTheme="light" storageKey="ui-theme">
+        <QueryClientProvider client={queryClient}>
+          <UserContextProvider>
+            <ProductsContextProvider>
+              <CustomersContextProvider>
+                <VendorsContextProvider>
+                  <MovementsContextProvider>
+                    <SoldPermissionContextProvider>
+                      <AdditionPermissionContextProvider>
+                        <RouterProvider router={router} />
+                        <Toaster />
+                        {/* <Analytics /> */}
+                        <ReactQueryDevtools
+                          initialIsOpen={false}
+                          position="right"
+                          buttonPosition="bottom-right"
+                        />
+                      </AdditionPermissionContextProvider>
+                    </SoldPermissionContextProvider>
+                  </MovementsContextProvider>
+                </VendorsContextProvider>
+              </CustomersContextProvider>
+            </ProductsContextProvider>
+          </UserContextProvider>
+        </QueryClientProvider>
+      </ThemeProvider>
+    </LanguageProvider>
+  </I18nextProvider>
 );

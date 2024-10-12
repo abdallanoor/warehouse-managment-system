@@ -9,11 +9,12 @@ import FormScroll from "../shared/FormScroll";
 import { PackagePlus, SquarePen } from "lucide-react";
 import { Button } from "../ui/button";
 import {
-  productsFormField,
-  productsSchema,
+  getProductsFormField,
+  getProductsSchema,
   productsInitialValues,
-  permissionProductsSchema,
+  getPermissionProductsSchema,
 } from "@/constants";
+import { useTranslation } from "react-i18next";
 
 const ProductsForm = ({
   rowData,
@@ -27,6 +28,14 @@ const ProductsForm = ({
   const [isLoading, setIsLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const { refetchProducts } = useContext(productsContext);
+
+  const [t] = useTranslation("global");
+
+  const productsSchema = getProductsSchema(t);
+
+  const permissionProductsSchema = getPermissionProductsSchema(t);
+
+  const productsFormField = getProductsFormField(t);
 
   const permissionSubmit = (values) => {
     const isDuplicate = additionPermissionProducts.some(
@@ -45,13 +54,13 @@ const ProductsForm = ({
       setAdditionPermissionProducts(updatedProducts);
       formik.resetForm();
       toast({
-        title: `تم إضافة الصنف ${values.productName} بنجاح`,
+        title: `${t("descriptions.successfullyAdded")} ${values.productName}`,
       });
       return;
     } else {
       toast({
         variant: "destructive",
-        title: `تم إضافة الصنف بالكود ${values.productBarCode} من قبل`,
+        title: `${t("descriptions.wrongAdded")} ${values.productBarCode}`,
       });
       return;
     }
@@ -74,15 +83,17 @@ const ProductsForm = ({
             setDropdownOpen(false);
           }
           refetchProducts();
-          const actionMessage = isEditing ? "تم تعديل" : "تم إضافة";
+          const actionMessage = isEditing
+            ? t("descriptions.successfullyEdited")
+            : t("descriptions.successfullyAdded");
           toast({
-            title: `${actionMessage} ${formik.values.productName} بنجاح`,
+            title: `${actionMessage} ${formik.values.productName}`,
           });
           formik.resetForm();
         } else {
           toast({
             variant: "destructive",
-            title: "هناك خطأ!",
+            title: t("descriptions.wrong"),
           });
         }
       })
@@ -105,8 +116,8 @@ const ProductsForm = ({
   //adding
   const renderAddDialogTrigger = () => (
     <Button className="max-sm:w-full" onClick={() => setDialogOpen(true)}>
-      <span>إضافة صنف</span>
-      <PackagePlus className="mr-1 w-4 h-4" />
+      <span>{t("products.addProduct")}</span>
+      <PackagePlus className="w-4 h-4" />
     </Button>
   );
 
@@ -117,8 +128,8 @@ const ProductsForm = ({
       className="max-sm:w-full"
       onClick={() => setDialogOpen(true)}
     >
-      <span>إضافة صنف جديد</span>
-      <PackagePlus className="mr-1 w-4 h-4" />
+      <span>{t("products.addProduct")}</span>
+      <PackagePlus className="w-4 h-4" />
     </Button>
   );
 
@@ -132,7 +143,7 @@ const ProductsForm = ({
   const renderUpdateDialogTrigger = () => (
     <div onClick={() => handleUpdate()} className={triggerClassName}>
       <SquarePen className="w-4 h-4" />
-      <span>تعديل</span>
+      <span>{t("share.edit")}</span>
     </div>
   );
 
@@ -148,16 +159,18 @@ const ProductsForm = ({
           : renderAddDialogTrigger()
       }
       dialogTitle={`${
-        rowData ? `تعديل الصنف | ${rowData.productName}` : "إضافة صنف"
-      }`}
-      dialogDescription={`يجب عليك ملء ${
         rowData
-          ? "الخانات المراد تعديلها"
-          : additionPermissionProducts
-          ? "اسم الصنف و الكود والعدد والسعر اولاً لأضافة صنف جديد"
-          : "اسم الصنف و الكود اولاً لأضافة صنف جديد"
+          ? `${t("share.edit")} | ${rowData.productName}`
+          : t("products.addProduct")
       }`}
-      actionTitle={rowData ? "تعديل" : "إضافة"}
+      dialogDescription={`${
+        rowData
+          ? t("descriptions.edit")
+          : additionPermissionProducts
+          ? t("products.description-n-c-c-p")
+          : t("products.description-n-c")
+      }`}
+      actionTitle={rowData ? t("share.edit") : t("share.add")}
       handleForm={formik.handleSubmit}
       loadingButton={isLoading}
       bottomDisabled={isLoading}

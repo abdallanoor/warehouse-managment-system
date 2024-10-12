@@ -7,12 +7,15 @@ import { Link } from "react-router-dom";
 import Dialog from "../shared/Dialog";
 import axios from "axios";
 import { toast } from "../ui/use-toast";
+import { useTranslation } from "react-i18next";
 
 const ProductsActions = ({ rowData }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { refetchProducts } = useContext(productsContext);
+
+  const [t] = useTranslation("global");
 
   const triggerClassName =
     "flex gap-1 cursor-pointer items-center rounded-sm px-2 py-1.5 text-sm transition-colors hover:bg-accent";
@@ -21,7 +24,7 @@ const ProductsActions = ({ rowData }) => {
     return (
       <div onClick={() => setDialogOpen(true)} className={triggerClassName}>
         <Trash2 className="w-4 h-4" />
-        <span>حذف</span>
+        <span>{t("share.delete")}</span>
       </div>
     );
   };
@@ -44,12 +47,14 @@ const ProductsActions = ({ rowData }) => {
           setDialogOpen(false);
           setDropdownOpen(false);
           toast({
-            title: `تم حذف ${data.product.productName} بنجاح`,
+            title: `${t("descriptions.successfullyDeleted")} ${
+              data.product.productName
+            }`,
           });
         } else {
           toast({
             variant: "destructive",
-            title: "هناك خطأ!",
+            title: t("descriptions.wrong"),
           });
         }
       })
@@ -67,7 +72,7 @@ const ProductsActions = ({ rowData }) => {
   const renderProductDetails = () => (
     <Link to={`/products/${rowData._id}`} className={triggerClassName}>
       <SquareArrowOutUpRight className="w-4 h-4" />
-      <span>حركة الصنف</span>
+      <span>{t("share.movement")}</span>
     </Link>
   );
 
@@ -88,9 +93,9 @@ const ProductsActions = ({ rowData }) => {
         dialogTrigger={renderDeleteDialogTrigger()}
         alert
         destructive
-        dialogTitle="حذف الصنف"
-        dialogDescription="هل انت متاكد؟ سيتم حذف الصنف نهائياً"
-        actionTitle="حذف الصنف"
+        dialogTitle={t("products.deleteProduct")}
+        dialogDescription={t("descriptions.delete")}
+        actionTitle={t("products.deleteProduct")}
         handleAction={renderDeleteProductAction}
         loadingButton={isLoading}
         bottomDisabled={isLoading}

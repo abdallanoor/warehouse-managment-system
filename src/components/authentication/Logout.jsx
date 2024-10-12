@@ -5,6 +5,7 @@ import { userContext } from "@/context/UserContext";
 import { toast } from "../ui/use-toast";
 import { Button } from "../ui/button";
 import { LogOut } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const Logout = ({ setNavOpen }) => {
   const { setUserToken } = useContext(userContext);
@@ -12,14 +13,15 @@ const Logout = ({ setNavOpen }) => {
 
   const navigate = useNavigate();
 
+  const [t] = useTranslation("global");
+
   const handleLogout = () => {
     localStorage.removeItem("userToken");
     setUserToken(null);
     setDialogOpen(false);
     navigate("/");
     toast({
-      title: "تم تسجيل الخروج بنجاح.",
-      description: "لقد تم تسجيل الخروج من حسابك.",
+      title: t("logOut.toastTitle"),
     });
     if (setNavOpen) {
       setNavOpen(false);
@@ -30,10 +32,10 @@ const Logout = ({ setNavOpen }) => {
     <Button
       variant="ghost"
       onClick={() => setDialogOpen(true)}
-      className="justify-start gap-2  p-2 w-full"
+      className="justify-start gap-1 px-2 py-1.5 h-auto w-full"
     >
-      <LogOut className=" w-5 h-5" />
-      تسجيل الخروج
+      <LogOut className="w-4 h-4 ltr:rotate-180" />
+      {t("logOut.title")}
     </Button>
   );
 
@@ -43,9 +45,9 @@ const Logout = ({ setNavOpen }) => {
       setDialogOpen={setDialogOpen}
       dialogTrigger={renderDialogTrigger()}
       destructive
-      dialogTitle="تسجيل الخروج"
-      dialogDescription="سيتم تسجيل خروجك من البرنامج."
-      actionTitle="تسجيل الخروج"
+      dialogTitle={t("logOut.title")}
+      dialogDescription={t("logOut.dialogDescription")}
+      actionTitle={t("logOut.title")}
       handleAction={handleLogout}
     />
   );

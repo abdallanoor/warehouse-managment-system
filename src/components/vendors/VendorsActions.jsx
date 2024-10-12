@@ -7,6 +7,7 @@ import { toast } from "../ui/use-toast";
 import ActionsDropdown from "../shared/ActionsDropdown";
 import { useNavigate } from "react-router-dom";
 import VendorsForm from "./VendorsForm";
+import { useTranslation } from "react-i18next";
 
 const VendorsActions = ({ rowData }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -15,6 +16,8 @@ const VendorsActions = ({ rowData }) => {
   const { refetchVendors } = useContext(vendorsContext);
   const navigate = useNavigate();
 
+  const [t] = useTranslation("global");
+
   const triggerClassName =
     "flex gap-1 cursor-pointer items-center rounded-sm px-2 py-1.5 text-sm transition-colors hover:bg-accent";
 
@@ -22,7 +25,7 @@ const VendorsActions = ({ rowData }) => {
     return (
       <div onClick={() => setDialogOpen(true)} className={triggerClassName}>
         <Trash2 className="w-4 h-4" />
-        <span>حذف</span>
+        <span>{t("share.delete")}</span>
       </div>
     );
   };
@@ -42,12 +45,12 @@ const VendorsActions = ({ rowData }) => {
           setDialogOpen(false);
           setDropdownOpen(false);
           toast({
-            title: `تم حذف المورد بنجاح`,
+            title: t("descriptions.successfullyDeleted"),
           });
         } else {
           toast({
             variant: "destructive",
-            title: "هناك خطأ!",
+            title: t("descriptions.wrong"),
           });
         }
       })
@@ -67,7 +70,7 @@ const VendorsActions = ({ rowData }) => {
       className={triggerClassName}
     >
       <SquareArrowOutUpRight className="w-4 h-4" />
-      <span>حركة المورد</span>
+      <span>{t("share.movement")}</span>
     </div>
   );
 
@@ -86,9 +89,9 @@ const VendorsActions = ({ rowData }) => {
         setDialogOpen={setDialogOpen}
         dialogTrigger={renderDeleteDialogTrigger()}
         destructive
-        dialogTitle="حذف المورد"
-        dialogDescription="هل انت متاكد؟ سيتم حذف المورد نهائياً"
-        actionTitle="حذف المورد"
+        dialogTitle={t("vendors.deleteVendor")}
+        dialogDescription={t("descriptions.delete")}
+        actionTitle={t("vendors.deleteVendor")}
         handleAction={renderDeleteVendorAction}
         loadingButton={isLoading}
         bottomDisabled={isLoading}

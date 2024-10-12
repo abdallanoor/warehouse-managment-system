@@ -3,13 +3,19 @@ import Heading from "@/components/shared/Heading";
 import Search from "@/components/shared/Search";
 import VendorsActions from "@/components/vendors/VendorsActions";
 import VendorsForm from "@/components/vendors/VendorsForm";
-import { vendorsHeader } from "@/constants";
+import { getVendorsHeader } from "@/constants";
 import { vendorsContext } from "@/context/VendorsContext";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const Vendors = () => {
   const [searchValue, setSearchValue] = useState("");
-  const { vendors, isError, isLoading } = useContext(vendorsContext);
+  const { vendors, isError, isLoading, setFetchVendors } =
+    useContext(vendorsContext);
+
+  const [t] = useTranslation("global");
+
+  const vendorsHeader = getVendorsHeader(t);
 
   const filteredVendors = vendors?.filter(
     (vendor) =>
@@ -20,17 +26,21 @@ const Vendors = () => {
         .includes(searchValue.toLowerCase())
   );
 
+  useEffect(() => {
+    setFetchVendors(true);
+  }, []);
+
   return (
     <>
-      <Heading>الموردين</Heading>
+      <Heading>{t("vendors.title")}</Heading>
 
       <div className="flex items-center justify-between max-sm:flex-wrap gap-5 sm:gap-10 mb-5">
         <Search
           setSearchValue={setSearchValue}
-          placeholder="يمكنك البحث عن المورد بالأسم والكود"
+          placeholder={t("search.name-code")}
         />
 
-        <div className="mr-auto max-sm:w-full">
+        <div className="max-sm:w-full">
           <VendorsForm />
         </div>
       </div>

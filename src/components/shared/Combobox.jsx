@@ -14,6 +14,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useTranslation } from "react-i18next";
 
 export function Combobox({
   data,
@@ -27,6 +28,8 @@ export function Combobox({
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const [buttonValue, setButtonValue] = useState("");
+
+  const [t] = useTranslation("global");
 
   const selectItem = (item) => {
     const isSelected = value === item._id;
@@ -52,15 +55,15 @@ export function Combobox({
           className="w-full justify-between"
         >
           {buttonValue ? buttonValue : buttonTitle}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <ChevronsUpDown className="h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-full p-0">
+      <PopoverContent className="w-full p-0" align="start">
         <Command className="rounded-lg border shadow-md">
-          <CommandInput placeholder={`ابحث عن ${placeholder}`} />
+          <CommandInput placeholder={`${placeholder}`} />
           <CommandList className="scroll">
             <CommandEmpty>
-              {isLoading ? "جاري التحميل..." : "لا توجد بيانات"}
+              {isLoading ? t("loading") : t("noData")}
             </CommandEmpty>
             <CommandGroup>
               {data?.map((item) => (
@@ -68,9 +71,10 @@ export function Combobox({
                   key={item._id}
                   // value={item._id}
                   onSelect={() => selectItem(item)}
+                  className="gap-2"
                 >
                   <Check
-                    className={`ml-2 h-4 w-4 ${
+                    className={`h-4 w-4 ${
                       value === item._id ? "opacity-100" : "opacity-0"
                     }`}
                   />

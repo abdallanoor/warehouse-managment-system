@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { userContext } from "./UserContext";
@@ -7,6 +7,7 @@ export const movementsContext = createContext();
 
 const MovementsContextProvider = ({ children }) => {
   const { userToken } = useContext(userContext);
+  const [fetchMovements, setFetchMovements] = useState(false);
 
   // fetch Movements
   function getMovements() {
@@ -26,7 +27,7 @@ const MovementsContextProvider = ({ children }) => {
   } = useQuery({
     queryKey: ["movements"],
     queryFn: getMovements,
-    enabled: !!userToken,
+    enabled: !!userToken && fetchMovements,
   });
 
   return (
@@ -36,6 +37,7 @@ const MovementsContextProvider = ({ children }) => {
         isLoading,
         isError,
         refetchMovements,
+        setFetchMovements,
       }}
     >
       {children}

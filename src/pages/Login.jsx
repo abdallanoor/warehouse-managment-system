@@ -19,12 +19,14 @@ import { useContext, useState } from "react";
 import { toast } from "@/components/ui/use-toast";
 import ButtonLoader from "@/components/loading/ButtonLoader";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
   const { setUserToken } = useContext(userContext);
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
+  const [t] = useTranslation("global");
 
   const validationSchema = object({
     userName: string().required("يجب إدخال اسم المستخدم"),
@@ -41,9 +43,8 @@ const Login = () => {
           setUserToken(data.token);
           toast({
             title: "مرحباً بعودتك! تم تسجيل الدخول بنجاح.",
-            description: "يمكنك الآن استخدام البرنامج.",
           });
-          navigate("/");
+          navigate("/products");
         } else {
           toast({
             variant: "destructive",
@@ -61,8 +62,8 @@ const Login = () => {
 
   const formik = useFormik({
     initialValues: {
-      userName: "",
-      password: "",
+      userName: "admin",
+      password: "admin",
     },
     onSubmit,
     validationSchema,
@@ -80,16 +81,15 @@ const Login = () => {
       <div className="flex items-center justify-center h-screen">
         <Card className="w-full max-w-sm">
           <CardHeader>
-            <CardTitle className="text-2xl">تسجيل الدخول</CardTitle>
-            <CardDescription>
-              يمكنك استخدام اسم المستخدم 'admin' مع كلمة المرور 'admin' لتسجيل
-              الدخول وتجربة البرنامج.
-            </CardDescription>
+            <CardTitle className="text-3xl ltr:font-cal">
+              {t("login.login")}
+            </CardTitle>
+            <CardDescription>{t("login.des")}</CardDescription>
           </CardHeader>
           <form onSubmit={formik.handleSubmit}>
             <CardContent className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="userName">اسم المستخدم</Label>
+                <Label htmlFor="userName">{t("login.username")}</Label>
                 <Input
                   id="userName"
                   name="userName"
@@ -103,7 +103,7 @@ const Login = () => {
                   renderErrorMessage(formik.errors.userName)}
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="password">كلمة المرور</Label>
+                <Label htmlFor="password">{t("login.password")}</Label>
                 <Input
                   id="password"
                   name="password"
@@ -119,7 +119,7 @@ const Login = () => {
             </CardContent>
             <CardFooter>
               <Button disabled={isLoading} type="submit" className="w-full">
-                <span>تسجيل الدخول</span>
+                <span>{t("login.login")}</span>
                 {isLoading && <ButtonLoader />}
               </Button>
             </CardFooter>

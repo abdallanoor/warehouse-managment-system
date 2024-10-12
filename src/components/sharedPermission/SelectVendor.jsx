@@ -1,15 +1,23 @@
 import { User } from "lucide-react";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { Combobox } from "../shared/Combobox";
 import Dialog from "../shared/Dialog";
 import { toast } from "../ui/use-toast";
 import { vendorsContext } from "@/context/VendorsContext";
+import { useTranslation } from "react-i18next";
 
 const SelectVendor = ({ setVendorData, vendorData }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [vendorValues, setVendorValues] = useState(null);
-  const { vendors, isLoading } = useContext(vendorsContext);
+  const { vendors, isLoading, setFetchVendors } = useContext(vendorsContext);
+
+  const [t] = useTranslation("global");
+
+  // Fetch Vendors when we need them
+  // useEffect(() => {
+  //   setFetchVendors(true);
+  // }, []);
 
   const handleVendorData = () => {
     if (vendorValues) {
@@ -17,12 +25,14 @@ const SelectVendor = ({ setVendorData, vendorData }) => {
       setVendorData(vendorValues);
       setDialogOpen(false);
       toast({
-        title: `تم اختيار المورد ${vendorValues.vendorName} بنجاح`,
+        title: `${t("descriptions.successfullyAdded")} ${
+          vendorValues.vendorName
+        }`,
       });
     } else {
       toast({
         variant: "destructive",
-        title: "يرجي اختيار المورد من فضلك",
+        title: t("purchaseProducts.vendorNotSelected"),
       });
     }
   };
@@ -31,10 +41,14 @@ const SelectVendor = ({ setVendorData, vendorData }) => {
     <>
       <Button
         disabled={vendorData && vendorData !== null}
-        className="gap-1 max-sm:w-full"
-        onClick={() => setDialogOpen(true)}
+        className="max-sm:w-full"
+        onClick={() => {
+          setDialogOpen(true);
+          // Fetch Vendors when we need them
+          setFetchVendors(true);
+        }}
       >
-        <span>اختر المورد</span>
+        <span>{t("purchaseProducts.selectVendor")}</span>
         <User className="w-4 h-4" />
       </Button>
     </>
@@ -46,9 +60,9 @@ const SelectVendor = ({ setVendorData, vendorData }) => {
         dialogTrigger={renderVendorTrigger()}
         dialogOpen={dialogOpen}
         setDialogOpen={setDialogOpen}
-        actionTitle="إضافة"
-        dialogTitle="اختر المورد"
-        dialogDescription="يرجي اختيار المورد من فضلك"
+        actionTitle={t("share.add")}
+        dialogTitle={t("purchaseProducts.selectVendor")}
+        dialogDescription={t("purchaseProducts.vendorNotSelected")}
         handleAction={handleVendorData}
       >
         <Combobox
@@ -56,8 +70,8 @@ const SelectVendor = ({ setVendorData, vendorData }) => {
           setValues={setVendorValues}
           lable="vendorName"
           additionalInfo="vendorAddress"
-          placeholder="المورد بالاسم"
-          buttonTitle="اختر المورد"
+          placeholder={t("search.name")}
+          buttonTitle={t("purchaseProducts.selectVendor")}
           isLoading={isLoading}
         />
       </Dialog>

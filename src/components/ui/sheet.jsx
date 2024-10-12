@@ -4,6 +4,7 @@ import { cva } from "class-variance-authority";
 import { X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import i18n from "@/i18n";
 
 const Sheet = SheetPrimitive.Root;
 
@@ -45,7 +46,15 @@ const sheetVariants = cva(
 );
 
 const SheetContent = React.forwardRef(
-  ({ side = "right", className, children, ...props }, ref) => (
+  (
+    {
+      side = `${i18n.dir() === "ltr" ? "left" : "right"}`,
+      className,
+      children,
+      ...props
+    },
+    ref
+  ) => (
     <SheetPortal>
       <SheetOverlay />
       <SheetPrimitive.Content
@@ -67,7 +76,7 @@ SheetContent.displayName = SheetPrimitive.Content.displayName;
 const SheetHeader = ({ className, ...props }) => (
   <div
     className={cn(
-      "flex flex-col space-y-2 text-center sm:text-right",
+      "flex flex-col space-y-2 text-center ltr:sm:text-left rtl:sm:text-right",
       className
     )}
     {...props}

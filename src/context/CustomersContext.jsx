@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { userContext } from "./UserContext";
@@ -7,6 +7,7 @@ export const customersContext = createContext();
 
 const CustomersContextProvider = ({ children }) => {
   const { userToken } = useContext(userContext);
+  const [fetchCustomers, setFetchCustomers] = useState(false);
 
   // fetch Customers
   function getCustomers() {
@@ -26,7 +27,7 @@ const CustomersContextProvider = ({ children }) => {
   } = useQuery({
     queryKey: ["customers"],
     queryFn: getCustomers,
-    enabled: !!userToken,
+    enabled: !!userToken && fetchCustomers,
   });
 
   return (
@@ -36,6 +37,7 @@ const CustomersContextProvider = ({ children }) => {
         isLoading,
         isError,
         refetchCustomers,
+        setFetchCustomers,
       }}
     >
       {children}

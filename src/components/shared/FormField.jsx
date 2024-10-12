@@ -21,7 +21,7 @@ const FormField = ({
             <p className="text-xs">{messageError}</p>
           </div>
         )}
-        <Label htmlFor={id} className="text-right col-span-1">
+        <Label htmlFor={id} className="col-span-1">
           {labelTitle && labelTitle}
         </Label>
 

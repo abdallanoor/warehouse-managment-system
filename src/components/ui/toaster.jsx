@@ -7,12 +7,16 @@ import {
   ToastViewport,
 } from "@/components/ui/toast";
 import { useToast } from "@/components/ui/use-toast";
+import i18n from "@/i18n";
 
 export function Toaster() {
   const { toasts } = useToast();
 
   return (
-    <ToastProvider duration={5000} swipeDirection="left">
+    <ToastProvider
+      duration={5000}
+      swipeDirection={`${i18n.dir() === "rtl" ? "left" : "right"}`}
+    >
       {toasts.map(function ({ id, title, description, action, ...props }) {
         return (
           <Toast key={id} {...props}>

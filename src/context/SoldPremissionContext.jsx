@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { userContext } from "./UserContext";
@@ -7,6 +7,7 @@ export const soldPermissionContext = createContext();
 
 const SoldPermissionContextProvider = ({ children }) => {
   const { userToken } = useContext(userContext);
+  const [fetchSaleInvoices, setFetchSaleInvoices] = useState(false);
 
   function getSoldInvoicesProducts() {
     return axios.get(
@@ -41,7 +42,7 @@ const SoldPermissionContextProvider = ({ children }) => {
   } = useQuery({
     queryKey: ["soldInvoicesProducts"],
     queryFn: getSoldInvoicesProducts,
-    enabled: !!userToken,
+    enabled: !!userToken && fetchSaleInvoices,
   });
 
   const {
@@ -51,7 +52,7 @@ const SoldPermissionContextProvider = ({ children }) => {
   } = useQuery({
     queryKey: ["soldInvoicesInfo"],
     queryFn: getSoldInvoicesInfo,
-    enabled: !!userToken,
+    enabled: !!userToken && fetchSaleInvoices,
   });
 
   return (
@@ -65,6 +66,7 @@ const SoldPermissionContextProvider = ({ children }) => {
         soldInvoicesProductsError,
         soldInvoicesInfo: soldInvoicesInfo?.data?.allExternalSaleInfo,
         refetchSoldInvoicesInfo,
+        setFetchSaleInvoices,
       }}
     >
       {children}

@@ -1,26 +1,36 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Heading from "../components/shared/Heading";
 import DynamicTable from "@/components/shared/DynamicTable";
-import { movementsHeader } from "@/constants";
+import { getMovementsHeader } from "@/constants";
 import { movementsContext } from "@/context/MovmentsContext";
 import Search from "@/components/shared/Search";
+import { useTranslation } from "react-i18next";
 
 const Movements = () => {
   const [searchValue, setSearchValue] = useState("");
-  const { movements, isError, isLoading } = useContext(movementsContext);
+  const { movements, isError, isLoading, setFetchMovements } =
+    useContext(movementsContext);
+
+  const [t] = useTranslation("global");
+
+  const movementsHeader = getMovementsHeader(t);
 
   const filteredMovements = movements?.filter((product) =>
     product.productName.toLowerCase().includes(searchValue.toLowerCase())
   );
 
+  useEffect(() => {
+    setFetchMovements(true);
+  }, []);
+
   return (
     <>
-      <Heading>حركة الاصناف</Heading>
+      <Heading>{t("movements.title")}</Heading>
 
       <div className="mb-5">
         <Search
           setSearchValue={setSearchValue}
-          placeholder="يمكنك البحث عن الصنف بالأسم"
+          placeholder={t("search.name")}
         />
       </div>
 

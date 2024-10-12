@@ -6,10 +6,13 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { FileText } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 const InvoicesInfoActions = ({ rowData }) => {
   const navigate = useNavigate();
+
+  const [t] = useTranslation("global");
 
   const handleAction = () => {
     navigate(`${rowData.invoiceNumber}`);
@@ -24,7 +27,7 @@ const InvoicesInfoActions = ({ rowData }) => {
             </Button>
           </TooltipTrigger>
           <TooltipContent>
-            <p>عرض الفاتورة</p>
+            <p>{t("share.viewInvoice")}</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>

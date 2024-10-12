@@ -10,6 +10,7 @@ import { soldPermissionContext } from "@/context/SoldPremissionContext";
 import { additionPermissionContext } from "@/context/AdditionPermissionContext";
 import { customersContext } from "@/context/CustomersContext";
 import { vendorsContext } from "@/context/VendorsContext";
+import { useTranslation } from "react-i18next";
 
 const SavePermission = ({
   setAdditionIsSaved,
@@ -33,6 +34,8 @@ const SavePermission = ({
   );
   const { refetchAdditionInvoicesProducts, refetchAdditionInvoicesInfo } =
     useContext(additionPermissionContext);
+
+  const [t] = useTranslation("global");
 
   const handleAdditionSave = async () => {
     setLoading(true);
@@ -58,13 +61,13 @@ const SavePermission = ({
           refetchAdditionInvoicesProducts();
           setDialogOpen(false);
           toast({
-            title: "تم الحفظ",
+            title: t("share.save.toastTitle"),
           });
           refetchMovements();
         } else {
           toast({
             variant: "destructive",
-            title: "هناك خطأ!",
+            title: t("descriptions.wrong"),
           });
         }
       })
@@ -100,13 +103,13 @@ const SavePermission = ({
           refetchSoldInvoicesInfo();
           setDialogOpen(false);
           toast({
-            title: "تم الحفظ",
+            title: t("share.save.toastTitle"),
           });
           refetchMovements();
         } else {
           toast({
             variant: "destructive",
-            title: "هناك خطأ!",
+            title: t("descriptions.wrong"),
           });
         }
       })
@@ -140,7 +143,7 @@ const SavePermission = ({
             : null
         }
       >
-        <span>حفظ</span>
+        <span>{t("share.save.title")}</span>
         <Save className="w-4 h-4" />
       </Button>
     </>
@@ -151,9 +154,9 @@ const SavePermission = ({
       dialogTrigger={renderSaveTrigger()}
       dialogOpen={dialogOpen}
       setDialogOpen={setDialogOpen}
-      dialogTitle="حفظ البيانات"
-      dialogDescription="يرجي تأكيد حفظ البيانات"
-      actionTitle="حفظ"
+      dialogTitle={t("share.save.title")}
+      dialogDescription={t("share.save.description")}
+      actionTitle={t("share.save.title")}
       handleAction={
         soldPermissionProducts
           ? handleSoldSave

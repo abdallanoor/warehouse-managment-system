@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { userContext } from "./UserContext";
@@ -7,6 +7,7 @@ export const productsContext = createContext();
 
 const ProductsContextProvider = ({ children }) => {
   const { userToken } = useContext(userContext);
+  const [fetchProducts, setFetchProducts] = useState(false);
 
   // fetch all products
   function getProducts() {
@@ -26,7 +27,7 @@ const ProductsContextProvider = ({ children }) => {
   } = useQuery({
     queryKey: ["products"],
     queryFn: getProducts,
-    enabled: !!userToken,
+    enabled: !!userToken && fetchProducts === true,
   });
 
   return (
@@ -36,6 +37,7 @@ const ProductsContextProvider = ({ children }) => {
         isLoading,
         isError,
         refetchProducts,
+        setFetchProducts,
       }}
     >
       {children}

@@ -11,30 +11,32 @@ import {
 } from "lucide-react";
 import { object, string, number } from "yup";
 
+export const appDir = document.documentElement.dir;
+
 // NavLink Data
-export const navLinks = [
+export const getNavLinks = (t) => [
   {
-    label: "الصفحة الرئيسية",
+    label: t("homePage.title"),
     route: "/",
     icon: Home,
   },
   {
-    label: " ارصدة المخزن",
+    label: t("products.title"),
     route: "/products",
     icon: Package,
   },
   {
-    label: "العملاء",
+    label: t("customers.title"),
     route: "/customers",
     icon: Users,
   },
   {
-    label: "الموردين",
+    label: t("vendors.title"),
     route: "/vendors",
     icon: User,
   },
   {
-    label: "حركة الاصناف",
+    label: t("movements.title"),
     route: "/movements",
     icon: ArrowRightLeft,
   },
@@ -44,176 +46,180 @@ export const navLinks = [
   //   icon: ShoppingCart,
   // },
   {
-    label: "إذن بيع",
+    label: t("saleProducts.title"),
     route: "/sold-permission",
     icon: FileOutputIcon,
   },
   {
-    label: "إذن اضافة",
+    label: t("purchaseProducts.title"),
     route: "/addition-permission",
     icon: FilePlus2,
   },
   {
-    label: "فواتير البيع",
+    label: t("saleInvoices.title"),
     route: "/sold-invoices",
     icon: FileTextIcon,
   },
   {
-    label: "فواتير الإضافة",
+    label: t("parchaseInvoices.title"),
     route: "/addition-invoices",
     icon: FileTextIcon,
   },
 ];
 
 // Table Data
-export const productsHeader = [
-  { label: "اسم الصنف", key: "productName" },
-  { label: "الكود", key: "productBarCode" },
-  { label: "الماركة", key: "productModel" },
-  { label: "الحجم", key: "productSize" },
-  { label: "اللون", key: "productColor" },
-  { label: "المكان", key: "productLocation" },
-  { label: "بلد المنشـأ	", key: "productCountry" },
-  { label: "العدد", key: "productCount" },
-  { label: "السعر", key: "productPrice" },
+export const getProductsHeader = (t) => [
+  { label: t("share.name"), key: "productName" },
+  { label: t("share.code"), key: "productBarCode" },
+  { label: t("share.model"), key: "productModel" },
+  { label: t("share.size"), key: "productSize" },
+  { label: t("share.color"), key: "productColor" },
+  { label: t("share.location"), key: "productLocation" },
+  // { label: t("share.country"), key: "productCountry" },
+  { label: t("share.quantity"), key: "productCount" },
+  { label: t("share.price"), key: "productPrice" },
 ];
 
-export const customersHeader = [
-  { label: "اسم العميل", key: "customerName" },
-  { label: "كود العميل", key: "customerCode" },
-  { label: "رقم الهاتف", key: "customerNumber" },
-  { label: "عنوان العميل", key: "customerAddress" },
+export const getCustomersHeader = (t) => [
+  { label: t("share.name"), key: "customerName" },
+  { label: t("share.code"), key: "customerCode" },
+  { label: t("share.phone"), key: "customerNumber" },
+  { label: t("share.address"), key: "customerAddress" },
 ];
 
-export const vendorsHeader = [
-  { label: "اسم المورد", key: "vendorName" },
-  { label: "كود المورد", key: "vendorCode" },
-  { label: "رقم الهاتف", key: "vendorNumber" },
-  { label: "عنوان المورد", key: "vendorAddress" },
+export const getVendorsHeader = (t) => [
+  { label: t("share.name"), key: "vendorName" },
+  { label: t("share.code"), key: "vendorCode" },
+  { label: t("share.phone"), key: "vendorNumber" },
+  { label: t("share.address"), key: "vendorAddress" },
 ];
 
-export const movementsHeader = [
-  { label: "اسم الصنف", key: "productName" },
-  { label: "حركـة الصـنف", key: "typeMovement" },
-  { label: "الكود", key: "productBarCode" },
-  { label: "الماركة", key: "productModel" },
-  { label: "العدد", key: "productCount" },
-  { label: "السعر", key: "productPrice" },
-  { label: "العميل", key: "seller" },
-  { label: "التاريخ", key: "date" },
+export const getMovementsHeader = (t) => [
+  { label: t("share.name"), key: "productName" },
+  { label: t("share.movementType"), key: "typeMovement" },
+  { label: t("share.code"), key: "productBarCode" },
+  { label: t("share.model"), key: "productModel" },
+  { label: t("share.quantity"), key: "productCount" },
+  { label: t("share.price"), key: "productPrice" },
+  { label: t("share.customer/vendor"), key: "seller" },
+  { label: t("share.date"), key: "date" },
 ];
 
-export const soldPermissionHeader = [
-  { label: "اسم الصنف", key: "productName" },
-  { label: "الكود", key: "productBarCode" },
-  { label: "الماركة", key: "productModel" },
-  { label: "الحجم", key: "productSize" },
-  { label: "اللون", key: "productColor" },
-  { label: "العدد", key: "productCount" },
-  { label: "السعر", key: "productPrice" },
-  { label: "الاجمالي", key: "totalPrice" },
+export const getSoldPermissionHeader = (t) => [
+  { label: t("share.name"), key: "productName" },
+  { label: t("share.code"), key: "productBarCode" },
+  { label: t("share.model"), key: "productModel" },
+  { label: t("share.size"), key: "productSize" },
+  { label: t("share.color"), key: "productColor" },
+  { label: t("share.quantity"), key: "productCount" },
+  { label: t("share.price"), key: "productPrice" },
+  { label: t("share.totalPrice"), key: "totalPrice" },
 ];
 
-export const additionPermissionHeader = [
-  { label: "اسم الصنف", key: "productName" },
-  { label: "الكود", key: "productBarCode" },
-  { label: "الماركة", key: "productModel" },
-  { label: "الحجم", key: "productSize" },
-  { label: "اللون", key: "productColor" },
-  { label: "المكان", key: "productLocation" },
-  { label: "العدد", key: "productCount" },
-  { label: "السعر", key: "productPrice" },
-  { label: "الاجمالي", key: "totalPrice" },
+export const getAdditionPermissionHeader = (t) => [
+  { label: t("share.name"), key: "productName" },
+  { label: t("share.code"), key: "productBarCode" },
+  { label: t("share.model"), key: "productModel" },
+  { label: t("share.size"), key: "productSize" },
+  { label: t("share.color"), key: "productColor" },
+  { label: t("share.location"), key: "productLocation" },
+  { label: t("share.quantity"), key: "productCount" },
+  { label: t("share.price"), key: "productPrice" },
+  { label: t("share.totalPrice"), key: "totalPrice" },
 ];
 
-export const soldInvoicesInfoHeader = [
-  { label: "اسم العميل", key: "customerName" },
-  { label: "التاريخ", key: "date" },
-  { label: "رقم الفاتورة", key: "invoiceNumber" },
+export const getSoldInvoicesInfoHeader = (t) => [
+  { label: t("share.name"), key: "customerName" },
+  { label: t("share.date"), key: "date" },
+  { label: t("share.invoiceNumber"), key: "invoiceNumber" },
 ];
 
-export const additionInvoicesInfoHeader = [
-  { label: "اسم المورد", key: "vendorName" },
-  { label: "التاريخ", key: "date" },
-  { label: "رقم الفاتورة", key: "invoiceNumber" },
+export const getAdditionInvoicesInfoHeader = (t) => [
+  { label: t("share.name"), key: "vendorName" },
+  { label: t("share.date"), key: "date" },
+  { label: t("share.invoiceNumber"), key: "invoiceNumber" },
 ];
 
 // Form Fields Data
-export const productsFormField = [
-  { label: "اسم الصنف", key: "productName" },
-  { label: "الكود", key: "productBarCode" },
-  { label: "العدد", key: "productCount" },
-  { label: "السعر", key: "productPrice" },
-  { label: "الماركة", key: "productModel" },
-  { label: "بلد المنشـأ", key: "productCountry" },
-  { label: "المكان", key: "productLocation" },
-  { label: "اللون", key: "productColor" },
-  { label: "الحجم", key: "productSize" },
+export const getProductsFormField = (t) => [
+  { label: t("share.name"), key: "productName" },
+  { label: t("share.code"), key: "productBarCode" },
+  { label: t("share.quantity"), key: "productCount" },
+  { label: t("share.price"), key: "productPrice" },
+  { label: t("share.model"), key: "productModel" },
+  { label: t("share.size"), key: "productSize" },
+  { label: t("share.color"), key: "productColor" },
+  { label: t("share.location"), key: "productLocation" },
+  // { label: t("share.country"), key: "productCountry" },
   // { label: "حد الطلب", key: "requestLimit" },
   // { label: "حد المخاطر", key: "riskLimit" },
   // { label: "ملاحظات", key: "notes" },
 ];
 
-export const customersFormField = [
-  { label: "اسم العميل", key: "customerName" },
-  { label: "رقم الهاتف", key: "customerNumber" },
-  { label: "عنوان العميل", key: "customerAddress" },
+export const getCustomersFormField = (t) => [
+  { label: t("share.name"), key: "customerName" },
+  { label: t("share.phone"), key: "customerNumber" },
+  { label: t("share.address"), key: "customerAddress" },
 ];
 
-export const vendorsFormField = [
-  { label: "اسم المورد", key: "vendorName" },
-  { label: "رقم الهاتف", key: "vendorNumber" },
-  { label: "عنوان المورد", key: "vendorAddress" },
+export const getVendorsFormField = (t) => [
+  { label: t("share.name"), key: "vendorName" },
+  { label: t("share.phone"), key: "vendorNumber" },
+  { label: t("share.address"), key: "vendorAddress" },
 ];
 
 // Formik Validation Schema
-export const productsSchema = object({
-  productName: string().required("يجب إدخال اسم الصنف"),
-  productBarCode: string().required("يجب إدخال الكود"),
-  productModel: string(),
-  productCount: number().typeError("يجب إدخال ارقام فقط").nullable(),
-  productLocation: string(),
-  productPrice: number().typeError("يجب إدخال ارقام فقط").nullable(),
-  productCountry: string(),
-  productColor: string(),
-  productSize: number().typeError("يجب إدخال ارقام فقط").nullable(),
-  requestLimit: number().typeError("يجب إدخال ارقام فقط").nullable(),
-  riskLimit: number().typeError("يجب إدخال ارقام فقط").nullable(),
-  notes: string(),
-});
+export const getProductsSchema = (t) =>
+  object({
+    productName: string().required(t("messageError.nameEntered")),
+    productBarCode: string().required(t("messageError.codeEntered")),
+    productModel: string(),
+    productCount: number().typeError(t("messageError.onlyNumber")).nullable(),
+    productLocation: string(),
+    productPrice: number().typeError(t("messageError.onlyNumber")).nullable(),
+    productCountry: string(),
+    productColor: string(),
+    productSize: number().typeError(t("messageError.onlyNumber")).nullable(),
+    requestLimit: number().typeError(t("messageError.onlyNumber")).nullable(),
+    riskLimit: number().typeError(t("messageError.onlyNumber")).nullable(),
+    notes: string(),
+  });
 
-export const permissionProductsSchema = object({
-  productName: string().required("يجب إدخال اسم الصنف"),
-  productBarCode: string().required("يجب إدخال الكود"),
-  productModel: string(),
-  productCount: number()
-    .typeError("يجب إدخال ارقام فقط")
-    .required("يجب إدخال العدد")
-    .nullable(),
-  productLocation: string(),
-  productPrice: number()
-    .typeError("يجب إدخال ارقام فقط")
-    .required("يجب إدخال السعر")
-    .nullable(),
-  productCountry: string(),
-  productColor: string(),
-  productSize: number().typeError("يجب إدخال ارقام فقط").nullable(),
-  requestLimit: number().typeError("يجب إدخال ارقام فقط").nullable(),
-  riskLimit: number().typeError("يجب إدخال ارقام فقط").nullable(),
-  notes: string(),
-});
+export const getPermissionProductsSchema = (t) =>
+  object({
+    productName: string().required(t("messageError.nameEntered")),
+    productBarCode: string().required(t("messageError.codeEntered")),
+    productModel: string(),
+    productCount: number()
+      .typeError(t("messageError.onlyNumber"))
+      .required(t("messageError.quantityEntered"))
+      .nullable(),
+    productLocation: string(),
+    productPrice: number()
+      .typeError(t("messageError.onlyNumber"))
+      .required(t("messageError.priceEntered"))
+      .nullable(),
+    productCountry: string(),
+    productColor: string(),
+    productSize: number().typeError(t("messageError.onlyNumber")).nullable(),
+    requestLimit: number().typeError(t("messageError.onlyNumber")).nullable(),
+    riskLimit: number().typeError(t("messageError.onlyNumber")).nullable(),
+    notes: string(),
+  });
 
-export const customersSchema = object({
-  customerName: string().required("يجب إدخال اسم العميل"),
-  customerNumber: number().typeError("يجب إدخال ارقام فقط").nullable(),
-  customerAddress: string(),
-});
+export const getCustomersSchema = (t) =>
+  object({
+    customerName: string().required(t("messageError.nameEntered")),
+    customerNumber: number().typeError(t("messageError.onlyNumber")).nullable(),
+    customerAddress: string(),
+  });
 
-export const vendorsSchema = object({
-  vendorName: string().required("يجب إدخال اسم المورد"),
-  vendorNumber: number().typeError("يجب إدخال ارقام فقط").nullable(),
-  vendorAddress: string(),
-});
+export const getVendorsSchema = (t) =>
+  object({
+    vendorName: string().required(t("messageError.nameEntered")),
+    vendorNumber: number().typeError(t("messageError.onlyNumber")).nullable(),
+    vendorAddress: string(),
+  });
 
 // Formik Initial Values
 export const productsInitialValues = {

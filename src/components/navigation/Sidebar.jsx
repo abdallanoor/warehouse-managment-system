@@ -1,19 +1,25 @@
 import { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { navLinks } from "@/constants";
+import { getNavLinks } from "@/constants";
 import Logo from "../../assets/logo.svg";
 import { ModeToggle } from "../theme/mode-toggle";
 import { userContext } from "@/context/UserContext";
 import Logout from "../authentication/Logout";
 import Login from "../authentication/Login";
 import { Button } from "../ui/button";
+import { LanguageToggle } from "../language/language-toggle";
+import { useTranslation } from "react-i18next";
+import { Settings } from "../settings/Settings";
 
 const Sidebar = () => {
   const { pathname } = useLocation();
   const { userToken } = useContext(userContext);
+  const [t] = useTranslation("global");
+
+  const navLinks = getNavLinks(t);
 
   return (
-    <div className="hidden h-screen dark:bg-black w-72 p-5 border-l overflow-auto scroll lg:flex">
+    <div className="hidden h-screen dark:bg-black w-72 p-5 rtl:border-l ltr:border-r overflow-auto scroll lg:flex">
       <div className="flex size-full flex-col gap-5">
         <div className="flex items-center justify-center border-b pb-5">
           <Link to="/">
@@ -21,19 +27,11 @@ const Sidebar = () => {
               src={Logo}
               width={80}
               height={20}
-              className="invert dark:invert-0 w-20 h-5 active:scale-95 transition-transform"
+              className="invert dark:invert-0 w-20 h-5 active:scale-[.98] transition-transform"
               alt="logo"
             />
           </Link>
         </div>
-        {/* {userToken && (
-          <div className="flex items-center justify-between">
-            <Link className="outline-0" to="/">
-              إدارة المخزن
-            </Link>
-            <ModeToggle />
-          </div>
-        )} */}
 
         {userToken && (
           <nav className="mb-auto font-semibold">
@@ -41,8 +39,10 @@ const Sidebar = () => {
               {navLinks.map((link, index) => (
                 <li key={index}>
                   <Link
-                    className={`flex items-center p-2 hover:bg-secondary transition-colors rounded gap-2 ${
-                      pathname === link.route && "bg-secondary"
+                    className={`flex items-center p-2 transition-all rounded gap-2 active:scale-[.98] ${
+                      pathname === link.route
+                        ? "bg-secondary hover:bg-secondary cursor-default"
+                        : "opacity-60 hover:bg-secondary active:opacity-70 active:bg-secondary"
                     }`}
                     to={link.route}
                   >
@@ -57,12 +57,14 @@ const Sidebar = () => {
 
         {userToken ? (
           <div className="w-full flex flex-col gap-1">
+            {/* <LanguageToggle sideBar />
             <ModeToggle sideBar />
-            <Logout />
+            <Logout /> */}
+            <Settings sidebar />
           </div>
         ) : (
           <Link to="/login">
-            <Button className="w-full">تسجيل الدخول</Button>
+            <Button className="w-full">{t("login.login")}</Button>
           </Link>
         )}
       </div>

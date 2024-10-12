@@ -8,10 +8,11 @@ import { SquarePen, UserPlus } from "lucide-react";
 import { vendorsContext } from "@/context/VendorsContext";
 import { Button } from "../ui/button";
 import {
-  vendorsFormField,
+  getVendorsFormField,
   vendorsInitialValues,
-  vendorsSchema,
+  getVendorsSchema,
 } from "@/constants";
+import { useTranslation } from "react-i18next";
 
 const VendorsForm = ({
   rowData,
@@ -26,12 +27,18 @@ const VendorsForm = ({
   const [isAddingPermission, setIsAddingPermission] = useState(false);
   const { refetchVendors } = useContext(vendorsContext);
 
+  const [t] = useTranslation("global");
+
+  const vendorsSchema = getVendorsSchema(t);
+
+  const vendorsFormField = getVendorsFormField(t);
+
   const onSubmit = async (values) => {
     if (isAddingPermission) {
       localStorage.setItem("vendor", JSON.stringify(values));
       setVendorData(values);
       toast({
-        title: `تم اختيار المورد ${values.vendorName} بنجاح`,
+        title: `${t("descriptions.successfullyAdded")} ${values.vendorName}`,
       });
       setDialogOpen(false);
       return;
@@ -52,15 +59,17 @@ const VendorsForm = ({
           }
 
           refetchVendors();
-          const actionMessage = isEditing ? "تم تعديل" : "تم إضافة";
+          const actionMessage = isEditing
+            ? t("descriptions.successfullyEdited")
+            : t("descriptions.successfullyAdded");
           toast({
-            title: `${actionMessage} المورد ${formik.values.vendorName} بنجاح`,
+            title: `${actionMessage} ${formik.values.vendorName}`,
           });
           formik.resetForm();
         } else {
           toast({
             variant: "destructive",
-            title: "هناك خطأ!",
+            title: t("descriptions.wrong"),
           });
         }
       })
@@ -85,8 +94,8 @@ const VendorsForm = ({
       onClick={() => setDialogOpen(true)}
       className="max-sm:w-full"
     >
-      <span>إضافة مورد</span>
-      <UserPlus className="mr-1 w-4 h-4" />
+      <span>{t("vendors.addVendor")}</span>
+      <UserPlus className="w-4 h-4" />
     </Button>
   );
 
@@ -94,8 +103,8 @@ const VendorsForm = ({
 
   const renderAddPermissionDialogTrigger = () => (
     <Button onClick={() => handleAddPermission()} className="max-sm:w-full">
-      <span>إضافة مورد جديد</span>
-      <UserPlus className="mr-1 w-4 h-4" />
+      <span>{t("vendors.addVendor")}</span>
+      <UserPlus className="w-4 h-4" />
     </Button>
   );
 
@@ -109,7 +118,7 @@ const VendorsForm = ({
   const renderUpdateDialogTrigger = () => (
     <div onClick={() => handleUpdate()} className={triggerClassName}>
       <SquarePen className="w-4 h-4" />
-      <span>تعديل</span>
+      <span>{t("share.edit")}</span>
     </div>
   );
 
@@ -132,14 +141,14 @@ const VendorsForm = ({
             : renderAddDialogTrigger()
         }
         dialogTitle={`${
-          rowData ? `تعديل المورد | ${rowData.vendorName}` : "إضافة مورد"
-        }`}
-        dialogDescription={`يجب عليك ملء ${
           rowData
-            ? "الخانات المراد تعديلها"
-            : "اسم المورد اولاً لإضافة مورد جديد"
+            ? `${t("share.edit")} | ${rowData.vendorName}`
+            : t("vendors.addVendor")
         }`}
-        actionTitle={rowData ? "تعديل" : "إضافة"}
+        dialogDescription={`${
+          rowData ? t("descriptions.edit") : t("vendors.description")
+        }`}
+        actionTitle={rowData ? t("share.edit") : t("share.add")}
         handleForm={formik.handleSubmit}
         loadingButton={isLoading}
         bottomDisabled={isLoading}

@@ -8,10 +8,11 @@ import { SquarePen, UserPlus } from "lucide-react";
 import { customersContext } from "@/context/CustomersContext";
 import { Button } from "../ui/button";
 import {
-  customersFormField,
+  getCustomersFormField,
   customersInitialValues,
-  customersSchema,
+  getCustomersSchema,
 } from "@/constants";
+import { useTranslation } from "react-i18next";
 
 const CustomersForm = ({
   rowData,
@@ -26,12 +27,18 @@ const CustomersForm = ({
   const [isSoldingPermission, setIsSoldingPermission] = useState(false);
   const { refetchCustomers } = useContext(customersContext);
 
+  const [t] = useTranslation("global");
+
+  const customersSchema = getCustomersSchema(t);
+
+  const customersFormField = getCustomersFormField(t);
+
   const onSubmit = async (values) => {
     if (isSoldingPermission) {
       localStorage.setItem("customer", JSON.stringify(values));
       setCustomerData(values);
       toast({
-        title: `تم اختيار العميل ${values.customerName} بنجاح`,
+        title: `${t("descriptions.successfullyAdded")} ${values.customerName}`,
       });
       setDialogOpen(false);
       return;
@@ -51,15 +58,17 @@ const CustomersForm = ({
             setDropdownOpen(false);
           }
           refetchCustomers();
-          const actionMessage = isEditing ? "تم تعديل" : "تم إضافة";
+          const actionMessage = isEditing
+            ? t("descriptions.successfullyEdited")
+            : t("descriptions.successfullyAdded");
           toast({
-            title: `${actionMessage} ${formik.values.customerName} بنجاح`,
+            title: `${actionMessage} ${formik.values.customerName}`,
           });
           formik.resetForm();
         } else {
           toast({
             variant: "destructive",
-            title: "هناك خطأ!",
+            title: t("descriptions.wrong"),
           });
         }
       })
@@ -84,8 +93,8 @@ const CustomersForm = ({
       onClick={() => setDialogOpen(true)}
       className="max-sm:w-full"
     >
-      <span>إضافة عميل</span>
-      <UserPlus className="mr-1 w-4 h-4" />
+      <span>{t("customers.addCustomer")}</span>
+      <UserPlus className="w-4 h-4" />
     </Button>
   );
 
@@ -93,8 +102,8 @@ const CustomersForm = ({
 
   const renderSoldPemmissionDialogTrigger = () => (
     <Button onClick={() => handleSoldPermission()} className="max-sm:w-full">
-      <span>إضافة عميل جديد</span>
-      <UserPlus className="mr-1 w-4 h-4" />
+      <span>{t("customers.addCustomer")}</span>
+      <UserPlus className="w-4 h-4" />
     </Button>
   );
 
@@ -108,7 +117,7 @@ const CustomersForm = ({
   const renderUpdateDialogTrigger = () => (
     <div onClick={() => handleUpdate()} className={triggerClassName}>
       <SquarePen className="w-4 h-4" />
-      <span>تعديل</span>
+      <span>{t("share.edit")}</span>
     </div>
   );
 
@@ -131,14 +140,14 @@ const CustomersForm = ({
             : renderAddDialogTrigger()
         }
         dialogTitle={`${
-          rowData ? `تعديل العميل | ${rowData.customerName}` : "إضافة عميل"
-        }`}
-        dialogDescription={`يجب عليك ملء ${
           rowData
-            ? "الخانات المراد تعديلها"
-            : "اسم العميل اولاً لإضافة عميل جديد"
+            ? `${t("share.edit")} | ${rowData.customerName}`
+            : t("customers.addCustomer")
         }`}
-        actionTitle={rowData ? "تعديل" : "إضافة"}
+        dialogDescription={`${
+          rowData ? t("descriptions.edit") : t("customers.description")
+        }`}
+        actionTitle={rowData ? t("share.edit") : t("share.add")}
         handleForm={formik.handleSubmit}
         loadingButton={isLoading}
         bottomDisabled={isLoading}

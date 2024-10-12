@@ -1,0 +1,151 @@
+{
+  "settings": "الاعدادات",
+  "loading": "جاري التحميل...",
+  "noData": "لا توجد بيانات",
+  "notFound": "غير موجود",
+  "print": {
+    "title": "طباعة",
+    "created": "تحرير في",
+    "invoiceNumber": "رقم الفاتورة",
+    "signature": "التوقيع"
+  },
+  "lang": "اللغة",
+  "cancel": "إلغي",
+  "share": {
+    "add": "إضافة",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "movement": "الحركة",
+    "movementType": "نوع الحركة",
+    "name": "الأسم",
+    "code": "الكود",
+    "model": "الماركة",
+    "date": "التاريخ",
+    "price": "السعر",
+    "totalPrice": "الاجمالي",
+    "unitPrice": "سعر الوحدة",
+    "quantity": "العدد",
+    "color": "اللون",
+    "size": "الحجم",
+    "location": "المكان",
+    "country": "بلد المنشـأ",
+    "customer": "العميل",
+    "vendor": "المورد",
+    "customer/vendor": "العميل/المورد",
+    "actions": "إجراءات",
+    "phone": "رقم الهاتف",
+    "address": "العنوان",
+    "invoiceNumber": "رقم الفاتورة",
+    "viewInvoice": "عرض الفاتورة",
+    "resetData": {
+      "title": "إعادة تهيئة",
+      "description": "هل أنت متأكد؟ سيتم إعادة تهيئة البيانات، إذا كنت ترغب في الاحتفاظ بالبيانات، يُرجى الضغط على 'حفظ' قبل إعادة التهيئة.",
+      "toastTitle": "تم إعادة تهيئة البيانات بنجاح"
+    },
+    "save": {
+      "title": "حفظ",
+      "description": "يرجي تأكيد حفظ البيانات.",
+      "toastTitle": "تم الحفظ بنجاح"
+    }
+  },
+  "theme": {
+    "title": "الثيم",
+    "light": "فاتح",
+    "dark": "داكن",
+    "system": "الجهاز"
+  },
+  "login": {
+    "login": "تسجيل الدخول",
+    "des": "يمكنك استخدام اسم المستخدم 'admin' مع كلمة المرور 'admin' لتسجيل الدخول وتجربة البرنامج.",
+    "username": "اسم المستخدم",
+    "password": "كلمة المرور"
+  },
+  "logOut": {
+    "title": "تسجيل الخروج",
+    "dialogDescription": "سيتم تسجيل خروجك من البرنامج.",
+    "toastTitle": "تم تسجيل الخروج بنجاح."
+  },
+  "search": {
+    "name": "البحث بالأسم",
+    "name-code": "البحث بالأسم والكود",
+    "name-invoiceNum": "البحث بالأسم ورقم الفاتورة"
+  },
+  "homePage": {
+    "title": "الصفحة الرئيسية",
+    "trialVersion": "النسخة التجريبية للبرنامج",
+    "getStarted": "بدء الاستخدام"
+  },
+  "products": {
+    "title": "ارصدة المخزن",
+    "addProduct": "إضافة صنف",
+    "deleteProduct": "حذف الصنف",
+    "description-n-c": "يرجى إدخال اسم الصنف والكود أولاً لإضافة صنف جديد.",
+    "description-n-c-c-p": "يرجى إدخال اسم الصنف، الكود، العدد، والسعر أولاً لإضافة صنف جديد.",
+    "movement": "حركة الصنف"
+  },
+  "customers": {
+    "title": "العملاء",
+    "addCustomer": "إضافة عميل",
+    "deleteCustomer": "حذف العميل",
+    "description": "يرجى إدخال اسم العميل أولاً لإضافة عميل جديد.",
+    "movement": "حركة العميل"
+  },
+  "vendors": {
+    "title": "الموردين",
+    "addVendor": "إضافة مورد",
+    "deleteVendor": "حذف المورد",
+    "description": "يرجى دخال اسم المورد أولا لإضافة مورد جديد.",
+    "movement": "حركة المورد"
+  },
+  "movements": {
+    "title": "حركة الاصناف",
+    "sell": "بيع",
+    "purchase": "شراء",
+    "add": "إضافة",
+    "return": "مرتجع"
+  },
+  "saleProducts": {
+    "title": "إذن بيع",
+    "customerName": "اسم العميل",
+    "selectCustomer": "اختر العميل",
+    "customerNotSelected": "الرجاء اختيار العميل",
+    "selectProduct": "اختر الصنف",
+    "productNotSelected": "يرجى اختيار الصنف من فضلك",
+    "noneInStock": "لا يوجد منه في المخزن، لذا لا يمكنك بيعه",
+    "quantityLimit": "لا يمكن أن يكون العدد أكبر من",
+    "stockQuantity": "العدد بالمخزن",
+    "stockPrice": "السعر بالمخزن"
+  },
+  "purchaseProducts": {
+    "title": "إذن شراء",
+    "vendorName": "اسم المورد",
+    "selectVendor": "اختر المورد",
+    "vendorNotSelected": "يرجي اختيار المورد من فضلك",
+    "selectProduct": "اختر الصنف",
+    "productNotSelected": "يرجى اختيار الصنف من فضلك"
+  },
+  "saleInvoices": {
+    "title": "فواتير البيع",
+    "single": "فاتورة بيع"
+  },
+  "parchaseInvoices": {
+    "title": "فواتير الشراء",
+    "single": "فاتورة شراء"
+  },
+  "descriptions": {
+    "wrong": "هناك خطأ!",
+    "delete": "هل انت متاكد؟ سيتم الحذف نهائياً",
+    "successfullyDeleted": "تمت الحذف بنجاح",
+    "successfullyAdded": "تمت الإضافة بنجاح",
+    "successfullyEdited": "تمت التعديل بنجاح",
+    "wrongAdded": "تم إضافة الصنف من قبل بالكود",
+    "edit": "يرجى إدخال الخانات المطلوب تعديلها."
+  },
+  "messageError": {
+    "onlyNumber": "يجب إدخال ارقام فقط",
+    "quantityEntered": "يجب إدخال العدد",
+    "priceEntered": "يجب إدخال السعر",
+    "nameEntered": "يجب إدخال الأسم",
+    "codeEntered": "يجب إدخال الكود"
+  }
+}

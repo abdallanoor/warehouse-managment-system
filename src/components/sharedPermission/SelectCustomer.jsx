@@ -1,15 +1,24 @@
 import { customersContext } from "@/context/CustomersContext";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import Dialog from "../shared/Dialog";
 import { Users } from "lucide-react";
 import { Combobox } from "../shared/Combobox";
 import { toast } from "../ui/use-toast";
+import { useTranslation } from "react-i18next";
 
 const SelectCustomer = ({ setCustomerData, customerData }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [customerValues, setCustomerValues] = useState(null);
-  const { customers, isLoading } = useContext(customersContext);
+  const { customers, isLoading, setFetchCustomers } =
+    useContext(customersContext);
+
+  const [t] = useTranslation("global");
+
+  // Fetch Customers when we need them
+  // useEffect(() => {
+  //   setFetchCustomers(true);
+  // }, []);
 
   const handleCustomerData = () => {
     if (customerValues) {
@@ -17,12 +26,14 @@ const SelectCustomer = ({ setCustomerData, customerData }) => {
       setCustomerData(customerValues);
       setDialogOpen(false);
       toast({
-        title: `تم اختيار العميل ${customerValues.customerName} بنجاح`,
+        title: `${t("descriptions.successfullyAdded")} ${
+          customerValues.customerName
+        }`,
       });
     } else {
       toast({
         variant: "destructive",
-        title: "يرجي اختيار العميل من فضلك",
+        title: t("saleProducts.customerNotSelected"),
       });
     }
   };
@@ -31,10 +42,14 @@ const SelectCustomer = ({ setCustomerData, customerData }) => {
     <>
       <Button
         disabled={customerData && customerData !== null}
-        className="gap-1 max-sm:w-full"
-        onClick={() => setDialogOpen(true)}
+        className="max-sm:w-full"
+        onClick={() => {
+          setDialogOpen(true);
+          // Fetch Customers when we need them
+          setFetchCustomers(true);
+        }}
       >
-        <span>اختر العميل</span>
+        <span>{t("saleProducts.selectCustomer")}</span>
         <Users className="w-4 h-4" />
       </Button>
     </>
@@ -45,9 +60,9 @@ const SelectCustomer = ({ setCustomerData, customerData }) => {
         dialogTrigger={renderCustomerTrigger()}
         dialogOpen={dialogOpen}
         setDialogOpen={setDialogOpen}
-        actionTitle="إضافة"
-        dialogTitle="اختر العميل"
-        dialogDescription="يرجي اختيار العميل من فضلك"
+        actionTitle={t("share.add")}
+        dialogTitle={t("saleProducts.selectCustomer")}
+        dialogDescription={t("saleProducts.customerNotSelected")}
         handleAction={handleCustomerData}
       >
         <Combobox
@@ -55,8 +70,8 @@ const SelectCustomer = ({ setCustomerData, customerData }) => {
           setValues={setCustomerValues}
           lable="customerName"
           additionalInfo="customerAddress"
-          placeholder="العميل بالاسم"
-          buttonTitle="اختر العميل"
+          placeholder={t("search.name")}
+          buttonTitle={t("saleProducts.selectCustomer")}
           isLoading={isLoading}
         />
       </Dialog>

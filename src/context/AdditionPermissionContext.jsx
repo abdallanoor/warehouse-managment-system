@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 import { userContext } from "./UserContext";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
@@ -7,6 +7,7 @@ export const additionPermissionContext = createContext();
 
 const AdditionPermissionContextProvider = ({ children }) => {
   const { userToken } = useContext(userContext);
+  const [fetchParchaseInvoices, setFetchParchaseInvoices] = useState(false);
 
   function getAdditionInvoicesProducts() {
     return axios.get(
@@ -40,7 +41,7 @@ const AdditionPermissionContextProvider = ({ children }) => {
   } = useQuery({
     queryKey: ["additionInvoicesProducts"],
     queryFn: getAdditionInvoicesProducts,
-    enabled: !!userToken,
+    enabled: !!userToken && fetchParchaseInvoices,
   });
 
   const {
@@ -50,7 +51,7 @@ const AdditionPermissionContextProvider = ({ children }) => {
   } = useQuery({
     queryKey: ["additionInvoicesInfo"],
     queryFn: getAdditionInvoicesInfo,
-    enabled: !!userToken,
+    enabled: !!userToken && fetchParchaseInvoices,
   });
 
   return (
@@ -64,6 +65,7 @@ const AdditionPermissionContextProvider = ({ children }) => {
         additionInvoicesInfo: additionInvoicesInfo?.data?.allPurchasedInfo,
         additionInvoicesInfoLoading,
         refetchAdditionInvoicesInfo,
+        setFetchParchaseInvoices,
       }}
     >
       {children}

@@ -6,6 +6,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "../ui/badge";
+import { useTranslation } from "react-i18next";
+import TableLoader from "../loading/TableLoader";
 
 const DynamicTable = ({
   headers,
@@ -15,17 +17,19 @@ const DynamicTable = ({
   ActionsComponent,
   ActionsComponentProps,
 }) => {
+  const [t] = useTranslation("global");
+
   const renderTableHeader = () => (
-    <TableHeader className="bg-muted dark:bg-muted/50">
+    <TableHeader className="sticky top-0 right-0 left-0 w-full bg-muted backdrop-blur">
       <TableRow>
         {headers.map((header, index) => (
           <TableCell
             className={`${
               ActionsComponent
-                ? "border-l"
+                ? "rtl:border-l ltr:border-r"
                 : index === headers.length - 1
                 ? ""
-                : "border-l"
+                : "rtl:border-l ltr:border-r"
             }`}
             key={index}
           >
@@ -33,7 +37,7 @@ const DynamicTable = ({
           </TableCell>
         ))}
         {ActionsComponent && (
-          <TableCell className="print:hidden">إجراءات</TableCell>
+          <TableCell className="print:hidden">{t("share.actions")}</TableCell>
         )}
       </TableRow>
     </TableHeader>
@@ -41,8 +45,8 @@ const DynamicTable = ({
 
   const renderLoadingOrEmptyState = () => (
     <TableRow>
-      <TableCell className="p-8" colSpan={100}>
-        {loading ? "جاري التحميل..." : "لا يوجد بيانات"}
+      <TableCell className="p-8 " colSpan={100}>
+        {loading ? t("loading") : t("noData")}
       </TableCell>
     </TableRow>
   );
@@ -55,10 +59,10 @@ const DynamicTable = ({
             key={idx}
             className={`${
               ActionsComponent
-                ? "border-l"
+                ? "rtl:border-l ltr:border-r"
                 : idx === headers.length - 1
                 ? ""
-                : "border-l"
+                : "rtl:border-l ltr:border-r"
             }`}
           >
             {header.key === "typeMovement" ? (
@@ -72,10 +76,10 @@ const DynamicTable = ({
                 }
               >
                 {item[header.key] === "buy"
-                  ? "إضافة"
+                  ? t("movements.add")
                   : item[header.key] === "sold"
-                  ? "بيع"
-                  : "مرتجع"}
+                  ? t("movements.sell")
+                  : t("movements.return")}
               </Badge>
             ) : item[header.key] === null ||
               item[header.key] === "" ||
@@ -98,15 +102,27 @@ const DynamicTable = ({
     ));
 
   return (
-    <div className="rounded-md border overflow-hidden dark:bg-black">
-      <Table>
-        {headers && data && data?.length !== 0 && renderTableHeader()}
-        <TableBody>
-          {loading || error || data?.length === 0 || !data
-            ? renderLoadingOrEmptyState()
-            : renderTableRows()}
-        </TableBody>
-      </Table>
+    <div
+      className={`rounded-md border ${
+        data && data?.length !== 0 && !loading && "overflow-auto scroll"
+      }  table-h dark:bg-black`}
+    >
+      {loading ? (
+        <TableLoader />
+      ) : (
+        <Table>
+          {headers &&
+            data &&
+            !error &&
+            data?.length !== 0 &&
+            renderTableHeader()}
+          <TableBody>
+            {loading || error || data?.length === 0 || !data
+              ? renderLoadingOrEmptyState()
+              : renderTableRows()}
+          </TableBody>
+        </Table>
+      )}
     </div>
   );
 };

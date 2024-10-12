@@ -4,19 +4,22 @@ import testImage from "../assets/test app.svg";
 import { Button } from "@/components/ui/button";
 import { useContext } from "react";
 import { userContext } from "@/context/UserContext";
+import { useTranslation } from "react-i18next";
 
 const Home = () => {
   const { userToken } = useContext(userContext);
+  const [t] = useTranslation("global");
+
   return (
     <>
-      <Heading>الصفحة الرئيسية</Heading>
+      <Heading>{t("homePage.title")}</Heading>
       <div className="p-10 flex  justify-between items-center max-lg:flex-col-reverse gap-5 bg-secondary rounded">
         <div className="flex flex-col items-center gap-3">
-          <p className="text-center leading-10 text-3xl">
-            النسخة التجريبية للبرنامج
+          <p className="text-center leading-10 text-3xl ltr:font-cal">
+            {t("homePage.trialVersion")}
           </p>
           <Link to={userToken ? "/products" : "/login"}>
-            <Button className="w-fit">بدء الاستخدام</Button>
+            <Button className="w-fit">{t("homePage.getStarted")}</Button>
           </Link>
         </div>
         <img
