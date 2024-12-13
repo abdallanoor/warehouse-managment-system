@@ -18,8 +18,7 @@ html.dark {
 }
 @font-face {
   font-family: "CalSans";
-  src: local("CalSans"),
-    url(../public/fonts/CalSans-SemiBold.ttf) format("woff");
+  src: local("CalSans"), url(../fonts/CalSans-SemiBold.ttf) format("woff");
 }
 
 body {
